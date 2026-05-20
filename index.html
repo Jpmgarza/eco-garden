@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colorado Eco Garden | Jimmy Builds — Lawn Conversion Specialists</title>
+  <meta name="description" content="Replace your high-maintenance Colorado lawn with a beautiful, low-water eco garden. Free assessment. Packages from $2,500. Serving Denver metro and surrounding areas.">
+  <meta property="og:title" content="Colorado Eco Garden | Jimmy Builds">
+  <meta property="og:description" content="Transform your lawn into a stunning eco garden. Save water, reduce maintenance, increase home value.">
+  <meta name="theme-color" content="#3c4c24">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Variables ─────────────────────────────────────────── */
+    :root {
+      --cream:  #ecefe3;
+      --sage:   #6a7c40;
+      --forest: #3c4c24;
+      --footer: #2a3619;
+      --white:  #ffffff;
+      --sage-hover: #7d9348;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Base ──────────────────────────────────────────────── */
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--forest);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--forest);
+      line-height: 1.2;
+    }
+    img { display: block; max-width: 100%; }
+
+    /* ── Layout helpers ────────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-pad { padding: 100px 0; }
+
+    /* ── Buttons ───────────────────────────────────────────── */
+    .btn-sage {
+      display: inline-block;
+      background: var(--sage);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 34px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.22s ease, transform 0.15s ease;
+    }
+    .btn-sage:hover  { background: var(--forest); transform: translateY(-2px); }
+    .btn-sage:active { transform: translateY(0) scale(0.97); }
+
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid var(--sage);
+      color: var(--sage);
+      background: transparent;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 12px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.22s ease, color 0.22s ease;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-outline:hover { background: var(--sage); color: #fff; }
+
+    .btn-white {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.65);
+      color: #fff;
+      background: transparent;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 12px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.22s ease;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-white:hover { background: rgba(255,255,255,0.15); }
+
+    /* ── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: transparent;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      transition: background 0.35s ease;
+    }
+    nav.nav-scrolled { background: var(--forest); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 1.125rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 400;
+      opacity: 0.82;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links .nav-cta {
+      background: var(--sage);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      opacity: 1;
+      transition: background 0.22s ease;
+    }
+    .nav-links .nav-cta:hover { background: var(--sage-hover); }
+
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--forest);
+      padding: 8px 24px 20px;
+      z-index: 199;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(236,239,227,0.12);
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { opacity: 1; }
+
+    /* ── SECTION: HERO ─────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&auto=format&fit=crop') center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(60, 76, 36, 0.55);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 24px;
+    }
+    .hero-title {
+      color: #fff;
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      line-height: 1.14;
+      margin-bottom: 22px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: rgba(255,255,255,0.90);
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      line-height: 1.65;
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+
+    /* ── SECTION: WHAT IS AN ECO GARDEN? ──────────────────── */
+    #what-is {
+      background: var(--cream);
+      padding: 100px 0;
+    }
+    .centered-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .centered-content h2 {
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: 28px;
+    }
+    .centered-content p {
+      font-size: 1.0625rem;
+      line-height: 1.78;
+      color: #4a5a2a;
+      margin-bottom: 16px;
+    }
+    .centered-content p:last-of-type { margin-bottom: 0; }
+
+    .icon-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      text-align: left;
+    }
+    .icon-card {
+      background: var(--white);
+      border-left: 4px solid var(--sage);
+      border-radius: 10px;
+      padding: 28px 24px 26px;
+      box-shadow: 0 4px 24px rgba(60,76,36,0.07);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .icon-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(60,76,36,0.12);
+    }
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+    .icon-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 8px;
+    }
+    .icon-card p {
+      font-size: 0.9375rem;
+      color: #556834;
+      line-height: 1.65;
+    }
+
+    /* ── SECTION: THE PROBLEM ──────────────────────────────── */
+    #problem {
+      background: var(--forest);
+      padding: 100px 0;
+      text-align: center;
+    }
+    #problem h2 {
+      color: var(--cream);
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: 60px;
+      padding: 0 24px;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .pain-col { text-align: center; }
+    .pain-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--sage);
+      margin: 0 auto 18px;
+    }
+    .pain-col h3 {
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 10px;
+    }
+    .pain-col p {
+      color: rgba(236,239,227,0.72);
+      font-size: 0.9375rem;
+      line-height: 1.68;
+    }
+    .pain-close {
+      font-style: italic;
+      color: rgba(236,239,227,0.88);
+      font-size: 1.0625rem;
+      margin-top: 60px;
+      padding: 0 24px;
+    }
+
+    /* ── SECTION: HOW IT WORKS ─────────────────────────────── */
+    #how-it-works {
+      background: var(--cream);
+      padding: 100px 0;
+      text-align: center;
+    }
+    #how-it-works h2 {
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: 68px;
+      padding: 0 24px;
+    }
+    .steps-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+    }
+    .step-number {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--sage);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 4px 16px rgba(106,124,64,0.3);
+    }
+    .step h3 {
+      font-size: 1.125rem;
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 0.9375rem;
+      color: #4a5a2a;
+      line-height: 1.68;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: calc(50% + 27px);
+      right: calc(-50% + 27px);
+      height: 2px;
+      background: var(--sage);
+      opacity: 0.28;
+      z-index: 1;
+    }
+
+    /* ── SECTION: PRICING ──────────────────────────────────── */
+    #pricing {
+      background: var(--white);
+      padding: 100px 0;
+      text-align: center;
+    }
+    #pricing h2 {
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: 60px;
+      padding: 0 24px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 1.5px solid rgba(60,76,36,0.13);
+      border-radius: 14px;
+      padding: 36px 28px 32px;
+      text-align: left;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 44px rgba(60,76,36,0.11);
+    }
+    .pricing-card.featured {
+      background: var(--sage);
+      border-color: var(--sage);
+      transform: scale(1.05);
+      box-shadow: 0 18px 52px rgba(60,76,36,0.22);
+    }
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-4px);
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.20);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+    .pricing-card h3 {
+      font-size: 1.625rem;
+      margin-bottom: 6px;
+      color: var(--forest);
+    }
+    .pricing-card.featured h3 { color: #fff; }
+    .pricing-price {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--sage);
+      margin-bottom: 20px;
+    }
+    .pricing-card.featured .pricing-price { color: rgba(255,255,255,0.82); }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9375rem;
+      color: #4a5a2a;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(60,76,36,0.09);
+      line-height: 1.5;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-card.featured .pricing-features li {
+      color: rgba(255,255,255,0.88);
+      border-bottom-color: rgba(255,255,255,0.12);
+    }
+    .pricing-features li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .pricing-card.featured .pricing-features li::before {
+      background: rgba(255,255,255,0.65);
+    }
+
+    /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
+    #testimonials {
+      background: var(--cream);
+      padding: 100px 0;
+      text-align: center;
+    }
+    #testimonials h2 {
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: 60px;
+      padding: 0 24px;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-left: 4px solid var(--sage);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-align: left;
+      box-shadow: 0 4px 20px rgba(60,76,36,0.07);
+    }
+    .stars {
+      color: var(--sage);
+      font-size: 1.0625rem;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .testimonial-card blockquote {
+      font-style: italic;
+      font-size: 0.9375rem;
+      color: #4a5a2a;
+      line-height: 1.72;
+      margin-bottom: 18px;
+    }
+    .testimonial-card cite {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--forest);
+    }
+
+    /* ── SECTION: CONTACT ──────────────────────────────────── */
+    #contact {
+      background: var(--forest);
+      padding: 100px 0;
+    }
+    .contact-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    #contact h2 {
+      color: var(--cream);
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .contact-sub {
+      color: rgba(236,239,227,0.72);
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.68;
+      margin-bottom: 48px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: rgba(236,239,227,0.85);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--cream);
+      color: var(--forest);
+      border: 1.5px solid transparent;
+      border-radius: 7px;
+      padding: 12px 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9375rem;
+      transition: border-color 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(60,76,36,0.38);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--sage);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-submit {
+      grid-column: 1 / -1;
+      background: var(--sage);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 32px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 6px;
+      transition: background 0.22s ease, transform 0.15s ease;
+    }
+    .form-submit:hover  { background: var(--sage-hover); }
+    .form-submit:active { transform: scale(0.98); }
+
+    .form-success {
+      display: none;
+      background: rgba(106,124,64,0.22);
+      border: 1px solid rgba(106,124,64,0.45);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      color: var(--cream);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--footer);
+      padding: 52px 24px;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--cream);
+      font-size: 1.25rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-style: italic;
+      color: rgba(236,239,227,0.5);
+      font-size: 0.875rem;
+      margin-bottom: 22px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 20px;
+    }
+    .footer-links a {
+      color: rgba(236,239,227,0.5);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-copy {
+      color: rgba(236,239,227,0.35);
+      font-size: 0.8125rem;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .pricing-grid { gap: 18px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links  { display: none; }
+      .nav-burger { display: block; }
+
+      .icon-cards,
+      .pain-grid,
+      .pricing-grid,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+      .steps-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+      }
+      .step:not(:last-child)::after { display: none; }
+
+      .pricing-card.featured {
+        transform: scale(1);
+        box-shadow: 0 10px 36px rgba(60,76,36,0.18);
+      }
+      .pricing-card.featured:hover {
+        transform: translateY(-4px);
+      }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: auto; }
+    }
+
+    @media (max-width: 480px) {
+      #what-is, #problem, #how-it-works,
+      #pricing, #testimonials, #contact {
+        padding: 72px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Colorado Eco Garden</a>
+    <ul class="nav-links">
+      <li><a href="#what-is">What Is It</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact" class="nav-cta">Get Free Quote</a></li>
+    </ul>
+    <button class="nav-burger" id="burger" aria-label="Open menu">&#9776;</button>
+  </div>
+  <div class="nav-mobile" id="mobile-nav">
+    <a href="#what-is">What Is It</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Get Free Quote</a>
+  </div>
+</nav>
+
+<!-- SECTION: HERO -->
+<section id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Your Lawn Is Costing You More Than You Think</h1>
+    <p class="hero-sub">Colorado homeowners are switching to beautiful, low-water eco gardens &mdash; and never looking back.</p>
+    <a href="#contact" class="btn-sage hero-cta">Get My Free Eco Garden Quote &rarr;</a>
+  </div>
+</section>
+
+<!-- SECTION: WHAT IS AN ECO GARDEN? -->
+<section id="what-is">
+  <div class="centered-content">
+    <h2>What Is an Eco Garden?</h2>
+    <p>Traditional lawns are a relic of a wetter era. They demand constant watering, weekly mowing, and a revolving door of fertilizers and pest treatments &mdash; all while draining your wallet and your weekends.</p>
+    <p>An eco garden replaces your high-maintenance turf with native Colorado plants, rich mulch beds, natural rock features, and precision drip irrigation. These systems are designed to thrive in Colorado&rsquo;s climate, not fight it.</p>
+    <p>The result: a yard that turns heads on your street, uses 50&ndash;70% less water, and practically takes care of itself.</p>
+
+    <div class="icon-cards">
+
+      <!-- Card: Saves Water -->
+      <div class="icon-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+        </svg>
+        <h3>Saves Water</h3>
+        <p>Native plants thrive on Colorado&rsquo;s natural rainfall &mdash; no irrigation sprinklers running daily during a drought.</p>
+      </div>
+
+      <!-- Card: Low Maintenance -->
+      <div class="icon-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22V12"/>
+          <path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/>
+          <path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
+        </svg>
+        <h3>Low Maintenance</h3>
+        <p>No mowing, no fertilizer, no stress. Once established, your eco garden largely manages itself season after season.</p>
+      </div>
+
+      <!-- Card: Increases Home Value -->
+      <div class="icon-card">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+          <polyline points="16 7 22 7 22 13"/>
+        </svg>
+        <h3>Increases Home Value</h3>
+        <p>Modern, clean curb appeal that buyers love. A thoughtful landscape adds meaningful value to your property.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: THE PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <h2>Your Traditional Lawn Is Working Against You</h2>
+    <div class="pain-grid">
+
+      <!-- Col 1 -->
+      <div class="pain-col">
+        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+          <line x1="8" y1="2" x2="16" y2="22"/>
+        </svg>
+        <h3>Wasting Water</h3>
+        <p>Colorado&rsquo;s drought restrictions are tightening every year. A traditional lawn is one of the biggest residential water wasters in the state.</p>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="pain-col">
+        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        <h3>Wasting Money</h3>
+        <p>Water bills, mowing services, fertilizer, and pest treatments cost Colorado homeowners thousands of dollars every single year.</p>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="pain-col">
+        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <h3>Wasting Time</h3>
+        <p>Weekly upkeep that never ends. Every weekend you spend mowing is a weekend you&rsquo;re not spending with family.</p>
+      </div>
+
+    </div>
+    <p class="pain-close"><em>&ldquo;There&rsquo;s a better way &mdash; and it looks incredible.&rdquo;</em></p>
+  </div>
+</section>
+
+<!-- SECTION: HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <h2>How It Works</h2>
+    <div class="steps-wrapper">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Free Assessment</h3>
+        <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Custom Design</h3>
+        <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Install in Days</h3>
+        <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: PACKAGES & PRICING -->
+<section id="pricing">
+  <div class="container">
+    <h2>Choose Your Transformation</h2>
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="pricing-price">$2,500 &ndash; $4,000</div>
+        <ul class="pricing-features">
+          <li>Partial lawn removal</li>
+          <li>Mulch &amp; native plant bed</li>
+          <li>Basic landscape layout</li>
+          <li>Free design consultation</li>
+        </ul>
+        <a href="#contact" class="btn-outline">Get a Quote &rarr;</a>
+      </div>
+
+      <!-- Growth (Featured) -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Growth</h3>
+        <div class="pricing-price">$5,000 &ndash; $9,000</div>
+        <ul class="pricing-features">
+          <li>Full lawn conversion</li>
+          <li>Native plants + rock features</li>
+          <li>Drip irrigation system</li>
+          <li>Custom design mockup</li>
+          <li>2&ndash;5 day installation</li>
+        </ul>
+        <a href="#contact" class="btn-white">Get a Quote &rarr;</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="pricing-card">
+        <h3>Premium</h3>
+        <div class="pricing-price">$10,000 &ndash; $20,000+</div>
+        <ul class="pricing-features">
+          <li>Full design &amp; installation</li>
+          <li>Pathways &amp; accent lighting</li>
+          <li>Multiple water zones</li>
+          <li>Rainwater capture system</li>
+          <li>Priority scheduling</li>
+        </ul>
+        <a href="#contact" class="btn-outline">Get a Quote &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: SOCIAL PROOF / TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <h2>What Colorado Homeowners Are Saying</h2>
+    <!-- REPLACE WITH REAL TESTIMONIALS -->
+    <div class="testimonial-grid">
+
+      <div class="testimonial-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <blockquote>&ldquo;We cut our water bill in half and our neighbors keep asking who did our yard. Best decision we&rsquo;ve made for our home.&rdquo;</blockquote>
+        <cite>&mdash; Sarah M., Highlands Ranch</cite>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <blockquote>&ldquo;Jimmy&rsquo;s crew finished in 3 days. We couldn&rsquo;t believe the transformation. It looks like a completely different property.&rdquo;</blockquote>
+        <cite>&mdash; Tom &amp; Lisa K., Parker</cite>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <blockquote>&ldquo;Best home investment we&rsquo;ve made. Low maintenance and absolutely beautiful. I only wish we&rsquo;d done it sooner.&rdquo;</blockquote>
+        <cite>&mdash; David R., Castle Rock</cite>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: CONTACT FORM -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2>Get Your Free Eco Garden Assessment</h2>
+    <p class="contact-sub">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
+
+    <!-- TODO: Wire up form to Formspree or Netlify Forms -->
+    <form id="quote-form" novalidate>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="first-name">First Name *</label>
+          <input type="text" id="first-name" name="first_name" placeholder="Jane" required>
+        </div>
+
+        <div class="form-group">
+          <label for="last-name">Last Name *</label>
+          <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(720) 555-0192">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City / Neighborhood</label>
+          <input type="text" id="city" name="city" placeholder="Highlands Ranch, Parker&hellip;">
+        </div>
+
+        <div class="form-group">
+          <label for="lawn-size">Approximate Lawn Size</label>
+          <select id="lawn-size" name="lawn_size">
+            <option value="" disabled selected>Select lawn size</option>
+            <option value="under-500">Under 500 sq ft</option>
+            <option value="500-1500">500 &ndash; 1,500 sq ft</option>
+            <option value="1500-3000">1,500 &ndash; 3,000 sq ft</option>
+            <option value="3000+">3,000+ sq ft</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="message">Message / Notes</label>
+          <textarea id="message" name="message" placeholder="Tell us about your yard, any special requests, or questions you have&hellip;"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send My Free Quote Request &rarr;</button>
+
+      </div>
+    </form>
+
+    <div class="form-success" id="form-success">
+      Thanks! We&rsquo;ll be in touch within 24 hours. Let&rsquo;s transform your yard.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Colorado Eco Garden</span>
+  <p class="footer-tagline">Jimmy Builds &mdash; Transforming Colorado Yards Since Day One</p>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 Colorado Eco Garden. All rights reserved.</p>
+</footer>
+
+<!-- GSAP CDN -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Transparent nav over hero, solid on scroll ──────────────────────
+  var mainNav = document.querySelector('nav');
+
+  // If page loads already scrolled past hero, start solid immediately
+  if (window.scrollY > document.getElementById('hero').offsetHeight - 60) {
+    mainNav.classList.add('nav-scrolled');
+  }
+
+  ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    onLeave:     function() { mainNav.classList.add('nav-scrolled'); },
+    onEnterBack: function() { mainNav.classList.remove('nav-scrolled'); }
+  });
+
+  // ── Hero entrance timeline ──────────────────────────────────────────
+  gsap.timeline({ delay: 0.15 })
+    .from('.hero-title', { y: 54, opacity: 0, duration: 1.1,  ease: 'power3.out' })
+    .from('.hero-sub',   { y: 34, opacity: 0, duration: 0.95, ease: 'power3.out' }, '-=0.55')
+    .from('.hero-cta',   { y: 22, opacity: 0, duration: 0.75, ease: 'power3.out' }, '-=0.45');
+
+  // ── Section headings ────────────────────────────────────────────────
+  gsap.utils.toArray('section h2').forEach(function(el) {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 87%' },
+      y: 38, opacity: 0, duration: 0.9, ease: 'power3.out'
+    });
+  });
+
+  // ── Body paragraphs in centered sections ────────────────────────────
+  gsap.utils.toArray('.centered-content p, .contact-sub').forEach(function(el) {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 89%' },
+      y: 22, opacity: 0, duration: 0.75, ease: 'power2.out'
+    });
+  });
+
+  // ── Icon cards ──────────────────────────────────────────────────────
+  ScrollTrigger.batch('.icon-card', {
+    start: 'top 86%',
+    onEnter: function(batch) {
+      gsap.from(batch, {
+        y: 44, opacity: 0, duration: 0.75, stagger: 0.15,
+        ease: 'power2.out', overwrite: true
+      });
+    }
+  });
+
+  // ── Pain columns ────────────────────────────────────────────────────
+  ScrollTrigger.batch('.pain-col', {
+    start: 'top 86%',
+    onEnter: function(batch) {
+      gsap.from(batch, {
+        y: 38, opacity: 0, duration: 0.7, stagger: 0.18,
+        ease: 'power2.out', overwrite: true
+      });
+    }
+  });
+
+  // ── Pain closing line ───────────────────────────────────────────────
+  gsap.from('.pain-close', {
+    scrollTrigger: { trigger: '.pain-close', start: 'top 90%' },
+    opacity: 0, y: 16, duration: 0.8, ease: 'power2.out'
+  });
+
+  // ── Process steps ───────────────────────────────────────────────────
+  ScrollTrigger.batch('.step', {
+    start: 'top 86%',
+    onEnter: function(batch) {
+      gsap.from(batch, {
+        y: 34, opacity: 0, duration: 0.7, stagger: 0.2,
+        ease: 'power2.out', overwrite: true
+      });
+    }
+  });
+
+  // ── Pricing cards ───────────────────────────────────────────────────
+  ScrollTrigger.batch('.pricing-card', {
+    start: 'top 86%',
+    onEnter: function(batch) {
+      gsap.from(batch, {
+        y: 50, opacity: 0, duration: 0.8, stagger: 0.15,
+        ease: 'power2.out', overwrite: true
+      });
+    }
+  });
+
+  // ── Testimonial cards ───────────────────────────────────────────────
+  ScrollTrigger.batch('.testimonial-card', {
+    start: 'top 86%',
+    onEnter: function(batch) {
+      gsap.from(batch, {
+        y: 38, opacity: 0, duration: 0.75, stagger: 0.18,
+        ease: 'power2.out', overwrite: true
+      });
+    }
+  });
+
+  // ── Contact form ────────────────────────────────────────────────────
+  gsap.from('#contact h2, .contact-sub', {
+    scrollTrigger: { trigger: '#contact h2', start: 'top 87%' },
+    y: 30, opacity: 0, duration: 0.85, stagger: 0.15, ease: 'power3.out'
+  });
+
+  gsap.from('#quote-form', {
+    scrollTrigger: { trigger: '#quote-form', start: 'top 88%' },
+    y: 32, opacity: 0, duration: 0.9, ease: 'power3.out'
+  });
+
+  // ── Mobile hamburger nav ────────────────────────────────────────────
+  var burger    = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+
+  burger.addEventListener('click', function() {
+    mobileNav.classList.toggle('open');
+  });
+
+  mobileNav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      mobileNav.classList.remove('open');
+    });
+  });
+
+  // ── Quote form submit ───────────────────────────────────────────────
+  var form       = document.getElementById('quote-form');
+  var successMsg = document.getElementById('form-success');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+    gsap.from(successMsg, { opacity: 0, y: 14, duration: 0.55, ease: 'power2.out' });
+  });
+</script>
+
+</body>
+</html>
