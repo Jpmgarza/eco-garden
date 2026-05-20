@@ -11,22 +11,41 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="hero.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
     /* ── Variables ─────────────────────────────────────────── */
     :root {
-      --cream:  #ecefe3;
-      --sage:   #6a7c40;
-      --forest: #3c4c24;
-      --footer: #2a3619;
-      --white:  #ffffff;
+      --cream:      #ecefe3;
+      --sage:       #6a7c40;
+      --forest:     #3c4c24;
+      --footer:     #2a3619;
+      --white:      #ffffff;
       --sage-hover: #7d9348;
+      --text-muted: #4a5a2a;
+      --text-dim:   #556834;
+      --card-dark:  #1e2b10;
     }
 
     /* ── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+
+    /* ── Skip link ─────────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 1rem;
+      z-index: 300;
+      background: var(--forest);
+      color: var(--cream);
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.875rem;
+      text-decoration: none;
+    }
+    .skip-link:focus { left: 1rem; }
 
     /* ── Base ──────────────────────────────────────────────── */
     body {
@@ -42,6 +61,7 @@
       line-height: 1.2;
     }
     img { display: block; max-width: 100%; }
+    section { scroll-margin-top: 60px; }
 
     /* ── Layout helpers ────────────────────────────────────── */
     .container {
@@ -50,6 +70,20 @@
       padding: 0 24px;
     }
     .section-pad { padding: 100px 0; }
+    .section-cta { text-align: center; margin-top: 52px; }
+
+    .btn-cream {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--forest);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 34px;
+      border-radius: 50px;
+      text-decoration: none;
+    }
+    .btn-cream:hover { background: #fff; }
 
     /* ── Buttons ───────────────────────────────────────────── */
     .btn-sage {
@@ -64,10 +98,8 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: background 0.22s ease, transform 0.15s ease;
     }
-    .btn-sage:hover  { background: var(--forest); transform: translateY(-2px); }
-    .btn-sage:active { transform: translateY(0) scale(0.97); }
+    .btn-sage:hover { background: var(--forest); }
 
     .btn-outline {
       display: inline-block;
@@ -77,10 +109,9 @@
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       font-size: 0.9375rem;
-      padding: 12px 26px;
+      padding: 14px 26px;
       border-radius: 50px;
       text-decoration: none;
-      transition: background 0.22s ease, color 0.22s ease;
       width: 100%;
       text-align: center;
     }
@@ -94,10 +125,9 @@
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       font-size: 0.9375rem;
-      padding: 12px 26px;
+      padding: 14px 26px;
       border-radius: 50px;
       text-decoration: none;
-      transition: background 0.22s ease;
       width: 100%;
       text-align: center;
     }
@@ -105,16 +135,24 @@
 
     /* ── NAV ───────────────────────────────────────────────── */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 200;
       background: transparent;
       height: 60px;
       display: flex;
       align-items: center;
-      transition: background 0.35s ease;
     }
-    nav.nav-scrolled { background: var(--forest); }
+    nav::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -144,7 +182,6 @@
       font-size: 0.875rem;
       font-weight: 400;
       opacity: 0.82;
-      transition: opacity 0.2s;
     }
     .nav-links a:hover { opacity: 1; }
     .nav-links .nav-cta {
@@ -155,7 +192,6 @@
       font-weight: 700;
       font-size: 0.8125rem;
       opacity: 1;
-      transition: background 0.22s ease;
     }
     .nav-links .nav-cta:hover { background: var(--sage-hover); }
 
@@ -167,7 +203,7 @@
       font-size: 1.5rem;
       cursor: pointer;
       line-height: 1;
-      padding: 4px;
+      padding: 10px;
     }
     .nav-mobile {
       display: none;
@@ -189,7 +225,6 @@
       padding: 13px 0;
       border-bottom: 1px solid rgba(236,239,227,0.12);
       opacity: 0.85;
-      transition: opacity 0.2s;
     }
     .nav-mobile a:last-child { border-bottom: none; }
     .nav-mobile a:hover { opacity: 1; }
@@ -199,42 +234,198 @@
       position: relative;
       min-height: 100dvh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: url('hero.png') center / cover no-repeat;
+      align-items: flex-end;
+      justify-content: flex-start;
+      overflow: hidden;
+      padding-bottom: 100px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('hero.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      filter: brightness(0.82);
+      z-index: 0;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(60, 76, 36, 0.55);
+      background: linear-gradient(to right, rgba(10,15,5,0.62) 40%, rgba(10,15,5,0.18) 100%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 780px;
-      padding: 0 24px;
+      max-width: 700px;
+      padding: 0 48px;
     }
     .hero-title {
       color: #fff;
-      font-size: clamp(2.25rem, 6vw, 4rem);
-      line-height: 1.14;
-      margin-bottom: 22px;
-      letter-spacing: -0.01em;
+      font-size: clamp(3rem, 8.5vw, 6.5rem);
+      line-height: 1.0;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
+    .hero-title .line-light { font-weight: 400; display: block; }
+    .hero-title .line-bold  { font-weight: 700; display: block; }
     .hero-sub {
       font-family: 'Lato', sans-serif;
       font-weight: 300;
       color: rgba(255,255,255,0.90);
-      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      font-size: clamp(1rem, 2vw, 1.15rem);
       line-height: 1.65;
-      max-width: 580px;
-      margin: 0 auto 36px;
+      max-width: 520px;
+      margin: 0 0 36px;
+    }
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .btn-hero-primary {
+      background: #fff;
+      color: var(--forest);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-hero-secondary {
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: rgba(255,255,255,0.65);
+    }
+
+    /* Floating stats card */
+    .hero-stats-card {
+      position: absolute;
+      top: 90px;
+      right: 48px;
+      background: rgba(20,28,12,0.72);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 20px 24px;
+      color: #fff;
+      z-index: 3;
+      min-width: 190px;
+    }
+    .hero-stats-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .hero-stats-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      opacity: 0.72;
+      margin-bottom: 16px;
+    }
+    .hero-stats-avatars { display: flex; }
+    .hero-stats-avatars span {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.28);
+      background: var(--sage);
+      margin-left: -10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .hero-stats-avatars span:first-child { margin-left: 0; }
+
+    /* Floating project card */
+    .hero-project-card {
+      position: absolute;
+      bottom: 80px;
+      right: 48px;
+      background: rgba(255,255,255,0.13);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 16px;
+      padding: 20px 24px;
+      color: #fff;
+      z-index: 3;
+      max-width: 290px;
+    }
+    .hero-project-icon {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      opacity: 0.80;
+    }
+    .hero-project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .hero-project-desc {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8125rem;
+      opacity: 0.76;
+      line-height: 1.55;
+    }
+
+    /* Progress indicator */
+    .hero-progress {
+      position: absolute;
+      bottom: 36px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.65);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      z-index: 3;
+      letter-spacing: 0.04em;
+    }
+    .hero-progress-bar {
+      width: 100px;
+      height: 2px;
+      background: rgba(255,255,255,0.22);
+      border-radius: 2px;
+      position: relative;
+    }
+    .hero-progress-bar::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 28%;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
     }
 
     /* ── SECTION: WHAT IS AN ECO GARDEN? ──────────────────── */
     #what-is {
       background: var(--cream);
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
       padding: 100px 0;
     }
     .centered-content {
@@ -250,7 +441,7 @@
     .centered-content p {
       font-size: 1.0625rem;
       line-height: 1.78;
-      color: #4a5a2a;
+      color: var(--text-muted);
       margin-bottom: 16px;
     }
     .centered-content p:last-of-type { margin-bottom: 0; }
@@ -264,21 +455,25 @@
     }
     .icon-card {
       background: var(--white);
-      border-left: 4px solid var(--sage);
-      border-radius: 10px;
-      padding: 28px 24px 26px;
-      box-shadow: 0 4px 24px rgba(60,76,36,0.07);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      border: 1.5px solid rgba(106, 124, 64, 0.15);
+      border-radius: 14px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 16px rgba(60,76,36,0.05);
     }
-    .icon-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 36px rgba(60,76,36,0.12);
+    .card-icon-wrap {
+      width: 52px;
+      height: 52px;
+      background: rgba(106, 124, 64, 0.10);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
     }
     .card-icon {
-      width: 38px;
-      height: 38px;
+      width: 26px;
+      height: 26px;
       color: var(--sage);
-      margin-bottom: 14px;
     }
     .icon-card h3 {
       font-size: 1.125rem;
@@ -286,7 +481,7 @@
     }
     .icon-card p {
       font-size: 0.9375rem;
-      color: #556834;
+      color: var(--text-dim);
       line-height: 1.65;
     }
 
@@ -385,7 +580,7 @@
     }
     .step p {
       font-size: 0.9375rem;
-      color: #4a5a2a;
+      color: var(--text-muted);
       line-height: 1.68;
     }
     .step:not(:last-child)::after {
@@ -400,6 +595,69 @@
       z-index: 1;
     }
 
+    /* ── SECTION: WILDLIFE ─────────────────────────────────── */
+    #wildlife {
+      background: var(--forest);
+      padding: 100px 0;
+    }
+    .wildlife-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+    .wildlife-header h2 { color: var(--cream); }
+    .wildlife-header p {
+      font-size: 1.0625rem;
+      color: rgba(236,239,227,0.72);
+      line-height: 1.75;
+      margin-top: 18px;
+    }
+    .wildlife-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      padding: 0 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    /* Card */
+    .wildlife-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--card-dark);
+    }
+    .wildlife-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .wildlife-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 52px 18px 18px;
+      background: linear-gradient(to top, rgba(30,43,16,0.92) 0%, transparent 100%);
+    }
+    .wildlife-card-label strong {
+      display: block;
+      color: var(--cream);
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .wildlife-card-label em {
+      color: rgba(236,239,227,0.58);
+      font-size: 0.75rem;
+      font-family: 'Lato', sans-serif;
+      font-style: italic;
+    }
+
     /* ── SECTION: PRICING ──────────────────────────────────── */
     #pricing {
       background: var(--white);
@@ -408,7 +666,16 @@
     }
     #pricing h2 {
       font-size: clamp(1.875rem, 4vw, 2.75rem);
-      margin-bottom: 60px;
+      margin-bottom: 16px;
+      padding: 0 24px;
+    }
+    .pricing-intro {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 52px;
+      line-height: 1.68;
       padding: 0 24px;
     }
     .pricing-grid {
@@ -426,20 +693,12 @@
       border-radius: 14px;
       padding: 36px 28px 32px;
       text-align: left;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .pricing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 44px rgba(60,76,36,0.11);
     }
     .pricing-card.featured {
       background: var(--sage);
       border-color: var(--sage);
       transform: scale(1.05);
       box-shadow: 0 18px 52px rgba(60,76,36,0.22);
-    }
-    .pricing-card.featured:hover {
-      transform: scale(1.05) translateY(-4px);
     }
     .pricing-badge {
       display: inline-block;
@@ -477,7 +736,7 @@
       align-items: flex-start;
       gap: 10px;
       font-size: 0.9375rem;
-      color: #4a5a2a;
+      color: var(--text-muted);
       padding: 8px 0;
       border-bottom: 1px solid rgba(60,76,36,0.09);
       line-height: 1.5;
@@ -522,14 +781,26 @@
     }
     .testimonial-card {
       background: var(--white);
-      border-left: 4px solid var(--sage);
-      border-radius: 10px;
-      padding: 28px 24px;
+      border: 1.5px solid rgba(60,76,36,0.10);
+      border-radius: 14px;
+      padding: 32px 28px;
       text-align: left;
-      box-shadow: 0 4px 20px rgba(60,76,36,0.07);
+      box-shadow: 0 2px 16px rgba(60,76,36,0.06);
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 14px;
+      right: 22px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(106, 124, 64, 0.14);
+      pointer-events: none;
     }
     .stars {
-      color: var(--sage);
+      color: var(--forest);
       font-size: 1.0625rem;
       letter-spacing: 3px;
       margin-bottom: 14px;
@@ -538,7 +809,7 @@
     .testimonial-card blockquote {
       font-style: italic;
       font-size: 0.9375rem;
-      color: #4a5a2a;
+      color: var(--text-muted);
       line-height: 1.72;
       margin-bottom: 18px;
     }
@@ -600,7 +871,6 @@
       padding: 12px 14px;
       font-family: 'Lato', sans-serif;
       font-size: 0.9375rem;
-      transition: border-color 0.2s;
       outline: none;
       -webkit-appearance: none;
       appearance: none;
@@ -631,10 +901,8 @@
       cursor: pointer;
       width: 100%;
       margin-top: 6px;
-      transition: background 0.22s ease, transform 0.15s ease;
     }
-    .form-submit:hover  { background: var(--sage-hover); }
-    .form-submit:active { transform: scale(0.98); }
+    .form-submit:hover { background: var(--sage-hover); }
 
     .form-success {
       display: none;
@@ -664,7 +932,7 @@
     }
     .footer-tagline {
       font-style: italic;
-      color: rgba(236,239,227,0.5);
+      color: rgba(236,239,227,0.72);
       font-size: 0.875rem;
       margin-bottom: 22px;
     }
@@ -675,14 +943,13 @@
       margin-bottom: 20px;
     }
     .footer-links a {
-      color: rgba(236,239,227,0.5);
+      color: rgba(236,239,227,0.72);
       text-decoration: none;
       font-size: 0.8125rem;
-      transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--cream); }
     .footer-copy {
-      color: rgba(236,239,227,0.35);
+      color: rgba(236,239,227,0.60);
       font-size: 0.8125rem;
     }
 
@@ -694,6 +961,14 @@
     @media (max-width: 768px) {
       .nav-links  { display: none; }
       .nav-burger { display: block; }
+
+      #hero { padding-bottom: 80px; }
+      .hero-content { padding: 0 24px; }
+      .hero-stats-card, .hero-project-card { display: none; }
+      .hero-progress { left: 24px; bottom: 28px; }
+      .hero-title { font-size: clamp(2.5rem, 11vw, 4rem); }
+
+      .wildlife-showcase { grid-template-columns: repeat(2, 1fr); }
 
       .icon-cards,
       .pain-grid,
@@ -725,9 +1000,12 @@
         padding: 72px 0;
       }
     }
+
   </style>
 </head>
 <body>
+
+<a href="#hero" class="skip-link">Skip to content</a>
 
 <!-- NAV -->
 <nav>
@@ -739,7 +1017,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#contact" class="nav-cta">Get Free Quote</a></li>
     </ul>
-    <button class="nav-burger" id="burger" aria-label="Open menu">&#9776;</button>
+    <button type="button" class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="nav-mobile" id="mobile-nav">
     <a href="#what-is">What Is It</a>
@@ -750,13 +1028,44 @@
   </div>
 </nav>
 
+<main>
+
 <!-- SECTION: HERO -->
 <section id="hero">
-  <div class="hero-overlay"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
   <div class="hero-content">
-    <h1 class="hero-title">Your Lawn Is Costing You More Than You Think</h1>
-    <p class="hero-sub">Colorado homeowners are switching to beautiful, low-water eco gardens &mdash; and never looking back.</p>
-    <a href="#contact" class="btn-sage hero-cta">Get My Free Eco Garden Quote &rarr;</a>
+    <h1 class="hero-title">
+      <span class="line-light">Create Your</span>
+      <span class="line-bold">Eco Garden</span>
+    </h1>
+    <p class="hero-sub">Colorado homeowners are switching to beautiful, low-water eco gardens and never looking back.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-hero-primary">Get Free Quote</a>
+      <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
+    </div>
+  </div>
+
+  <div class="hero-stats-card" aria-hidden="true">
+    <p class="hero-stats-number">50+</p>
+    <p class="hero-stats-label">Satisfied Clients</p>
+    <div class="hero-stats-avatars">
+      <span>JB</span>
+      <span>KL</span>
+      <span>MR</span>
+    </div>
+  </div>
+
+  <div class="hero-project-card" aria-hidden="true">
+    <div class="hero-project-icon">&#x1F4CD; Featured Project</div>
+    <p class="hero-project-name">Denver Eco Conversion</p>
+    <p class="hero-project-desc">Transformed a Lakewood lawn into a thriving native plant sanctuary — 70% less water.</p>
+  </div>
+
+  <div class="hero-progress" aria-hidden="true">
+    <span>01</span>
+    <div class="hero-progress-bar"></div>
+    <span>04</span>
   </div>
 </section>
 
@@ -764,7 +1073,7 @@
 <section id="what-is">
   <div class="centered-content">
     <h2>What Is an Eco Garden?</h2>
-    <p>Traditional lawns are a relic of a wetter era. They demand constant watering, weekly mowing, and a revolving door of fertilizers and pest treatments &mdash; all while draining your wallet and your weekends.</p>
+    <p>Traditional lawns are a relic of a wetter era. They demand constant watering, weekly mowing, and a revolving door of fertilizers and pest treatments, all while draining your wallet and your weekends.</p>
     <p>An eco garden replaces your high-maintenance turf with native Colorado plants, rich mulch beds, natural rock features, and precision drip irrigation. These systems are designed to thrive in Colorado&rsquo;s climate, not fight it.</p>
     <p>The result: a yard that turns heads on your street, uses 50&ndash;70% less water, and practically takes care of itself.</p>
 
@@ -772,34 +1081,43 @@
 
       <!-- Card: Saves Water -->
       <div class="icon-card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
-        </svg>
+        <div class="card-icon-wrap">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+          </svg>
+        </div>
         <h3>Saves Water</h3>
         <p>Native plants thrive on Colorado&rsquo;s natural rainfall &mdash; no irrigation sprinklers running daily during a drought.</p>
       </div>
 
       <!-- Card: Low Maintenance -->
       <div class="icon-card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 22V12"/>
-          <path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/>
-          <path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
-        </svg>
+        <div class="card-icon-wrap">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22V12"/>
+            <path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/>
+            <path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
+          </svg>
+        </div>
         <h3>Low Maintenance</h3>
         <p>No mowing, no fertilizer, no stress. Once established, your eco garden largely manages itself season after season.</p>
       </div>
 
       <!-- Card: Increases Home Value -->
       <div class="icon-card">
-        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-          <polyline points="16 7 22 7 22 13"/>
-        </svg>
+        <div class="card-icon-wrap">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
         <h3>Increases Home Value</h3>
         <p>Modern, clean curb appeal that buyers love. A thoughtful landscape adds meaningful value to your property.</p>
       </div>
 
+    </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-sage">Get My Free Assessment &rarr;</a>
     </div>
   </div>
 </section>
@@ -841,7 +1159,10 @@
       </div>
 
     </div>
-    <p class="pain-close"><em>&ldquo;There&rsquo;s a better way &mdash; and it looks incredible.&rdquo;</em></p>
+    <p class="pain-close"><em>&ldquo;There&rsquo;s a better way. And it looks incredible.&rdquo;</em></p>
+    <div class="section-cta">
+      <a href="#contact" class="btn-cream">Get a Free Eco Garden Quote &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -870,6 +1191,56 @@
       </div>
 
     </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-sage">Book My Free Assessment &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: WILDLIFE -->
+<section id="wildlife">
+  <div class="wildlife-header">
+    <h2>Bring Birds, Butterflies, and Color Back to Your Yard</h2>
+    <p>Native Colorado plants can create habitat for pollinators and local wildlife while giving your home a more natural, vibrant look.</p>
+  </div>
+
+  <div class="wildlife-showcase">
+
+    <div class="wildlife-card">
+      <img src="image/bird (2).png" alt="Broad-tailed Hummingbird feeding on purple salvia" loading="lazy">
+      <div class="wildlife-card-label">
+        <strong>Broad-tailed Hummingbird</strong>
+        <em>Selasphorus platycercus</em>
+      </div>
+    </div>
+
+    <div class="wildlife-card">
+      <img src="image/bird (4).png" alt="Western Tanager on Blue Spruce" loading="lazy">
+      <div class="wildlife-card-label">
+        <strong>Western Tanager</strong>
+        <em>Piranga ludoviciana</em>
+      </div>
+    </div>
+
+    <div class="wildlife-card">
+      <img src="image/Butterfly (2).png" alt="Monarch Butterfly on milkweed" loading="lazy">
+      <div class="wildlife-card-label">
+        <strong>Monarch Butterfly</strong>
+        <em>Danaus plexippus</em>
+      </div>
+    </div>
+
+    <div class="wildlife-card">
+      <img src="image/Butterfly (3).png" alt="Painted Lady on Purple Coneflower" loading="lazy">
+      <div class="wildlife-card-label">
+        <strong>Painted Lady</strong>
+        <em>Vanessa cardui</em>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-cta">
+    <a href="#contact" class="btn-cream">Bring Wildlife to My Yard &rarr;</a>
   </div>
 </section>
 
@@ -877,11 +1248,12 @@
 <section id="pricing">
   <div class="container">
     <h2>Choose Your Transformation</h2>
+    <p class="pricing-intro">Every yard is different. These ranges help you plan, and your free assessment gives you a clear custom quote.</p>
     <div class="pricing-grid">
 
       <!-- Starter -->
       <div class="pricing-card">
-        <h3>Starter</h3>
+        <h3>Starter Refresh</h3>
         <div class="pricing-price">$2,500 &ndash; $4,000</div>
         <ul class="pricing-features">
           <li>Partial lawn removal</li>
@@ -895,7 +1267,7 @@
       <!-- Growth (Featured) -->
       <div class="pricing-card featured">
         <div class="pricing-badge">Most Popular</div>
-        <h3>Growth</h3>
+        <h3>Full Lawn Conversion</h3>
         <div class="pricing-price">$5,000 &ndash; $9,000</div>
         <ul class="pricing-features">
           <li>Full lawn conversion</li>
@@ -909,7 +1281,7 @@
 
       <!-- Premium -->
       <div class="pricing-card">
-        <h3>Premium</h3>
+        <h3>Premium Outdoor Transformation</h3>
         <div class="pricing-price">$10,000 &ndash; $20,000+</div>
         <ul class="pricing-features">
           <li>Full design &amp; installation</li>
@@ -933,23 +1305,26 @@
     <div class="testimonial-grid">
 
       <div class="testimonial-card">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;We cut our water bill in half and our neighbors keep asking who did our yard. Best decision we&rsquo;ve made for our home.&rdquo;</blockquote>
         <cite>&mdash; Sarah M., Highlands Ranch</cite>
       </div>
 
       <div class="testimonial-card">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;Jimmy&rsquo;s crew finished in 3 days. We couldn&rsquo;t believe the transformation. It looks like a completely different property.&rdquo;</blockquote>
         <cite>&mdash; Tom &amp; Lisa K., Parker</cite>
       </div>
 
       <div class="testimonial-card">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;Best home investment we&rsquo;ve made. Low maintenance and absolutely beautiful. I only wish we&rsquo;d done it sooner.&rdquo;</blockquote>
         <cite>&mdash; David R., Castle Rock</cite>
       </div>
 
+    </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-sage">Get My Free Quote &rarr;</a>
     </div>
   </div>
 </section>
@@ -1016,149 +1391,35 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <span class="footer-brand">Colorado Eco Garden</span>
-  <p class="footer-tagline">Jimmy Builds &mdash; Transforming Colorado Yards Since Day One</p>
+  <p class="footer-tagline">Jimmy Builds: Transforming Colorado Yards Since Day One</p>
   <div class="footer-links">
     <a href="#">Privacy Policy</a>
     <a href="#">Terms</a>
   </div>
-  <p class="footer-copy">&copy; 2025 Colorado Eco Garden. All rights reserved.</p>
+  <p class="footer-copy">&copy; 2026 Colorado Eco Garden. All rights reserved.</p>
 </footer>
 
-<!-- GSAP CDN -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-
 <script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  // ── Transparent nav over hero, solid on scroll ──────────────────────
-  var mainNav = document.querySelector('nav');
-
-  // If page loads already scrolled past hero, start solid immediately
-  if (window.scrollY > document.getElementById('hero').offsetHeight - 60) {
-    mainNav.classList.add('nav-scrolled');
-  }
-
-  ScrollTrigger.create({
-    trigger: '#hero',
-    start: 'top top',
-    end: 'bottom top',
-    onLeave:     function() { mainNav.classList.add('nav-scrolled'); },
-    onEnterBack: function() { mainNav.classList.remove('nav-scrolled'); }
-  });
-
-  // ── Hero entrance timeline ──────────────────────────────────────────
-  gsap.timeline({ delay: 0.15 })
-    .from('.hero-title', { y: 54, opacity: 0, duration: 1.1,  ease: 'power3.out' })
-    .from('.hero-sub',   { y: 34, opacity: 0, duration: 0.95, ease: 'power3.out' }, '-=0.55')
-    .from('.hero-cta',   { y: 22, opacity: 0, duration: 0.75, ease: 'power3.out' }, '-=0.45');
-
-  // ── Section headings ────────────────────────────────────────────────
-  gsap.utils.toArray('section h2').forEach(function(el) {
-    gsap.from(el, {
-      scrollTrigger: { trigger: el, start: 'top 87%' },
-      y: 38, opacity: 0, duration: 0.9, ease: 'power3.out'
-    });
-  });
-
-  // ── Body paragraphs in centered sections ────────────────────────────
-  gsap.utils.toArray('.centered-content p, .contact-sub').forEach(function(el) {
-    gsap.from(el, {
-      scrollTrigger: { trigger: el, start: 'top 89%' },
-      y: 22, opacity: 0, duration: 0.75, ease: 'power2.out'
-    });
-  });
-
-  // ── Icon cards ──────────────────────────────────────────────────────
-  ScrollTrigger.batch('.icon-card', {
-    start: 'top 86%',
-    onEnter: function(batch) {
-      gsap.from(batch, {
-        y: 44, opacity: 0, duration: 0.75, stagger: 0.15,
-        ease: 'power2.out', overwrite: true
-      });
-    }
-  });
-
-  // ── Pain columns ────────────────────────────────────────────────────
-  ScrollTrigger.batch('.pain-col', {
-    start: 'top 86%',
-    onEnter: function(batch) {
-      gsap.from(batch, {
-        y: 38, opacity: 0, duration: 0.7, stagger: 0.18,
-        ease: 'power2.out', overwrite: true
-      });
-    }
-  });
-
-  // ── Pain closing line ───────────────────────────────────────────────
-  gsap.from('.pain-close', {
-    scrollTrigger: { trigger: '.pain-close', start: 'top 90%' },
-    opacity: 0, y: 16, duration: 0.8, ease: 'power2.out'
-  });
-
-  // ── Process steps ───────────────────────────────────────────────────
-  ScrollTrigger.batch('.step', {
-    start: 'top 86%',
-    onEnter: function(batch) {
-      gsap.from(batch, {
-        y: 34, opacity: 0, duration: 0.7, stagger: 0.2,
-        ease: 'power2.out', overwrite: true
-      });
-    }
-  });
-
-  // ── Pricing cards ───────────────────────────────────────────────────
-  ScrollTrigger.batch('.pricing-card', {
-    start: 'top 86%',
-    onEnter: function(batch) {
-      gsap.from(batch, {
-        y: 50, opacity: 0, duration: 0.8, stagger: 0.15,
-        ease: 'power2.out', overwrite: true
-      });
-    }
-  });
-
-  // ── Testimonial cards ───────────────────────────────────────────────
-  ScrollTrigger.batch('.testimonial-card', {
-    start: 'top 86%',
-    onEnter: function(batch) {
-      gsap.from(batch, {
-        y: 38, opacity: 0, duration: 0.75, stagger: 0.18,
-        ease: 'power2.out', overwrite: true
-      });
-    }
-  });
-
-  // ── Contact form ────────────────────────────────────────────────────
-  gsap.from('#contact h2, .contact-sub', {
-    scrollTrigger: { trigger: '#contact h2', start: 'top 87%' },
-    y: 30, opacity: 0, duration: 0.85, stagger: 0.15, ease: 'power3.out'
-  });
-
-  gsap.from('#quote-form', {
-    scrollTrigger: { trigger: '#quote-form', start: 'top 88%' },
-    y: 32, opacity: 0, duration: 0.9, ease: 'power3.out'
-  });
-
-  // ── Mobile hamburger nav ────────────────────────────────────────────
   var burger    = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
 
   burger.addEventListener('click', function() {
-    mobileNav.classList.toggle('open');
+    var isOpen = mobileNav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
   mobileNav.querySelectorAll('a').forEach(function(link) {
     link.addEventListener('click', function() {
       mobileNav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // ── Quote form submit ───────────────────────────────────────────────
   var form       = document.getElementById('quote-form');
   var successMsg = document.getElementById('form-success');
 
@@ -1170,7 +1431,6 @@
     }
     form.style.display = 'none';
     successMsg.style.display = 'block';
-    gsap.from(successMsg, { opacity: 0, y: 14, duration: 0.55, ease: 'power2.out' });
   });
 </script>
 
