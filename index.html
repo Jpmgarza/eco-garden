@@ -18,11 +18,11 @@
     /* ── Variables ─────────────────────────────────────────── */
     :root {
       --cream:      #ecefe3;
-      --sage:       #6a7c40;
+      --sage:       #5f7139;
       --forest:     #3c4c24;
       --footer:     #2a3619;
       --white:      #ecefe3;
-      --sage-hover: #7d9348;
+      --sage-hover: #6a7c40;
       --text-muted: #4a5a2a;
       --text-dim:   #556834;
       --card-dark:  #1e2b10;
@@ -67,6 +67,26 @@
       text-decoration: none;
     }
     .skip-link:focus { left: 1rem; }
+
+    /* ── Focus ring ────────────────────────────────────────── */
+    :focus-visible {
+      outline: 3px solid var(--sage);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    .btn-sage:focus-visible,
+    .btn-hero-primary:focus-visible,
+    .btn-cream:focus-visible,
+    .btn-white:focus-visible,
+    .btn-hero-secondary:focus-visible,
+    .nav-cta:focus-visible,
+    .nav-brand:focus-visible,
+    .nav-links a:focus-visible,
+    .nav-mobile a:focus-visible,
+    #cta-bar a:focus-visible,
+    .nav-burger:focus-visible {
+      outline-color: var(--cream);
+    }
 
     /* ── Base ──────────────────────────────────────────────── */
     body {
@@ -223,7 +243,7 @@
     .nav-cta {
       background: var(--sage);
       color: var(--cream);
-      padding: var(--space-2) var(--space-5);
+      padding: var(--space-3) var(--space-6);
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.8125rem;
@@ -241,7 +261,7 @@
       font-size: 1.5rem;
       cursor: pointer;
       line-height: 1;
-      padding: var(--space-2); /* FLAG: 10→8 */
+      padding: var(--space-3);
     }
     .nav-mobile {
       display: none;
@@ -253,18 +273,20 @@
       background: var(--forest);
       padding: var(--space-2) var(--space-6) var(--space-5);
       z-index: 199;
+      list-style: none;
     }
     .nav-mobile.open { display: flex; }
+    .nav-mobile li { display: contents; }
     .nav-mobile a {
       color: var(--cream);
       text-decoration: none;
       font-family: 'Lato', sans-serif;
       font-size: 1rem;
-      padding: var(--space-3) 0; /* FLAG: 13→12 */
+      padding: var(--space-3) 0;
       border-bottom: 1px solid rgba(236,239,227,0.12);
       opacity: 0.85;
     }
-    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile li:last-child a { border-bottom: none; }
     .nav-mobile a:hover { opacity: 1; }
 
     /* ── SECTION: HERO ─────────────────────────────────────── */
@@ -750,7 +772,7 @@
     }
     .pricing-badge {
       display: inline-block;
-      background: rgba(236,239,227,0.20);
+      background: rgba(60,76,36,0.35);
       color: var(--cream);
       font-family: 'Lato', sans-serif;
       font-size: 0.6875rem;
@@ -774,7 +796,7 @@
       color: var(--sage);
       margin-bottom: var(--space-5);
     }
-    .pricing-card.featured .pricing-price { color: rgba(236,239,227,0.82); }
+    .pricing-card.featured .pricing-price { color: var(--cream); }
     .pricing-features {
       list-style: none;
       margin-bottom: var(--space-7);
@@ -791,8 +813,8 @@
     }
     .pricing-features li:last-child { border-bottom: none; }
     .pricing-card.featured .pricing-features li {
-      color: rgba(236,239,227,0.88);
-      border-bottom-color: rgba(236,239,227,0.12);
+      color: var(--cream);
+      border-bottom-color: rgba(236,239,227,0.16);
     }
     .pricing-features li::before {
       content: '';
@@ -920,7 +942,6 @@
       padding: var(--space-3) var(--space-4); /* FLAG: 14→16 */
       font-family: 'Lato', sans-serif;
       font-size: 0.9375rem;
-      outline: none;
       -webkit-appearance: none;
       appearance: none;
     }
@@ -928,10 +949,12 @@
     .form-group textarea::placeholder {
       color: rgba(60,76,36,0.38);
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
+    .form-group input:focus-visible,
+    .form-group select:focus-visible,
+    .form-group textarea:focus-visible {
       border-color: var(--sage);
+      outline: 3px solid var(--sage);
+      outline-offset: 2px;
     }
     .form-group textarea {
       resize: vertical;
@@ -1048,11 +1071,16 @@
       margin: 0 auto;
       padding: 0 var(--space-6);
     }
-    .faq-item {
+    .faq-list dt,
+    .faq-list dd {
+      padding: 0;
+      margin: 0;
+    }
+    .faq-item-group {
       border-bottom: 1px solid rgba(60,76,36,0.10);
       padding: var(--space-7) 0;
     }
-    .faq-item:first-child { border-top: 1px solid rgba(60,76,36,0.10); }
+    .faq-item-group:first-of-type { border-top: 1px solid rgba(60,76,36,0.10); }
     .faq-question {
       font-family: 'Lato', sans-serif;
       font-weight: 700;
@@ -1079,7 +1107,7 @@
       padding: 0;
     }
     .cta-bar-sub {
-      color: rgba(236,239,227,0.82);
+      color: var(--cream);
       font-size: 1rem;
       line-height: 1.65;
       max-width: 520px;
@@ -1115,6 +1143,7 @@
       color: rgba(236,239,227,0.72);
       text-decoration: none;
       font-size: 0.8125rem;
+      padding: var(--space-3) var(--space-2);
     }
     .footer-links a:hover { color: var(--cream); }
     .footer-copy {
@@ -1163,6 +1192,14 @@
       .form-group.full { grid-column: auto; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+      .pricing-card.featured:hover { transform: none; }
+    }
+
     @media (max-width: 480px) {
       #what-is, #problem, #how-it-works,
       #why-us, #pricing, #testimonials,
@@ -1175,10 +1212,10 @@
 </head>
 <body>
 
-<a href="#hero" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
   <div class="nav-inner">
     <a href="#" class="nav-brand">Colorado Eco Garden</a>
     <ul class="nav-links nav-links-center">
@@ -1192,17 +1229,17 @@
     </div>
     <button type="button" class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   </div>
-  <div class="nav-mobile" id="mobile-nav">
-    <a href="#what-is">What Is It</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="#contact">Get Free Quote</a>
-  </div>
+  <ul class="nav-mobile" id="mobile-nav" aria-label="Mobile navigation">
+    <li><a href="#what-is">What Is It</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Get Free Quote</a></li>
+  </ul>
 </nav>
 
-<main>
+<main id="main-content">
 
 <!-- SECTION: HERO -->
 <section id="hero">
@@ -1210,7 +1247,7 @@
 
   <div class="hero-content">
     <h1 class="hero-title">
-      <span class="line-bold">Your Lawn Is</span>
+      <span class="line-bold">Your Colorado Lawn Is</span>
       <span class="line-bold">Costing You More</span>
       <span class="line-bold">Than You Think</span>
     </h1>
@@ -1227,49 +1264,50 @@
 </section>
 
 <!-- SECTION: WHAT IS AN ECO GARDEN? -->
-<section id="what-is">
+<section id="what-is" aria-labelledby="h2-what-is">
   <div class="centered-content">
-    <h2>What Is an Eco Garden?</h2>
-    <p>Traditional lawns are a relic of a wetter era. They demand constant watering, weekly mowing, and a revolving door of fertilizers and pest treatments, all while draining your wallet and your weekends.</p>
-    <p>An eco garden replaces your high-maintenance turf with native Colorado plants, rich mulch beds, natural rock features, and precision drip irrigation. These systems are designed to thrive in Colorado&rsquo;s climate, not fight it.</p>
-    <p>The result: a yard that turns heads on your street, uses 50&ndash;70% less water, and practically takes care of itself.</p>
+    <h2 id="h2-what-is">Why Traditional Lawns Waste Water, Money, and Time</h2>
+    <p>Most Colorado homeowners inherited a traditional lawn without questioning it. It&rsquo;s green, it&rsquo;s familiar, and it&rsquo;s supposed to add curb appeal. But in a state where water is scarce and summers are unpredictable, that lawn is quietly working against you.</p>
+    <p>The average Colorado household spends $500&ndash;$1,200 per year on lawn watering alone &mdash; before you factor in fertilizer, pest treatments, and the hours spent mowing every week from May through October.</p>
+    <p>Colorado averages just 14 inches of rain per year. Traditional turf needs three times that to stay green. Every time you run the sprinklers, you&rsquo;re fighting the climate you live in.</p>
 
     <div class="icon-cards">
 
-      <!-- Card: Saves Water -->
+      <!-- Card: Draining Your Wallet -->
+      <div class="icon-card">
+        <div class="card-icon-wrap">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h3>Draining Your Wallet</h3>
+        <p>Water, fertilizer, mowing, and seasonal treatments cost the average Colorado homeowner over $1,000 a year &mdash; for a lawn you barely use.</p>
+      </div>
+
+      <!-- Card: Eating Your Weekends -->
+      <div class="icon-card">
+        <div class="card-icon-wrap">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Eating Your Weekends</h3>
+        <p>Mowing, edging, and watering isn&rsquo;t relaxing &mdash; it&rsquo;s a second job you never signed up for, every week, from spring to fall.</p>
+      </div>
+
+      <!-- Card: Built for the Wrong Climate -->
       <div class="icon-card">
         <div class="card-icon-wrap">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+            <line x1="8" y1="2" x2="16" y2="22"/>
           </svg>
         </div>
-        <h3>Saves Water</h3>
-        <p>Native plants thrive on Colorado&rsquo;s natural rainfall &mdash; no irrigation sprinklers running daily during a drought.</p>
-      </div>
-
-      <!-- Card: Low Maintenance -->
-      <div class="icon-card">
-        <div class="card-icon-wrap">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22V12"/>
-            <path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/>
-            <path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
-          </svg>
-        </div>
-        <h3>Low Maintenance</h3>
-        <p>No mowing, no fertilizer, no stress. Once established, your eco garden largely manages itself season after season.</p>
-      </div>
-
-      <!-- Card: Increases Home Value -->
-      <div class="icon-card">
-        <div class="card-icon-wrap">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-            <polyline points="16 7 22 7 22 13"/>
-          </svg>
-        </div>
-        <h3>Increases Home Value</h3>
-        <p>Modern, clean curb appeal that buyers love. A thoughtful landscape adds meaningful value to your property.</p>
+        <h3>Built for the Wrong Climate</h3>
+        <p>Traditional turf needs 3&times; more water than Colorado&rsquo;s annual rainfall provides. You&rsquo;re fighting nature every single season.</p>
       </div>
 
     </div>
@@ -1280,9 +1318,9 @@
 </section>
 
 <!-- SECTION: THE PROBLEM -->
-<section id="problem">
+<section id="problem" aria-labelledby="h2-problem">
   <div class="container">
-    <h2>Your Traditional Lawn Is Working Against You</h2>
+    <h2 id="h2-problem">Your Traditional Lawn Is Working Against You</h2>
     <div class="pain-grid">
 
       <!-- Col 1 -->
@@ -1324,9 +1362,9 @@
 </section>
 
 <!-- SECTION: HOW IT WORKS -->
-<section id="how-it-works">
+<section id="how-it-works" aria-labelledby="h2-how-it-works">
   <div class="container">
-    <h2>How It Works</h2>
+    <h2 id="h2-how-it-works">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
     <div class="steps-wrapper">
 
       <div class="step">
@@ -1355,14 +1393,14 @@
 </section>
 
 <!-- SECTION: WHY US -->
-<section id="why-us">
+<section id="why-us" aria-labelledby="h2-why-us">
   <div class="container">
-    <h2>Why Colorado Homeowners Choose Us</h2>
+    <h2 id="h2-why-us">Why Colorado Homeowners Trust Us With Their Yard Transformations</h2>
     <p class="why-intro">Every yard is different. Our process, our plants, and our crew are built specifically for Colorado.</p>
     <div class="why-grid">
 
       <div class="why-card">
-        <div class="why-card-icon">
+        <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 22V12"/><path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/><path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
           </svg>
@@ -1372,7 +1410,7 @@
       </div>
 
       <div class="why-card">
-        <div class="why-card-icon">
+        <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
@@ -1382,7 +1420,7 @@
       </div>
 
       <div class="why-card">
-        <div class="why-card-icon">
+        <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
           </svg>
@@ -1392,7 +1430,7 @@
       </div>
 
       <div class="why-card">
-        <div class="why-card-icon">
+        <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
           </svg>
@@ -1409,9 +1447,9 @@
 </section>
 
 <!-- SECTION: WILDLIFE -->
-<section id="wildlife">
+<section id="wildlife" aria-labelledby="h2-wildlife">
   <div class="wildlife-header">
-    <h2>This Is What We Build</h2>
+    <h2 id="h2-wildlife">Custom Eco Garden Designs Built for Colorado Homes</h2>
     <p>Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
   </div>
 
@@ -1456,9 +1494,9 @@
 </section>
 
 <!-- SECTION: PACKAGES & PRICING -->
-<section id="pricing">
+<section id="pricing" aria-labelledby="h2-pricing">
   <div class="container">
-    <h2>Choose Your Transformation</h2>
+    <h2 id="h2-pricing">Choose the Yard Transformation That Fits Your Home</h2>
     <p class="pricing-intro">Every yard is different. These ranges help you plan, and your free assessment gives you a clear custom quote.</p>
     <div class="pricing-grid">
 
@@ -1509,9 +1547,9 @@
 </section>
 
 <!-- SECTION: SOCIAL PROOF / TESTIMONIALS -->
-<section id="testimonials">
+<section id="testimonials" aria-labelledby="h2-testimonials">
   <div class="container">
-    <h2>What Colorado Homeowners Are Saying</h2>
+    <h2 id="h2-testimonials">Real Results From Colorado Homeowners</h2>
     <!-- REPLACE WITH REAL TESTIMONIALS -->
     <div class="testimonial-grid">
 
@@ -1541,9 +1579,9 @@
 </section>
 
 <!-- SECTION: CONTACT FORM -->
-<section id="contact">
+<section id="contact" aria-labelledby="h2-contact">
   <div class="contact-inner">
-    <h2>Get Your Free Eco Garden Assessment</h2>
+    <h2 id="h2-contact">Get Your Free Colorado Eco Garden Assessment</h2>
     <p class="contact-sub">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
 
     <!-- TODO: Wire up form to Formspree or Netlify Forms -->
@@ -1552,17 +1590,17 @@
 
         <div class="form-group">
           <label for="first-name">First Name *</label>
-          <input type="text" id="first-name" name="first_name" placeholder="Jane" required>
+          <input type="text" id="first-name" name="first_name" placeholder="Jane" required aria-required="true">
         </div>
 
         <div class="form-group">
           <label for="last-name">Last Name *</label>
-          <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+          <input type="text" id="last-name" name="last_name" placeholder="Smith" required aria-required="true">
         </div>
 
         <div class="form-group">
           <label for="email">Email Address *</label>
-          <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required aria-required="true">
         </div>
 
         <div class="form-group">
@@ -1603,58 +1641,58 @@
 </section>
 
 <!-- SECTION: FAQ -->
-<section id="faq">
+<section id="faq" aria-labelledby="h2-faq">
   <div class="container">
-    <h2>Common Questions</h2>
-    <div class="faq-list">
+    <h2 id="h2-faq">Eco Garden Questions, Answered</h2>
+    <dl class="faq-list">
 
-      <div class="faq-item">
-        <p class="faq-question">How long does installation take?</p>
-        <p class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">How long does installation take?</dt>
+        <dd class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">Will my HOA approve a native plant yard?</p>
-        <p class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">Will my HOA approve a native plant yard?</dt>
+        <dd class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">How much water will I actually save?</p>
-        <p class="faq-answer">Most clients see a 60&ndash;70% reduction in outdoor water use within the first season. Native plants are adapted to Colorado&rsquo;s climate and thrive on natural rainfall once established.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">How much water will I actually save?</dt>
+        <dd class="faq-answer">Most clients see a 60&ndash;70% reduction in outdoor water use within the first season. Native plants are adapted to Colorado&rsquo;s climate and thrive on natural rainfall once established.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">Do native plants need a lot of maintenance?</p>
-        <p class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">Do native plants need a lot of maintenance?</dt>
+        <dd class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">What happens to my existing lawn during conversion?</p>
-        <p class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">What happens to my existing lawn during conversion?</dt>
+        <dd class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">Is the garden safe for kids and pets?</p>
-        <p class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">Is the garden safe for kids and pets?</dt>
+        <dd class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">What&rsquo;s included in the free assessment?</p>
-        <p class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">What&rsquo;s included in the free assessment?</dt>
+        <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
       </div>
 
-      <div class="faq-item">
-        <p class="faq-question">Do you offer any guarantee on your work?</p>
-        <p class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</p>
+      <div class="faq-item-group">
+        <dt class="faq-question">Do you offer any guarantee on your work?</dt>
+        <dd class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</dd>
       </div>
 
-    </div>
+    </dl>
   </div>
 </section>
 
 <!-- SECTION: FINAL CTA BAR -->
-<section id="cta-bar">
-  <h2>Ready to Stop Wasting Water and Start Loving Your Yard?</h2>
+<section id="cta-bar" aria-labelledby="h2-cta-bar">
+  <h2 id="h2-cta-bar">Ready to Save Water, Lower Maintenance, and Love Your Yard Again?</h2>
   <p class="cta-bar-sub">Get your free assessment today. No pressure, no commitment &mdash; just a clear picture of what&rsquo;s possible.</p>
   <a href="#contact" class="btn-cream">Get My Free Quote &rarr;</a>
 </section>
