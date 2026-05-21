@@ -529,9 +529,13 @@
     /* ── SECTION: THE PROBLEM ──────────────────────────────── */
     #problem {
       background: var(--forest);
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
       padding: var(--space-25) 0;
       text-align: center;
     }
+    #problem .container { width: 100%; }
     #problem h2 {
       color: var(--cream);
       font-size: clamp(1.875rem, 4vw, 2.75rem);
@@ -575,7 +579,7 @@
 
     /* ── SECTION: HOW IT WORKS ─────────────────────────────── */
     #how-it-works {
-      background: var(--cream);
+      background: var(--forest);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -583,6 +587,7 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-17);
       padding: 0 var(--space-6);
+      color: var(--cream);
     }
     .steps-wrapper {
       display: flex;
@@ -618,10 +623,11 @@
     .step h3 {
       font-size: 1.125rem;
       margin-bottom: var(--space-2); /* FLAG: 10→8 */
+      color: var(--cream);
     }
     .step p {
       font-size: 0.9375rem;
-      color: var(--text-muted);
+      color: rgba(236,239,227,0.72);
       line-height: 1.68;
     }
     .step:not(:last-child)::after {
@@ -638,7 +644,7 @@
 
     /* ── SECTION: WILDLIFE ─────────────────────────────────── */
     #wildlife {
-      background: var(--forest);
+      background: var(--cream);
       padding: var(--space-25) 0;
     }
     .wildlife-header {
@@ -647,10 +653,10 @@
       margin: 0 auto var(--space-16);
       padding: 0 var(--space-6);
     }
-    .wildlife-header h2 { color: var(--cream); }
+    .wildlife-header h2 { color: var(--forest); }
     .wildlife-header p {
       font-size: 1.0625rem;
-      color: rgba(236,239,227,0.72);
+      color: var(--text-muted);
       line-height: 1.75;
       margin-top: var(--space-5); /* FLAG: 18→20 */
     }
@@ -803,7 +809,7 @@
 
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
-      background: var(--cream);
+      background: var(--forest);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -811,6 +817,7 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-15);
       padding: 0 var(--space-6);
+      color: var(--cream);
     }
     .testimonial-grid {
       display: grid;
@@ -1191,42 +1198,11 @@
   </div>
 </section>
 
-<!-- SECTION: HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="steps-wrapper">
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Free Assessment</h3>
-        <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Custom Design</h3>
-        <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Install in Days</h3>
-        <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
-      </div>
-
-    </div>
-    <div class="section-cta">
-      <a href="#contact" class="btn-sage">Book My Free Assessment &rarr;</a>
-    </div>
-  </div>
-</section>
-
 <!-- SECTION: WILDLIFE -->
 <section id="wildlife">
   <div class="wildlife-header">
     <h2>Bring Birds, Butterflies, and Color Back to Your Yard</h2>
-    <p>Native Colorado plants can create habitat for pollinators and local wildlife while giving your home a more natural, vibrant look.</p>
+    <p>Native Colorado plants create habitat for pollinators and local wildlife while giving your home a more natural, vibrant look. See what a conversion could look like for your yard.</p>
   </div>
 
   <div class="wildlife-showcase">
@@ -1265,7 +1241,38 @@
 
   </div>
   <div class="section-cta">
-    <a href="#contact" class="btn-cream">Bring Wildlife to My Yard &rarr;</a>
+    <a href="#how-it-works" class="btn-sage">See How It Works &rarr;</a>
+  </div>
+</section>
+
+<!-- SECTION: HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <h2>How It Works</h2>
+    <div class="steps-wrapper">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Free Assessment</h3>
+        <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Custom Design</h3>
+        <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Install in Days</h3>
+        <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
+      </div>
+
+    </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-cream">Book My Free Assessment &rarr;</a>
+    </div>
   </div>
 </section>
 
