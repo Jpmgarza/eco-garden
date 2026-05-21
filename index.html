@@ -579,7 +579,7 @@
 
     /* ── SECTION: HOW IT WORKS ─────────────────────────────── */
     #how-it-works {
-      background: var(--forest);
+      background: var(--cream);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -587,7 +587,7 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-17);
       padding: 0 var(--space-6);
-      color: var(--cream);
+      color: var(--forest);
     }
     .steps-wrapper {
       display: flex;
@@ -623,11 +623,11 @@
     .step h3 {
       font-size: 1.125rem;
       margin-bottom: var(--space-2); /* FLAG: 10→8 */
-      color: var(--cream);
+      color: var(--forest);
     }
     .step p {
       font-size: 0.9375rem;
-      color: rgba(236,239,227,0.72);
+      color: var(--text-muted);
       line-height: 1.68;
     }
     .step:not(:last-child)::after {
@@ -707,7 +707,7 @@
 
     /* ── SECTION: PRICING ──────────────────────────────────── */
     #pricing {
-      background: var(--white);
+      background: var(--forest);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -715,10 +715,11 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-4);
       padding: 0 var(--space-6);
+      color: var(--cream);
     }
     .pricing-intro {
       font-size: 1rem;
-      color: var(--text-muted);
+      color: rgba(236,239,227,0.72);
       text-align: center;
       max-width: 620px;
       margin: 0 auto var(--space-13);
@@ -809,7 +810,7 @@
 
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
-      background: var(--forest);
+      background: var(--cream);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -817,7 +818,7 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-15);
       padding: 0 var(--space-6);
-      color: var(--cream);
+      color: var(--forest);
     }
     .testimonial-grid {
       display: grid;
@@ -829,11 +830,11 @@
     }
     .testimonial-card {
       background: var(--white);
-      border: 1.5px solid rgba(60,76,36,0.10);
+      border: 1.5px solid rgba(60,76,36,0.18);
       border-radius: 14px;
       padding: var(--space-8) var(--space-7);
       text-align: left;
-      box-shadow: 0 2px 16px rgba(60,76,36,0.06);
+      box-shadow: 0 4px 24px rgba(60,76,36,0.10);
       position: relative;
     }
     .testimonial-card::before {
@@ -965,6 +966,126 @@
       margin-top: var(--space-5);
     }
 
+    /* ── SECTION: WHY US ──────────────────────────────────── */
+    #why-us {
+      background: var(--forest);
+      padding: var(--space-25) 0;
+      text-align: center;
+    }
+    #why-us h2 {
+      color: var(--cream);
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      margin-bottom: var(--space-4);
+      padding: 0 var(--space-6);
+    }
+    .why-intro {
+      font-size: 1.0625rem;
+      color: rgba(236,239,227,0.72);
+      max-width: 580px;
+      margin: 0 auto var(--space-15);
+      line-height: 1.68;
+      padding: 0 var(--space-6);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      text-align: left;
+    }
+    .why-card {
+      background: rgba(236,239,227,0.07);
+      border: 1px solid rgba(236,239,227,0.12);
+      border-radius: 14px;
+      padding: var(--space-8) var(--space-7);
+    }
+    .why-card-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(106,124,64,0.30);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+    .why-card-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--sage);
+      stroke: currentColor;
+      fill: none;
+    }
+    .why-card h3 {
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: var(--space-2);
+    }
+    .why-card p {
+      color: rgba(236,239,227,0.72);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+
+    /* ── SECTION: FAQ ──────────────────────────────────────── */
+    #faq {
+      background: var(--cream);
+      padding: var(--space-25) 0;
+    }
+    #faq h2 {
+      font-size: clamp(1.875rem, 4vw, 2.75rem);
+      text-align: center;
+      margin-bottom: var(--space-15);
+      padding: 0 var(--space-6);
+      color: var(--forest);
+    }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(60,76,36,0.10);
+      padding: var(--space-7) 0;
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(60,76,36,0.10); }
+    .faq-question {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--forest);
+      margin-bottom: var(--space-3);
+    }
+    .faq-answer {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+    }
+
+    /* ── SECTION: CTA BAR ──────────────────────────────────── */
+    #cta-bar {
+      background: var(--sage);
+      padding: var(--space-20) var(--space-6);
+      text-align: center;
+    }
+    #cta-bar h2 {
+      color: var(--cream);
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      margin-bottom: var(--space-4);
+      padding: 0;
+    }
+    .cta-bar-sub {
+      color: rgba(236,239,227,0.82);
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto var(--space-9);
+    }
+
     /* ── FOOTER ────────────────────────────────────────────── */
     footer {
       background: var(--footer);
@@ -1020,7 +1141,8 @@
       .icon-cards,
       .pain-grid,
       .pricing-grid,
-      .testimonial-grid {
+      .testimonial-grid,
+      .why-grid {
         grid-template-columns: 1fr;
       }
       .steps-wrapper {
@@ -1043,7 +1165,8 @@
 
     @media (max-width: 480px) {
       #what-is, #problem, #how-it-works,
-      #pricing, #testimonials, #contact {
+      #why-us, #pricing, #testimonials,
+      #contact, #faq {
         padding: var(--space-18) 0;
       }
     }
@@ -1062,6 +1185,7 @@
       <li><a href="#what-is">What Is It</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-right">
       <a href="#contact" class="nav-cta">Get Free Quote</a>
@@ -1072,6 +1196,7 @@
     <a href="#what-is">What Is It</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
     <a href="#testimonials">Testimonials</a>
     <a href="#contact">Get Free Quote</a>
   </div>
@@ -1198,11 +1323,96 @@
   </div>
 </section>
 
+<!-- SECTION: HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <h2>How It Works</h2>
+    <div class="steps-wrapper">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Free Assessment</h3>
+        <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Custom Design</h3>
+        <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Install in Days</h3>
+        <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
+      </div>
+
+    </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-sage">Book My Free Assessment &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: WHY US -->
+<section id="why-us">
+  <div class="container">
+    <h2>Why Colorado Homeowners Choose Us</h2>
+    <p class="why-intro">Every yard is different. Our process, our plants, and our crew are built specifically for Colorado.</p>
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22V12"/><path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/><path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
+          </svg>
+        </div>
+        <h3>Native Plant Expertise</h3>
+        <p>We only source plants native to Colorado&rsquo;s climate zones &mdash; not generic nursery stock that dies in year two.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Done in Days, Not Weeks</h3>
+        <p>Full installations completed in 2&ndash;5 days. Minimal disruption to your home, maximum transformation to your yard.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+          </svg>
+        </div>
+        <h3>Real Water Savings</h3>
+        <p>Clients consistently report 60&ndash;70% reduction in outdoor water use after conversion &mdash; starting from the first season.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+          </svg>
+        </div>
+        <h3>Built to Last</h3>
+        <p>Once established, your eco garden practically maintains itself. No weekly mowing, no seasonal reseeding, no stress.</p>
+      </div>
+
+    </div>
+    <div class="section-cta">
+      <a href="#contact" class="btn-cream">Get My Free Assessment &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <!-- SECTION: WILDLIFE -->
 <section id="wildlife">
   <div class="wildlife-header">
-    <h2>Bring Birds, Butterflies, and Color Back to Your Yard</h2>
-    <p>Native Colorado plants create habitat for pollinators and local wildlife while giving your home a more natural, vibrant look. See what a conversion could look like for your yard.</p>
+    <h2>This Is What We Build</h2>
+    <p>Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
   </div>
 
   <div class="wildlife-showcase">
@@ -1241,38 +1451,7 @@
 
   </div>
   <div class="section-cta">
-    <a href="#how-it-works" class="btn-sage">See How It Works &rarr;</a>
-  </div>
-</section>
-
-<!-- SECTION: HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="steps-wrapper">
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Free Assessment</h3>
-        <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Custom Design</h3>
-        <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Install in Days</h3>
-        <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
-      </div>
-
-    </div>
-    <div class="section-cta">
-      <a href="#contact" class="btn-cream">Book My Free Assessment &rarr;</a>
-    </div>
+    <a href="#pricing" class="btn-sage">See What&rsquo;s Possible &rarr;</a>
   </div>
 </section>
 
@@ -1421,6 +1600,63 @@
       Thanks! We&rsquo;ll be in touch within 24 hours. Let&rsquo;s transform your yard.
     </div>
   </div>
+</section>
+
+<!-- SECTION: FAQ -->
+<section id="faq">
+  <div class="container">
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <p class="faq-question">How long does installation take?</p>
+        <p class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Will my HOA approve a native plant yard?</p>
+        <p class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">How much water will I actually save?</p>
+        <p class="faq-answer">Most clients see a 60&ndash;70% reduction in outdoor water use within the first season. Native plants are adapted to Colorado&rsquo;s climate and thrive on natural rainfall once established.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Do native plants need a lot of maintenance?</p>
+        <p class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What happens to my existing lawn during conversion?</p>
+        <p class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Is the garden safe for kids and pets?</p>
+        <p class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What&rsquo;s included in the free assessment?</p>
+        <p class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Do you offer any guarantee on your work?</p>
+        <p class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: FINAL CTA BAR -->
+<section id="cta-bar">
+  <h2>Ready to Stop Wasting Water and Start Loving Your Yard?</h2>
+  <p class="cta-bar-sub">Get your free assessment today. No pressure, no commitment &mdash; just a clear picture of what&rsquo;s possible.</p>
+  <a href="#contact" class="btn-cream">Get My Free Quote &rarr;</a>
 </section>
 
 </main>
