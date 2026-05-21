@@ -140,7 +140,7 @@
       border: none;
       cursor: pointer;
     }
-    .btn-sage:hover { background: var(--sage); }
+    .btn-sage:hover { background: var(--sage-hover); }
 
     .btn-outline {
       display: inline-block;
@@ -172,7 +172,11 @@
       width: 100%;
       text-align: center;
     }
-    .btn-white:hover { background: var(--cream); }
+    .btn-white:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(10,15,5,0.28);
+    }
 
     /* ── NAV ───────────────────────────────────────────────── */
     nav {
@@ -1151,6 +1155,129 @@
       font-size: 0.8125rem;
     }
 
+    /* ── Animations & Transitions ───────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(var(--space-8)); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero entrance */
+    .hero-content {
+      animation: fadeUp 0.9s ease 0.15s both;
+    }
+
+    /* Scroll-reveal base */
+    .reveal {
+      opacity: 0;
+      transform: translateY(var(--space-8));
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Button transitions */
+    .btn-sage,
+    .btn-cream,
+    .btn-outline,
+    .btn-white,
+    .btn-hero-primary,
+    .btn-hero-secondary,
+    .nav-cta,
+    .form-submit {
+      transition: background 0.2s ease, color 0.2s ease,
+                  transform 0.18s ease, box-shadow 0.18s ease,
+                  opacity 0.2s ease;
+    }
+    .btn-sage:hover,
+    .btn-hero-primary:hover {
+      background: var(--sage-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(106,124,64,0.30);
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(106,124,64,0.28);
+    }
+    .nav-cta:hover { transform: translateY(-1px); }
+    .btn-cream:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(60,76,36,0.15);
+    }
+    .btn-outline:hover {
+      background: rgba(106,124,64,0.07);
+      transform: translateY(-2px);
+    }
+    .btn-hero-secondary:hover { opacity: 0.85; }
+
+    /* Card hover lifts */
+    .icon-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .icon-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(60,76,36,0.12);
+    }
+
+    .testimonial-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(60,76,36,0.18);
+    }
+
+    .pricing-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pricing-card:not(.featured):hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(60,76,36,0.14);
+    }
+    .pricing-card.featured:hover {
+      transform: scale(1.07);
+      box-shadow: 0 24px 60px rgba(60,76,36,0.30);
+    }
+
+    .why-card {
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+    .why-card:hover {
+      background: rgba(236,239,227,0.12);
+      border-color: rgba(236,239,227,0.22);
+      transform: translateY(-3px);
+    }
+
+    /* Wildlife card hover — image zoom */
+    .wildlife-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .wildlife-card img {
+      transition: transform 0.45s ease;
+    }
+    .wildlife-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 44px rgba(10,15,5,0.40);
+    }
+    .wildlife-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Nav link smooth fade */
+    .nav-links a,
+    .nav-mobile a,
+    .footer-links a {
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    /* Form input focus transition */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
     /* ── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width: 900px) {
       .pricing-grid { gap: var(--space-5); } /* FLAG: 18→20 */
@@ -1266,7 +1393,7 @@
 <!-- SECTION: WHAT IS AN ECO GARDEN? -->
 <section id="what-is" aria-labelledby="h2-what-is">
   <div class="centered-content">
-    <h2 id="h2-what-is">Why Traditional Lawns Waste Water, Money, and Time</h2>
+    <h2 id="h2-what-is" class="reveal">Why Traditional Lawns Waste Water, Money, and Time</h2>
     <p>Most Colorado homeowners inherited a traditional lawn without questioning it. It&rsquo;s green, it&rsquo;s familiar, and it&rsquo;s supposed to add curb appeal. But in a state where water is scarce and summers are unpredictable, that lawn is quietly working against you.</p>
     <p>The average Colorado household spends $500&ndash;$1,200 per year on lawn watering alone &mdash; before you factor in fertilizer, pest treatments, and the hours spent mowing every week from May through October.</p>
     <p>Colorado averages just 14 inches of rain per year. Traditional turf needs three times that to stay green. Every time you run the sprinklers, you&rsquo;re fighting the climate you live in.</p>
@@ -1274,7 +1401,7 @@
     <div class="icon-cards">
 
       <!-- Card: Draining Your Wallet -->
-      <div class="icon-card">
+      <div class="icon-card reveal" data-delay="0">
         <div class="card-icon-wrap">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/>
@@ -1287,7 +1414,7 @@
       </div>
 
       <!-- Card: Eating Your Weekends -->
-      <div class="icon-card">
+      <div class="icon-card reveal" data-delay="100">
         <div class="card-icon-wrap">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/>
@@ -1299,7 +1426,7 @@
       </div>
 
       <!-- Card: Built for the Wrong Climate -->
-      <div class="icon-card">
+      <div class="icon-card reveal" data-delay="200">
         <div class="card-icon-wrap">
           <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
@@ -1320,11 +1447,11 @@
 <!-- SECTION: THE PROBLEM -->
 <section id="problem" aria-labelledby="h2-problem">
   <div class="container">
-    <h2 id="h2-problem">Your Traditional Lawn Is Working Against You</h2>
+    <h2 id="h2-problem" class="reveal">Your Traditional Lawn Is Working Against You</h2>
     <div class="pain-grid">
 
       <!-- Col 1 -->
-      <div class="pain-col">
+      <div class="pain-col reveal" data-delay="0">
         <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
           <line x1="8" y1="2" x2="16" y2="22"/>
@@ -1334,7 +1461,7 @@
       </div>
 
       <!-- Col 2 -->
-      <div class="pain-col">
+      <div class="pain-col reveal" data-delay="100">
         <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="1" x2="12" y2="23"/>
           <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -1344,7 +1471,7 @@
       </div>
 
       <!-- Col 3 -->
-      <div class="pain-col">
+      <div class="pain-col reveal" data-delay="200">
         <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <polyline points="12 6 12 12 16 14"/>
@@ -1364,22 +1491,22 @@
 <!-- SECTION: HOW IT WORKS -->
 <section id="how-it-works" aria-labelledby="h2-how-it-works">
   <div class="container">
-    <h2 id="h2-how-it-works">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
+    <h2 id="h2-how-it-works" class="reveal">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
     <div class="steps-wrapper">
 
-      <div class="step">
+      <div class="step reveal" data-delay="0">
         <div class="step-number">1</div>
         <h3>Free Assessment</h3>
         <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
       </div>
 
-      <div class="step">
+      <div class="step reveal" data-delay="120">
         <div class="step-number">2</div>
         <h3>Custom Design</h3>
         <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
       </div>
 
-      <div class="step">
+      <div class="step reveal" data-delay="240">
         <div class="step-number">3</div>
         <h3>Install in Days</h3>
         <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
@@ -1395,11 +1522,11 @@
 <!-- SECTION: WHY US -->
 <section id="why-us" aria-labelledby="h2-why-us">
   <div class="container">
-    <h2 id="h2-why-us">Why Colorado Homeowners Trust Us With Their Yard Transformations</h2>
+    <h2 id="h2-why-us" class="reveal">Why Colorado Homeowners Trust Us With Their Yard Transformations</h2>
     <p class="why-intro">Every yard is different. Our process, our plants, and our crew are built specifically for Colorado.</p>
     <div class="why-grid">
 
-      <div class="why-card">
+      <div class="why-card reveal" data-delay="0">
         <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 22V12"/><path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/><path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
@@ -1409,7 +1536,7 @@
         <p>We only source plants native to Colorado&rsquo;s climate zones &mdash; not generic nursery stock that dies in year two.</p>
       </div>
 
-      <div class="why-card">
+      <div class="why-card reveal" data-delay="100">
         <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -1419,7 +1546,7 @@
         <p>Full installations completed in 2&ndash;5 days. Minimal disruption to your home, maximum transformation to your yard.</p>
       </div>
 
-      <div class="why-card">
+      <div class="why-card reveal" data-delay="200">
         <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
@@ -1429,7 +1556,7 @@
         <p>Clients consistently report 60&ndash;70% reduction in outdoor water use after conversion &mdash; starting from the first season.</p>
       </div>
 
-      <div class="why-card">
+      <div class="why-card reveal" data-delay="300">
         <div class="why-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
@@ -1449,13 +1576,13 @@
 <!-- SECTION: WILDLIFE -->
 <section id="wildlife" aria-labelledby="h2-wildlife">
   <div class="wildlife-header">
-    <h2 id="h2-wildlife">Custom Eco Garden Designs Built for Colorado Homes</h2>
+    <h2 id="h2-wildlife" class="reveal">Custom Eco Garden Designs Built for Colorado Homes</h2>
     <p>Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
   </div>
 
   <div class="wildlife-showcase">
 
-    <div class="wildlife-card">
+    <div class="wildlife-card reveal" data-delay="0">
       <img src="image/bird (2).png" alt="Broad-tailed Hummingbird feeding on purple salvia" loading="lazy">
       <div class="wildlife-card-label">
         <strong>Broad-tailed Hummingbird</strong>
@@ -1463,7 +1590,7 @@
       </div>
     </div>
 
-    <div class="wildlife-card">
+    <div class="wildlife-card reveal" data-delay="80">
       <img src="image/bird (4).png" alt="Western Tanager on Blue Spruce" loading="lazy">
       <div class="wildlife-card-label">
         <strong>Western Tanager</strong>
@@ -1471,7 +1598,7 @@
       </div>
     </div>
 
-    <div class="wildlife-card">
+    <div class="wildlife-card reveal" data-delay="160">
       <img src="image/Butterfly (2).png" alt="Monarch Butterfly on milkweed" loading="lazy">
       <div class="wildlife-card-label">
         <strong>Monarch Butterfly</strong>
@@ -1479,7 +1606,7 @@
       </div>
     </div>
 
-    <div class="wildlife-card">
+    <div class="wildlife-card reveal" data-delay="240">
       <img src="image/Butterfly (3).png" alt="Painted Lady on Purple Coneflower" loading="lazy">
       <div class="wildlife-card-label">
         <strong>Painted Lady</strong>
@@ -1496,12 +1623,12 @@
 <!-- SECTION: PACKAGES & PRICING -->
 <section id="pricing" aria-labelledby="h2-pricing">
   <div class="container">
-    <h2 id="h2-pricing">Choose the Yard Transformation That Fits Your Home</h2>
+    <h2 id="h2-pricing" class="reveal">Choose the Yard Transformation That Fits Your Home</h2>
     <p class="pricing-intro">Every yard is different. These ranges help you plan, and your free assessment gives you a clear custom quote.</p>
     <div class="pricing-grid">
 
       <!-- Starter -->
-      <div class="pricing-card">
+      <div class="pricing-card reveal" data-delay="0">
         <h3>Starter Refresh</h3>
         <div class="pricing-price">$2,500 &ndash; $4,000</div>
         <ul class="pricing-features">
@@ -1514,7 +1641,7 @@
       </div>
 
       <!-- Growth (Featured) -->
-      <div class="pricing-card featured">
+      <div class="pricing-card featured reveal" data-delay="120">
         <div class="pricing-badge">Most Popular</div>
         <h3>Full Lawn Conversion</h3>
         <div class="pricing-price">$5,000 &ndash; $9,000</div>
@@ -1529,7 +1656,7 @@
       </div>
 
       <!-- Premium -->
-      <div class="pricing-card">
+      <div class="pricing-card reveal" data-delay="240">
         <h3>Premium Outdoor Transformation</h3>
         <div class="pricing-price">$10,000 &ndash; $20,000+</div>
         <ul class="pricing-features">
@@ -1549,23 +1676,23 @@
 <!-- SECTION: SOCIAL PROOF / TESTIMONIALS -->
 <section id="testimonials" aria-labelledby="h2-testimonials">
   <div class="container">
-    <h2 id="h2-testimonials">Real Results From Colorado Homeowners</h2>
+    <h2 id="h2-testimonials" class="reveal">Real Results From Colorado Homeowners</h2>
     <!-- REPLACE WITH REAL TESTIMONIALS -->
     <div class="testimonial-grid">
 
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal" data-delay="0">
         <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;We cut our water bill in half and our neighbors keep asking who did our yard. Best decision we&rsquo;ve made for our home.&rdquo;</blockquote>
         <cite>&mdash; Sarah M., Highlands Ranch</cite>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal" data-delay="100">
         <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;Jimi&rsquo;s crew finished in 3 days. We couldn&rsquo;t believe the transformation. It looks like a completely different property.&rdquo;</blockquote>
         <cite>&mdash; Tom &amp; Lisa K., Parker</cite>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal" data-delay="200">
         <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;Best home investment we&rsquo;ve made. Low maintenance and absolutely beautiful. I only wish we&rsquo;d done it sooner.&rdquo;</blockquote>
         <cite>&mdash; David R., Castle Rock</cite>
@@ -1581,7 +1708,7 @@
 <!-- SECTION: CONTACT FORM -->
 <section id="contact" aria-labelledby="h2-contact">
   <div class="contact-inner">
-    <h2 id="h2-contact">Get Your Free Colorado Eco Garden Assessment</h2>
+    <h2 id="h2-contact" class="reveal">Get Your Free Colorado Eco Garden Assessment</h2>
     <p class="contact-sub">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
 
     <!-- TODO: Wire up form to Formspree or Netlify Forms -->
@@ -1643,45 +1770,45 @@
 <!-- SECTION: FAQ -->
 <section id="faq" aria-labelledby="h2-faq">
   <div class="container">
-    <h2 id="h2-faq">Eco Garden Questions, Answered</h2>
+    <h2 id="h2-faq" class="reveal">Eco Garden Questions, Answered</h2>
     <dl class="faq-list">
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="0">
         <dt class="faq-question">How long does installation take?</dt>
         <dd class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="60">
         <dt class="faq-question">Will my HOA approve a native plant yard?</dt>
         <dd class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="120">
         <dt class="faq-question">How much water will I actually save?</dt>
         <dd class="faq-answer">Most clients see a 60&ndash;70% reduction in outdoor water use within the first season. Native plants are adapted to Colorado&rsquo;s climate and thrive on natural rainfall once established.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="180">
         <dt class="faq-question">Do native plants need a lot of maintenance?</dt>
         <dd class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="240">
         <dt class="faq-question">What happens to my existing lawn during conversion?</dt>
         <dd class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="300">
         <dt class="faq-question">Is the garden safe for kids and pets?</dt>
         <dd class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="360">
         <dt class="faq-question">What&rsquo;s included in the free assessment?</dt>
         <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
       </div>
 
-      <div class="faq-item-group">
+      <div class="faq-item-group reveal" data-delay="420">
         <dt class="faq-question">Do you offer any guarantee on your work?</dt>
         <dd class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</dd>
       </div>
@@ -1692,9 +1819,9 @@
 
 <!-- SECTION: FINAL CTA BAR -->
 <section id="cta-bar" aria-labelledby="h2-cta-bar">
-  <h2 id="h2-cta-bar">Ready to Save Water, Lower Maintenance, and Love Your Yard Again?</h2>
-  <p class="cta-bar-sub">Get your free assessment today. No pressure, no commitment &mdash; just a clear picture of what&rsquo;s possible.</p>
-  <a href="#contact" class="btn-cream">Get My Free Quote &rarr;</a>
+  <h2 id="h2-cta-bar" class="reveal">Ready to Save Water, Lower Maintenance, and Love Your Yard Again?</h2>
+  <p class="cta-bar-sub reveal" data-delay="100">Get your free assessment today. No pressure, no commitment &mdash; just a clear picture of what&rsquo;s possible.</p>
+  <a href="#contact" class="btn-cream reveal" data-delay="200">Get My Free Quote &rarr;</a>
 </section>
 
 </main>
@@ -1743,6 +1870,31 @@
     form.style.display = 'none';
     successMsg.style.display = 'block';
   });
+
+  // Scroll-reveal via IntersectionObserver
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var delay = el.dataset.delay || 0;
+          el.style.transitionDelay = delay + 'ms';
+          el.classList.add('revealed');
+          revealObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.10 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    // No observer support or reduced motion: show everything immediately
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('revealed');
+    });
+  }
 </script>
 
 </body>
