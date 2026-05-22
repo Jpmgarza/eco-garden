@@ -631,6 +631,7 @@
       text-align: center;
       padding: 0 var(--space-5);
       position: relative;
+      z-index: 2;
     }
     .step-number {
       width: 54px;
@@ -666,7 +667,20 @@
       right: calc(-50% + 27px);
       height: 2px;
       background: var(--sage);
-      opacity: 0.28;
+      opacity: 0.18;
+      z-index: 1;
+    }
+
+    /* Animated progress line — sits behind circles (z-index 1 < circle z-index 2) */
+    .steps-line-progress {
+      position: absolute;
+      top: 27px;
+      left: calc(100% / 6 + 27px);
+      right: calc(100% / 6 + 27px);
+      height: 2px;
+      background: var(--sage);
+      transform-origin: left center;
+      transform: scaleX(0);
       z-index: 1;
     }
 
@@ -771,10 +785,11 @@
       text-align: left;
     }
     .pricing-card.featured {
-      background: var(--sage);
-      border-color: var(--sage);
+      background: linear-gradient(rgba(30,43,16,0.72), rgba(30,43,16,0.72)),
+                  url('image/garden image (2).png') center/cover no-repeat;
+      border-color: transparent;
       transform: scale(1.05);
-      box-shadow: 0 18px 52px rgba(60,76,36,0.22);
+      box-shadow: 0 18px 52px rgba(30,43,16,0.40);
     }
     .pricing-badge {
       display: inline-block;
@@ -997,9 +1012,21 @@
 
     /* ── SECTION: WHY US ──────────────────────────────────── */
     #why-us {
-      background: var(--forest);
+      background: var(--forest) url('image/garden image (3).png') center/cover no-repeat;
       padding: var(--space-25) 0;
       text-align: center;
+      position: relative;
+    }
+    #why-us::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(30,43,16,0.70);
+      z-index: 0;
+    }
+    #why-us .container {
+      position: relative;
+      z-index: 1;
     }
     #why-us h2 {
       color: var(--cream);
@@ -1009,7 +1036,7 @@
     }
     .why-intro {
       font-size: 1.0625rem;
-      color: rgba(236,239,227,0.72);
+      color: rgba(236,239,227,0.88);
       max-width: 580px;
       margin: 0 auto var(--space-15);
       line-height: 1.68;
@@ -1025,15 +1052,15 @@
       text-align: left;
     }
     .why-card {
-      background: rgba(236,239,227,0.07);
-      border: 1px solid rgba(236,239,227,0.12);
+      background: rgba(30,43,16,0.55);
+      border: 1px solid rgba(236,239,227,0.16);
       border-radius: 14px;
       padding: var(--space-8) var(--space-7);
     }
     .why-card-icon {
       width: 48px;
       height: 48px;
-      background: rgba(106,124,64,0.30);
+      background: var(--sage);
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -1043,7 +1070,7 @@
     .why-card-icon svg {
       width: 24px;
       height: 24px;
-      color: var(--sage);
+      color: var(--cream);
       stroke: currentColor;
       fill: none;
     }
@@ -1055,7 +1082,7 @@
       margin-bottom: var(--space-2);
     }
     .why-card p {
-      color: rgba(236,239,227,0.72);
+      color: rgba(236,239,227,0.78);
       font-size: 0.9375rem;
       line-height: 1.65;
     }
@@ -1084,20 +1111,73 @@
     }
     .faq-item-group {
       border-bottom: 1px solid rgba(60,76,36,0.10);
-      padding: var(--space-7) 0;
     }
     .faq-item-group:first-of-type { border-top: 1px solid rgba(60,76,36,0.10); }
-    .faq-question {
+
+    /* Accordion button */
+    .faq-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       font-size: 1rem;
       color: var(--forest);
-      margin-bottom: var(--space-3);
+      padding: var(--space-7) 0;
     }
+    .faq-btn:hover { color: var(--sage); }
+
+    /* Flower icon */
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      overflow: visible;
+    }
+    .faq-petal {
+      transform-origin: 0px 0px;
+      transform-box: view-box;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    .faq-petal:nth-child(1) { transform: rotate(0deg)   scale(0); }
+    .faq-petal:nth-child(2) { transform: rotate(60deg)  scale(0); }
+    .faq-petal:nth-child(3) { transform: rotate(120deg) scale(0); }
+    .faq-petal:nth-child(4) { transform: rotate(180deg) scale(0); }
+    .faq-petal:nth-child(5) { transform: rotate(240deg) scale(0); }
+    .faq-petal:nth-child(6) { transform: rotate(300deg) scale(0); }
+    .faq-item-group.open .faq-petal { opacity: 1; }
+    .faq-item-group.open .faq-petal:nth-child(1) { transform: rotate(0deg)   scale(1); transition-delay: 0ms; }
+    .faq-item-group.open .faq-petal:nth-child(2) { transform: rotate(60deg)  scale(1); transition-delay: 50ms; }
+    .faq-item-group.open .faq-petal:nth-child(3) { transform: rotate(120deg) scale(1); transition-delay: 100ms; }
+    .faq-item-group.open .faq-petal:nth-child(4) { transform: rotate(180deg) scale(1); transition-delay: 150ms; }
+    .faq-item-group.open .faq-petal:nth-child(5) { transform: rotate(240deg) scale(1); transition-delay: 200ms; }
+    .faq-item-group.open .faq-petal:nth-child(6) { transform: rotate(300deg) scale(1); transition-delay: 250ms; }
+    @media (prefers-reduced-motion: reduce) {
+      .faq-petal { transition: none; }
+    }
+
+    /* Accordion answer */
     .faq-answer {
       font-size: 0.9375rem;
       color: var(--text-muted);
       line-height: 1.72;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+      padding-bottom: 0;
+    }
+    .faq-item-group.open .faq-answer {
+      max-height: 300px;
+      opacity: 1;
+      padding-bottom: var(--space-7);
     }
 
     /* ── SECTION: CTA BAR ──────────────────────────────────── */
@@ -1246,8 +1326,9 @@
       transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
     }
     .why-card:hover {
-      background: rgba(236,239,227,0.12);
-      border-color: rgba(236,239,227,0.22);
+      background: rgba(30,43,16,0.70);
+      border-color: rgba(236,239,227,0.26);
+      box-shadow: 0 8px 32px rgba(10,15,5,0.40);
       transform: translateY(-3px);
     }
 
@@ -1256,7 +1337,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .wildlife-card img {
-      transition: transform 0.45s ease;
+      transition: transform 0.45s ease, opacity 0.45s ease;
     }
     .wildlife-card:hover {
       transform: translateY(-4px);
@@ -1309,6 +1390,7 @@
         gap: var(--space-9);
       }
       .step:not(:last-child)::after { display: none; }
+      .steps-line-progress { display: none; }
 
       .pricing-card.featured {
         transform: scale(1);
@@ -1498,6 +1580,8 @@
   <div class="container">
     <h2 id="h2-how-it-works" class="reveal">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
     <div class="steps-wrapper">
+
+      <div class="steps-line-progress" id="steps-line-progress" aria-hidden="true"></div>
 
       <div class="step reveal" data-delay="0">
         <div class="step-number">1</div>
@@ -1779,42 +1863,37 @@
     <dl class="faq-list">
 
       <div class="faq-item-group reveal" data-delay="0">
-        <dt class="faq-question">How long does installation take?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">How long does installation take?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="60">
-        <dt class="faq-question">Will my HOA approve a native plant yard?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Will my HOA approve a native plant yard?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</dd>
       </div>
 
-      <div class="faq-item-group reveal" data-delay="120">
-        <dt class="faq-question">How much water will I actually save?</dt>
-        <dd class="faq-answer">Most clients see a 60&ndash;70% reduction in outdoor water use within the first season. Native plants are adapted to Colorado&rsquo;s climate and thrive on natural rainfall once established.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="180">
-        <dt class="faq-question">Do native plants need a lot of maintenance?</dt>
+<div class="faq-item-group reveal" data-delay="180">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Do native plants need a lot of maintenance?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="240">
-        <dt class="faq-question">What happens to my existing lawn during conversion?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">What happens to my existing lawn during conversion?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="300">
-        <dt class="faq-question">Is the garden safe for kids and pets?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Is the garden safe for kids and pets?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="360">
-        <dt class="faq-question">What&rsquo;s included in the free assessment?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">What&rsquo;s included in the free assessment?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="420">
-        <dt class="faq-question">Do you offer any guarantee on your work?</dt>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Do you offer any guarantee on your work?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
         <dd class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</dd>
       </div>
 
@@ -1900,6 +1979,90 @@
       el.classList.add('revealed');
     });
   }
+
+  // Steps connector line — scroll-driven, draws 1→3 on scroll down, retracts 3→1 on scroll up
+  var stepsSection      = document.getElementById('how-it-works');
+  var stepsLineProgress = document.getElementById('steps-line-progress');
+
+  if (stepsLineProgress) {
+    if (prefersReduced) {
+      stepsLineProgress.style.transform = 'scaleX(1)';
+    } else {
+      var stepsWrapper = stepsSection.querySelector('.steps-wrapper');
+      function updateStepsLine() {
+        var rect    = stepsWrapper.getBoundingClientRect();
+        var windowH = window.innerHeight;
+        // 0 when the steps-wrapper enters the viewport from the bottom
+        // 1 when the steps-wrapper top reaches 35% from the top of the viewport
+        // Range ≈ 65% of viewport height → smooth, visible animation over ~500px of scroll
+        var progress = (windowH - rect.top) / (windowH * 0.65);
+        progress = Math.max(0, Math.min(1, progress));
+        stepsLineProgress.style.transform = 'scaleX(' + progress + ')';
+      }
+      window.addEventListener('scroll', updateStepsLine, { passive: true });
+      updateStepsLine();
+    }
+  }
+
+  // Wildlife image slideshow — cycles every 3 seconds, cards staggered
+  var wildlifeSets = [
+    [
+      { src: 'image/bird (2).png',       alt: 'Broad-tailed Hummingbird feeding on purple salvia', name: 'Broad-tailed Hummingbird', latin: 'Selasphorus platycercus' },
+      { src: 'image/bird (1).png',       alt: 'Black-chinned Hummingbird on native flower',        name: 'Black-chinned Hummingbird', latin: 'Archilochus alexandri' },
+      { src: 'image/bird (3).png',       alt: 'Colorado songbird in native garden',                name: 'Colorado Songbird',         latin: 'Native Garden Visitor' },
+      { src: 'image/bird (5).png',       alt: 'Mountain Bluebird on spruce branch',                name: 'Mountain Bluebird',         latin: 'Sialia currucoides' }
+    ],
+    [
+      { src: 'image/bird (4).png',         alt: 'Western Tanager on Blue Spruce',              name: 'Western Tanager',       latin: 'Piranga ludoviciana' },
+      { src: 'image/landscapper (1).png',  alt: 'Native eco garden installation in progress',  name: 'Eco Garden Install',    latin: 'Colorado Certified' },
+      { src: 'image/landscapper (2).png',  alt: 'Finished native plant landscape',             name: 'Native Landscape',      latin: 'Low-Water Design' },
+      { src: 'image/garden image (4).png', alt: 'Sunny Colorado native garden with mountains', name: 'Summer Native Garden',  latin: 'Colorado Front Range' }
+    ],
+    [
+      { src: 'image/Butterfly (2).png',    alt: 'Monarch Butterfly on milkweed',              name: 'Monarch Butterfly',          latin: 'Danaus plexippus' },
+      { src: 'image/Butterfly (1).png',    alt: 'Western Tiger Swallowtail on coneflower',    name: 'Western Tiger Swallowtail',  latin: 'Papilio rutulus' },
+      { src: 'image/garden image.png',     alt: 'Colorado eco garden with mountain backdrop', name: 'Mountain Eco Garden',        latin: 'Colorado Native Plants' },
+      { src: 'image/garden image (2).png', alt: 'Native plant border with boulders',          name: 'Native Plant Border',        latin: 'Colorado Native Species' }
+    ],
+    [
+      { src: 'image/Butterfly (3).png',    alt: 'Painted Lady on Purple Coneflower',          name: 'Painted Lady',        latin: 'Vanessa cardui' },
+      { src: 'image/landscapper (3).png',  alt: 'Garden path through native plants',          name: 'Garden Pathway',      latin: 'Eco-Friendly Design' },
+      { src: 'image/landscapper (4).png',  alt: 'Completed eco garden transformation',        name: 'Full Transformation', latin: 'Low-Water Landscape' },
+      { src: 'image/garden image (3).png', alt: 'Wildflower garden path with blue asters',    name: 'Wildflower Path',     latin: 'Colorado Native Design' }
+    ]
+  ];
+
+  var wildlifeCards = document.querySelectorAll('.wildlife-card');
+  var wildlifeIndexes = [0, 0, 0, 0];
+
+  wildlifeCards.forEach(function(card, i) {
+    var img    = card.querySelector('img');
+    var strong = card.querySelector('.wildlife-card-label strong');
+    var em     = card.querySelector('.wildlife-card-label em');
+
+    setInterval(function() {
+      wildlifeIndexes[i] = (wildlifeIndexes[i] + 1) % wildlifeSets[i].length;
+      var next = wildlifeSets[i][wildlifeIndexes[i]];
+
+      img.style.opacity = '0';
+      setTimeout(function() {
+        img.src            = next.src;
+        img.alt            = next.alt;
+        strong.textContent = next.name;
+        em.textContent     = next.latin;
+        img.style.opacity  = '1';
+      }, 450);
+    }, 3000);
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var group = btn.closest('.faq-item-group');
+      var isOpen = group.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
 </script>
 
 </body>
