@@ -1,0 +1,24 @@
+{
+  "name": "jimmi-eco-garden",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jpmgarza/eco-garden.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jpmgarza/eco-garden/issues"
+  },
+  "homepage": "https://github.com/Jpmgarza/eco-garden#readme",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}

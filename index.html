@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="hero.png">
+  <link rel="preload" as="image" href="hero.webp" type="image/webp">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -307,7 +307,7 @@
       content: '';
       position: absolute;
       inset: calc(-1 * var(--space-2)); /* FLAG: was -10px → rounded to -8px */
-      background-image: url('hero.png');
+      background-image: url('hero.webp');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -786,7 +786,7 @@
     }
     .pricing-card.featured {
       background: linear-gradient(rgba(30,43,16,0.72), rgba(30,43,16,0.72)),
-                  url('image/garden image (2).png') center/cover no-repeat;
+                  url('image/garden image (2).webp') center/cover no-repeat;
       border-color: transparent;
       transform: scale(1.05);
       box-shadow: 0 18px 52px rgba(30,43,16,0.40);
@@ -1012,7 +1012,7 @@
 
     /* ── SECTION: WHY US ──────────────────────────────────── */
     #why-us {
-      background: var(--forest) url('image/garden image (3).png') center/cover no-repeat;
+      background: var(--forest) url('image/garden image (3).webp') center/cover no-repeat;
       padding: var(--space-25) 0;
       text-align: center;
       position: relative;
@@ -1672,7 +1672,11 @@
   <div class="wildlife-showcase">
 
     <div class="wildlife-card reveal" data-delay="0">
-      <img src="image/bird (2).png" alt="Broad-tailed Hummingbird feeding on purple salvia" loading="lazy" width="400" height="300">
+      <picture>
+        <source srcset="image/bird (2).avif" type="image/avif">
+        <source srcset="image/bird (2).webp" type="image/webp">
+        <img src="image/bird (2).png" alt="Broad-tailed Hummingbird feeding on purple salvia" loading="lazy" width="400" height="300">
+      </picture>
       <div class="wildlife-card-label">
         <strong>Broad-tailed Hummingbird</strong>
         <em>Selasphorus platycercus</em>
@@ -1680,7 +1684,11 @@
     </div>
 
     <div class="wildlife-card reveal" data-delay="80">
-      <img src="image/bird (4).png" alt="Western Tanager on Blue Spruce" loading="lazy" width="400" height="300">
+      <picture>
+        <source srcset="image/bird (4).avif" type="image/avif">
+        <source srcset="image/bird (4).webp" type="image/webp">
+        <img src="image/bird (4).png" alt="Western Tanager on Blue Spruce" loading="lazy" width="400" height="300">
+      </picture>
       <div class="wildlife-card-label">
         <strong>Western Tanager</strong>
         <em>Piranga ludoviciana</em>
@@ -1688,7 +1696,11 @@
     </div>
 
     <div class="wildlife-card reveal" data-delay="160">
-      <img src="image/Butterfly (2).png" alt="Monarch Butterfly on milkweed" loading="lazy" width="400" height="300">
+      <picture>
+        <source srcset="image/Butterfly (2).avif" type="image/avif">
+        <source srcset="image/Butterfly (2).webp" type="image/webp">
+        <img src="image/Butterfly (2).png" alt="Monarch Butterfly on milkweed" loading="lazy" width="400" height="300">
+      </picture>
       <div class="wildlife-card-label">
         <strong>Monarch Butterfly</strong>
         <em>Danaus plexippus</em>
@@ -1696,7 +1708,11 @@
     </div>
 
     <div class="wildlife-card reveal" data-delay="240">
-      <img src="image/Butterfly (3).png" alt="Painted Lady on Purple Coneflower" loading="lazy" width="400" height="300">
+      <picture>
+        <source srcset="image/Butterfly (3).avif" type="image/avif">
+        <source srcset="image/Butterfly (3).webp" type="image/webp">
+        <img src="image/Butterfly (3).png" alt="Painted Lady on Purple Coneflower" loading="lazy" width="400" height="300">
+      </picture>
       <div class="wildlife-card-label">
         <strong>Painted Lady</strong>
         <em>Vanessa cardui</em>
@@ -2007,28 +2023,28 @@
   // Wildlife image slideshow — cycles every 3 seconds, cards staggered
   var wildlifeSets = [
     [
-      { src: 'image/bird (2).png',       alt: 'Broad-tailed Hummingbird feeding on purple salvia', name: 'Broad-tailed Hummingbird', latin: 'Selasphorus platycercus' },
-      { src: 'image/bird (1).png',       alt: 'Black-chinned Hummingbird on native flower',        name: 'Black-chinned Hummingbird', latin: 'Archilochus alexandri' },
-      { src: 'image/bird (3).png',       alt: 'Colorado songbird in native garden',                name: 'Colorado Songbird',         latin: 'Native Garden Visitor' },
-      { src: 'image/bird (5).png',       alt: 'Mountain Bluebird on spruce branch',                name: 'Mountain Bluebird',         latin: 'Sialia currucoides' }
+      { src: 'image/bird (2).webp',       alt: 'Broad-tailed Hummingbird feeding on purple salvia', name: 'Broad-tailed Hummingbird', latin: 'Selasphorus platycercus' },
+      { src: 'image/bird (1).webp',       alt: 'Black-chinned Hummingbird on native flower',        name: 'Black-chinned Hummingbird', latin: 'Archilochus alexandri' },
+      { src: 'image/bird (3).webp',       alt: 'Colorado songbird in native garden',                name: 'Colorado Songbird',         latin: 'Native Garden Visitor' },
+      { src: 'image/bird (5).webp',       alt: 'Mountain Bluebird on spruce branch',                name: 'Mountain Bluebird',         latin: 'Sialia currucoides' }
     ],
     [
-      { src: 'image/bird (4).png',         alt: 'Western Tanager on Blue Spruce',              name: 'Western Tanager',       latin: 'Piranga ludoviciana' },
-      { src: 'image/landscapper (1).png',  alt: 'Native eco garden installation in progress',  name: 'Eco Garden Install',    latin: 'Colorado Certified' },
-      { src: 'image/landscapper (2).png',  alt: 'Finished native plant landscape',             name: 'Native Landscape',      latin: 'Low-Water Design' },
-      { src: 'image/garden image (4).png', alt: 'Sunny Colorado native garden with mountains', name: 'Summer Native Garden',  latin: 'Colorado Front Range' }
+      { src: 'image/bird (4).webp',         alt: 'Western Tanager on Blue Spruce',              name: 'Western Tanager',       latin: 'Piranga ludoviciana' },
+      { src: 'image/landscapper (1).webp',  alt: 'Native eco garden installation in progress',  name: 'Eco Garden Install',    latin: 'Colorado Certified' },
+      { src: 'image/landscapper (2).webp',  alt: 'Finished native plant landscape',             name: 'Native Landscape',      latin: 'Low-Water Design' },
+      { src: 'image/garden image (4).webp', alt: 'Sunny Colorado native garden with mountains', name: 'Summer Native Garden',  latin: 'Colorado Front Range' }
     ],
     [
-      { src: 'image/Butterfly (2).png',    alt: 'Monarch Butterfly on milkweed',              name: 'Monarch Butterfly',          latin: 'Danaus plexippus' },
-      { src: 'image/Butterfly (1).png',    alt: 'Western Tiger Swallowtail on coneflower',    name: 'Western Tiger Swallowtail',  latin: 'Papilio rutulus' },
-      { src: 'image/garden image.png',     alt: 'Colorado eco garden with mountain backdrop', name: 'Mountain Eco Garden',        latin: 'Colorado Native Plants' },
-      { src: 'image/garden image (2).png', alt: 'Native plant border with boulders',          name: 'Native Plant Border',        latin: 'Colorado Native Species' }
+      { src: 'image/Butterfly (2).webp',    alt: 'Monarch Butterfly on milkweed',              name: 'Monarch Butterfly',          latin: 'Danaus plexippus' },
+      { src: 'image/Butterfly (1).webp',    alt: 'Western Tiger Swallowtail on coneflower',    name: 'Western Tiger Swallowtail',  latin: 'Papilio rutulus' },
+      { src: 'image/garden image.webp',     alt: 'Colorado eco garden with mountain backdrop', name: 'Mountain Eco Garden',        latin: 'Colorado Native Plants' },
+      { src: 'image/garden image (2).webp', alt: 'Native plant border with boulders',          name: 'Native Plant Border',        latin: 'Colorado Native Species' }
     ],
     [
-      { src: 'image/Butterfly (3).png',    alt: 'Painted Lady on Purple Coneflower',          name: 'Painted Lady',        latin: 'Vanessa cardui' },
-      { src: 'image/landscapper (3).png',  alt: 'Garden path through native plants',          name: 'Garden Pathway',      latin: 'Eco-Friendly Design' },
-      { src: 'image/landscapper (4).png',  alt: 'Completed eco garden transformation',        name: 'Full Transformation', latin: 'Low-Water Landscape' },
-      { src: 'image/garden image (3).png', alt: 'Wildflower garden path with blue asters',    name: 'Wildflower Path',     latin: 'Colorado Native Design' }
+      { src: 'image/Butterfly (3).webp',    alt: 'Painted Lady on Purple Coneflower',          name: 'Painted Lady',        latin: 'Vanessa cardui' },
+      { src: 'image/landscapper (3).webp',  alt: 'Garden path through native plants',          name: 'Garden Pathway',      latin: 'Eco-Friendly Design' },
+      { src: 'image/landscapper (4).webp',  alt: 'Completed eco garden transformation',        name: 'Full Transformation', latin: 'Low-Water Landscape' },
+      { src: 'image/garden image (3).webp', alt: 'Wildflower garden path with blue asters',    name: 'Wildflower Path',     latin: 'Colorado Native Design' }
     ]
   ];
 
