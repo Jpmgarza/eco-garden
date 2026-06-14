@@ -574,7 +574,7 @@
 
     /* ── SECTION: THE PROBLEM ──────────────────────────────── */
     #problem {
-      background: var(--color-text);
+      background: var(--color-bg);
       min-height: 100dvh;
       display: flex;
       align-items: center;
@@ -583,7 +583,7 @@
     }
     #problem .container { width: 100%; }
     #problem h2 {
-      color: var(--color-bg);
+      color: var(--color-text);
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-15);
       padding: 0 var(--space-6);
@@ -604,20 +604,20 @@
       margin: 0 auto var(--space-5); /* FLAG: 18→20 */
     }
     .pain-col h3 {
-      color: var(--color-bg);
+      color: var(--color-text);
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       font-size: 1.125rem;
       margin-bottom: var(--space-2); /* FLAG: 10→8 */
     }
     .pain-col p {
-      color: rgba(var(--rgb-bg),0.72);
+      color: var(--color-text-muted);
       font-size: 0.9375rem;
       line-height: 1.68;
     }
     .pain-close {
       font-style: italic;
-      color: rgba(var(--rgb-bg),0.88);
+      color: var(--color-text);
       font-size: 1.0625rem;
       margin-top: var(--space-15);
       padding: 0 var(--space-6);
@@ -767,7 +767,7 @@
 
     /* ── SECTION: PRICING ──────────────────────────────────── */
     #pricing {
-      background: var(--color-text);
+      background: var(--color-bg);
       padding: var(--space-25) 0;
       text-align: center;
     }
@@ -775,11 +775,11 @@
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       margin-bottom: var(--space-4);
       padding: 0 var(--space-6);
-      color: var(--color-bg);
+      color: var(--color-text);
     }
     .pricing-intro {
       font-size: 1rem;
-      color: rgba(var(--rgb-bg),0.72);
+      color: var(--color-text-muted);
       text-align: center;
       max-width: 620px;
       margin: 0 auto var(--space-13);
@@ -932,7 +932,7 @@
 
     /* ── SECTION: CONTACT ──────────────────────────────────── */
     #contact {
-      background: var(--color-text);
+      background: var(--color-bg);
       padding: var(--space-25) 0;
     }
     .contact-inner {
@@ -941,13 +941,13 @@
       padding: 0 var(--space-6);
     }
     #contact h2 {
-      color: var(--color-bg);
+      color: var(--color-text);
       font-size: clamp(1.875rem, 4vw, 2.75rem);
       text-align: center;
       margin-bottom: var(--space-4); /* FLAG: 14→16 */
     }
     .contact-sub {
-      color: rgba(var(--rgb-bg),0.72);
+      color: var(--color-text-muted);
       text-align: center;
       font-size: 1rem;
       line-height: 1.68;
@@ -967,7 +967,7 @@
     .form-group label {
       font-size: 0.8125rem;
       font-weight: 700;
-      color: rgba(var(--rgb-bg),0.85);
+      color: var(--color-text);
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
@@ -1022,7 +1022,7 @@
       border-radius: 10px;
       padding: var(--space-6);
       text-align: center;
-      color: var(--color-bg);
+      color: var(--color-text);
       font-size: 1.0625rem;
       line-height: 1.6;
       margin-top: var(--space-5);
@@ -1483,7 +1483,7 @@
       <span class="line-bold">Costing You More</span>
       <span class="line-bold">Than You Think</span>
     </h1>
-    <p class="hero-sub">Colorado homeowners are switching to beautiful, low-water eco gardens and never looking back.</p>
+    <p class="hero-sub"><strong>Colorado homeowners are switching to beautiful, low-water eco gardens and never looking back.</strong></p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-hero-primary">Get Free Quote</a>
       <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
