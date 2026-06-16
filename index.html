@@ -660,13 +660,21 @@
       background: var(--color-bg);
       padding: var(--space-25) 0;
     }
+    /* Heading left, supporting copy right — matches the Figma Packages 5 frame */
+    .pricing-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-12);
+      margin-bottom: var(--space-16);
+      text-align: left;
+    }
+    .pricing-head .section-title { max-width: 560px; }
+    .pricing-head .section-lead { margin-top: 0; max-width: 420px; }
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-8);
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 var(--space-6);
       align-items: stretch;
     }
     /* Outer cards: cream surface with Figma INSET shadow (inset 0 4px 4px 4px rgba(0,0,0,.25)) */
@@ -745,8 +753,7 @@
       flex-shrink: 0;
     }
     .pricing-card.featured .pricing-features li::before { background: rgba(var(--rgb-bg),0.70); }
-    .pricing-card .btn-pill,
-    .pricing-card .btn-ghost { width: 100%; text-align: center; }
+    .pricing-card .btn-pill { align-self: flex-start; margin-top: auto; }
 
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
@@ -1046,7 +1053,8 @@
     @media (max-width: 900px) {
       .hero-inner { flex-direction: column; align-items: flex-start; gap: var(--space-12); }
       .hero-aside { flex: 1 1 auto; align-self: stretch; max-width: 520px; }
-      .showcase-head { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+      .showcase-head,
+      .pricing-head { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
     }
 
     @media (max-width: 768px) {
@@ -1299,7 +1307,7 @@
 <!-- SECTION: PACKAGES & PRICING -->
 <section id="pricing" aria-labelledby="h2-pricing">
   <div class="container">
-    <div class="section-head">
+    <div class="pricing-head">
       <h2 id="h2-pricing" class="section-title reveal">Choose the Yard Transformation That Fits Your Home</h2>
       <p class="section-lead reveal">Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
     </div>
