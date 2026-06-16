@@ -669,19 +669,20 @@
       padding: 0 var(--space-6);
       align-items: stretch;
     }
+    /* Outer cards: cream surface with Figma INSET shadow (inset 0 4px 4px 4px rgba(0,0,0,.25)) */
     .pricing-card {
       background: var(--color-bg);
-      border: 1.5px solid rgba(var(--rgb-text),0.14);
+      border: none;
       border-radius: var(--radius-card);
       padding: var(--space-10) var(--space-9) var(--space-9);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(var(--rgb-text),0.07);
+      box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25);
     }
+    /* Featured (middle) card: green surface with Figma DROP shadow (0 4px 4px 4px rgba(0,0,0,.25)) */
     .pricing-card.featured {
       background: var(--color-accent-deep);
-      border-color: transparent;
-      box-shadow: 0 22px 56px rgba(var(--rgb-text),0.28);
+      box-shadow: 0 4px 4px 4px rgba(var(--rgb-darkest),0.25);
     }
     .pricing-badge {
       display: inline-block;
@@ -1027,8 +1028,8 @@
     .showcase-card { transition: filter 0.25s ease; }
     .showcase-card:hover { filter: brightness(1.06); }
     .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
-    .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.14); }
-    .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 28px 64px rgba(var(--rgb-text),0.34); }
+    .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 16px 40px rgba(var(--rgb-text),0.16); }
+    .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 24px 56px rgba(var(--rgb-text),0.30); }
     .trust-item:hover { transform: translateY(-3px); }
 
     .nav-links a, .nav-mobile a, .footer-links a,
