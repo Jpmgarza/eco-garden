@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <style>
     /* ── Variables ─────────────────────────────────────────── */
@@ -36,6 +36,7 @@
 
       /* Derived accent */
       --color-accent-hover: color-mix(in oklch, var(--color-accent) 80%, var(--color-text));
+      --color-accent-deep:  color-mix(in oklch, var(--color-accent) 85%, #000);  /* green card surface — matches Figma 20% dark overlay on accent */
       --color-accent-muted: rgba(var(--rgb-accent), 0.10);
 
       /* Derived text */
@@ -64,10 +65,20 @@
       --space-22: 5.5rem;   /* 88px */
       --space-25: 6.25rem;  /* 100px */
 
-      /* ── Type scale ────────────────────────────────────────── */
-      --text-sm:   1rem;      /*  16px — body, labels, nav, buttons, h2–h6 */
-      --text-base: 2.75rem;   /*  44px — h1 page titles                    */
-      --text-lg:   4.5rem;    /*  72px — hero/display headline only         */
+      /* ── Type scale (clamp — exempt from 4px grid) ─────────── */
+      --text-xs:   0.875rem;                       /* 14px — captions */
+      --text-sm:   1rem;                           /* 16px — labels, nav, small */
+      --text-body: 1.125rem;                       /* 18px — body (Figma BODY token) */
+      --text-lead: 1.25rem;                        /* 20px — lead paragraphs */
+      --text-h3:   clamp(1.5rem, 2.6vw, 2.25rem);  /* 24–36px — card titles */
+      --text-sub:  clamp(1.5rem, 3vw, 2rem);       /* 24–32px — section subheads */
+      --text-h2:   clamp(2.25rem, 5vw, 4rem);      /* 36–64px — section headings */
+      --text-hero: clamp(2.75rem, 7vw, 4.5rem);    /* 44–72px — hero headline */
+
+      /* ── Radius tokens ─────────────────────────────────────── */
+      --radius-card:  28px;
+      --radius-input: 14px;
+      --radius-pill:  999px;
     }
 
     /* ── Reset ─────────────────────────────────────────────── */
@@ -81,7 +92,7 @@
       z-index: 300;
       background: var(--color-text);
       color: var(--color-bg);
-      padding: var(--space-2) var(--space-5); /* FLAG: 18→20 */
+      padding: var(--space-2) var(--space-5);
       border-radius: 4px;
       font-family: 'Lato', sans-serif;
       font-size: var(--text-sm);
@@ -95,16 +106,14 @@
       outline-offset: 3px;
       border-radius: 3px;
     }
-    .btn-sage:focus-visible,
-    .btn-hero-primary:focus-visible,
-    .btn-cream:focus-visible,
-    .btn-white:focus-visible,
-    .btn-hero-secondary:focus-visible,
+    .btn-pill:focus-visible,
+    .btn-ghost:focus-visible,
     .nav-cta:focus-visible,
     .nav-brand:focus-visible,
     .nav-links a:focus-visible,
     .nav-mobile a:focus-visible,
-    .nav-burger:focus-visible {
+    .nav-burger:focus-visible,
+    .hero-cta:focus-visible {
       outline-color: var(--color-bg);
     }
 
@@ -113,16 +122,18 @@
       font-family: 'Lato', sans-serif;
       background: var(--color-bg);
       color: var(--color-text);
+      font-size: var(--text-body);
+      line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
     h1, h2, h3 {
       font-family: 'Playfair Display', serif;
       color: var(--color-text);
-      line-height: 1.2;
+      line-height: 1.15;
     }
     img { display: block; max-width: 100%; }
-    section { scroll-margin-top: 60px; }
+    section { scroll-margin-top: 64px; }
 
     /* ── Layout helpers ────────────────────────────────────── */
     .container {
@@ -131,82 +142,78 @@
       padding: 0 var(--space-6);
     }
     .section-pad { padding: var(--space-25) 0; }
-    .section-cta { text-align: center; margin-top: var(--space-13); }
 
-    .btn-cream {
-      display: inline-block;
-      background: var(--color-bg);
-      color: var(--color-text);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-9); /* FLAG: 15→16, 34→36 */
-      border-radius: 50px;
-      text-decoration: none;
+    /* Section heading block */
+    .section-head {
+      max-width: 860px;
+      margin: 0 auto var(--space-16);
+      padding: 0 var(--space-6);
+      text-align: center;
     }
-    .btn-cream:hover { background: var(--color-bg); }
+    .section-head.left { margin-left: 0; text-align: left; padding-left: 0; }
+    .section-title { font-size: var(--text-h2); font-weight: 800; }
+    .section-sub {
+      font-size: var(--text-sub);
+      font-family: 'Playfair Display', serif;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      line-height: 1.35;
+      margin-top: var(--space-5);
+    }
+    .section-lead {
+      font-size: var(--text-body);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-top: var(--space-5);
+    }
+    .section-cta { text-align: center; margin-top: var(--space-16); }
 
     /* ── Buttons ───────────────────────────────────────────── */
-    .btn-sage {
+    .btn-pill {
       display: inline-block;
       background: var(--color-accent);
       color: var(--color-bg);
       font-family: 'Lato', sans-serif;
       font-weight: 700;
-      font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-9); /* FLAG: 15→16, 34→36 */
-      border-radius: 50px;
+      font-size: var(--text-body);
+      padding: var(--space-4) var(--space-9);
+      border-radius: var(--radius-pill);
       text-decoration: none;
       border: none;
       cursor: pointer;
+      white-space: nowrap;
     }
-    .btn-sage:hover { background: var(--color-accent-hover); }
+    .btn-pill:hover { background: var(--color-accent-hover); }
 
-    .btn-outline {
+    .btn-pill.on-green {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+    .btn-pill.on-green:hover { background: var(--color-bg); }
+
+    .btn-ghost {
       display: inline-block;
-      border: 2px solid var(--color-accent);
+      border: 1.5px solid var(--color-accent);
       color: var(--color-accent);
       background: transparent;
       font-family: 'Lato', sans-serif;
       font-weight: 700;
-      font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-7); /* FLAG: 14→16, 26→28 */
-      border-radius: 50px;
+      font-size: var(--text-body);
+      padding: var(--space-4) var(--space-9);
+      border-radius: var(--radius-pill);
       text-decoration: none;
-      width: 100%;
-      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
     }
-    .btn-outline:hover { background: transparent; color: var(--color-accent); }
-
-    .btn-white {
-      display: inline-block;
-      border: none;
-      color: var(--color-text);
-      background: var(--color-bg);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-7); /* FLAG: 14→16, 26→28 */
-      border-radius: 50px;
-      text-decoration: none;
-      width: 100%;
-      text-align: center;
-    }
-    .btn-white:hover {
-      background: var(--color-bg);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(var(--rgb-darkest),0.28);
-    }
+    .btn-ghost:hover { background: rgba(var(--rgb-accent), 0.08); }
 
     /* ── NAV ───────────────────────────────────────────────── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 200;
       background: transparent;
-      height: 60px;
+      height: 64px;
       display: flex;
       align-items: center;
     }
@@ -214,17 +221,17 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.34) 0%, transparent 100%);
       z-index: -1;
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
     nav.scrolled::after { opacity: 0; }
     nav.scrolled {
-      background: rgba(var(--rgb-text),0.72);
+      background: rgba(var(--rgb-text),0.78);
       -webkit-backdrop-filter: blur(16px);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(var(--rgb-bg),0.20);
+      border-bottom: 1px solid rgba(var(--rgb-bg),0.18);
       transition: background 0.3s ease, backdrop-filter 0.3s ease;
     }
     .nav-inner {
@@ -238,18 +245,17 @@
     }
     .nav-brand {
       font-family: 'Playfair Display', serif;
+      font-weight: 700;
       color: var(--color-bg);
-      font-size: var(--text-sm);
+      font-size: var(--text-lead);
       text-decoration: none;
       white-space: nowrap;
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: var(--space-12);
+      gap: var(--space-10);
       list-style: none;
-    }
-    .nav-links-center {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -259,17 +265,19 @@
       text-decoration: none;
       font-family: 'Lato', sans-serif;
       font-size: var(--text-sm);
-      font-weight: 400;
-      opacity: 0.82;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
     }
     .nav-links a:hover { opacity: 1; }
     .nav-right { display: flex; align-items: center; }
-    /* WCAG: #6A7C40 on #ECEFE3 = 3.71:1 — passes AA large text (≥3:1). Use #5F7139 to restore 4.50:1 for strict small-text AA. */
+    /* WCAG: #6A7C40 on #ECEFE3 = 3.71:1 — passes AA large/bold text (≥3:1). Use #5F7139 for strict small-text AA (4.50:1). */
     .nav-cta {
       background: var(--color-accent);
       color: var(--color-bg);
-      padding: var(--space-4) var(--space-6);
-      border-radius: 50px;
+      padding: var(--space-3) var(--space-7);
+      border-radius: var(--radius-pill);
       font-weight: 700;
       font-size: var(--text-sm);
       font-family: 'Lato', sans-serif;
@@ -283,7 +291,7 @@
       background: none;
       border: none;
       color: var(--color-bg);
-      font-size: var(--text-sm);
+      font-size: var(--text-lead);
       cursor: pointer;
       line-height: 1;
       padding: var(--space-3);
@@ -292,9 +300,7 @@
       display: none;
       flex-direction: column;
       position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
+      top: 64px; left: 0; right: 0;
       background: var(--color-text);
       padding: var(--space-2) var(--space-6) var(--space-5);
       z-index: 199;
@@ -320,314 +326,170 @@
       min-height: 100dvh;
       display: flex;
       align-items: center;
-      justify-content: center;
       overflow: hidden;
-      padding-bottom: 0;
-      background: var(--color-bg);
+      background: var(--color-text);
     }
-    .hero-content {
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* PLACEHOLDER PHOTO — pulled from Figma. Swap in the client's real project photo later. */
+      background: url('assets/hero-garden.png') center 30% / cover no-repeat;
+      z-index: 0;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(var(--rgb-darker),0.82) 0%, rgba(var(--rgb-darker),0.45) 48%, rgba(var(--rgb-darker),0.18) 100%),
+        linear-gradient(0deg, rgba(var(--rgb-darker),0.40) 0%, transparent 40%);
+      z-index: 1;
+    }
+    .hero-inner {
       position: relative;
       z-index: 2;
-      max-width: 860px;
-      padding: 0 var(--space-12);
-      text-align: center;
-      margin-top: var(--space-25);
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-25) var(--space-6) var(--space-20);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-16);
     }
+    .hero-content { flex: 1 1 560px; max-width: 640px; }
     .hero-title {
-      color: var(--color-text);
-      font-size: var(--text-lg);
-      line-height: 1.0;
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      color: var(--color-bg);
+      font-size: var(--text-hero);
+      line-height: 1.02;
+      letter-spacing: -0.01em;
       text-transform: uppercase;
-      letter-spacing: -0.02em;
-      font-weight: 700;
-      margin-bottom: var(--space-5);
-    }
-    .hero-title .line-light { font-weight: 400; display: block; }
-    .hero-title .line-bold  { font-weight: 700; display: block; }
-    .hero-sub {
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
-      line-height: 1.65;
-      max-width: 520px;
-      margin: 0 auto var(--space-9);
+      margin-bottom: var(--space-8);
     }
     .hero-ctas {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: var(--space-7);
       flex-wrap: wrap;
     }
-    .btn-hero-primary {
+    .hero-cta {
       background: var(--color-accent);
       color: var(--color-bg);
       font-family: 'Lato', sans-serif;
       font-weight: 700;
-      font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-8); /* FLAG: 14→16 */
-      border-radius: 50px;
+      font-size: var(--text-body);
+      padding: var(--space-4) var(--space-9);
+      border-radius: var(--radius-pill);
       text-decoration: none;
       display: inline-block;
     }
-    .btn-hero-secondary {
-      color: var(--color-text);
+    .hero-cta-secondary {
+      color: var(--color-bg);
       font-family: 'Lato', sans-serif;
-      font-weight: 600;
-      font-size: var(--text-sm);
+      font-weight: 700;
+      font-size: var(--text-body);
       text-decoration: underline;
-      text-underline-offset: 4px;
+      text-underline-offset: 5px;
       text-decoration-thickness: 1.5px;
-      text-decoration-color: rgba(var(--rgb-text),0.40);
-      padding: var(--space-3) var(--space-4);
+      text-decoration-color: rgba(var(--rgb-bg),0.50);
+      padding: var(--space-3) var(--space-2);
       display: inline-block;
     }
+    .hero-cta-secondary:hover { opacity: 0.85; }
 
-    /* Floating stats card */
-    .hero-stats-card {
-      position: absolute;
-      top: var(--space-22); /* FLAG: 90→88 */
-      right: var(--space-12);
-      background: rgba(var(--rgb-darker),0.72);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(var(--rgb-text),0.10);
-      border-radius: 16px;
-      padding: var(--space-5) var(--space-6);
-      color: var(--color-bg);
-      z-index: 3;
-      min-width: 190px;
-    }
-    .hero-stats-number {
-      font-family: 'Playfair Display', serif;
-      font-size: var(--text-sm);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: var(--space-1);
-    }
-    .hero-stats-label {
-      font-family: 'Lato', sans-serif;
-      font-size: var(--text-sm);
-      opacity: 0.72;
-      margin-bottom: var(--space-4);
-    }
-    .hero-stats-avatars { display: flex; }
-    .hero-stats-avatars span {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 2px solid rgba(var(--rgb-darker),0.28);
-      background: var(--color-accent);
-      margin-left: calc(-1 * var(--space-2)); /* FLAG: -10→-8 */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: var(--text-sm);
-      color: var(--color-bg);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-    .hero-stats-avatars span:first-child { margin-left: 0; }
-
-    /* Floating project card */
-    .hero-project-card {
-      position: absolute;
-      bottom: var(--space-20);
-      right: var(--space-12);
-      background: rgba(var(--rgb-bg),0.13);
+    /* Frosted glass card */
+    .hero-aside {
+      flex: 0 1 380px;
+      background: rgba(var(--rgb-bg),0.14);
       -webkit-backdrop-filter: blur(16px);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(var(--rgb-bg),0.20);
-      border-radius: 16px;
-      padding: var(--space-5) var(--space-6);
+      border: 1px solid rgba(var(--rgb-bg),0.22);
+      border-radius: var(--radius-card);
+      padding: var(--space-8);
       color: var(--color-bg);
-      z-index: 3;
-      max-width: 290px;
+      box-shadow: 0 12px 40px rgba(var(--rgb-darkest),0.30);
     }
-    .hero-project-icon {
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2); /* FLAG: 10→8 */
-      opacity: 0.80;
-    }
-    .hero-project-name {
-      font-family: 'Playfair Display', serif;
-      font-size: var(--text-sm);
+    .hero-aside-eyebrow {
+      font-family: 'Lato', sans-serif;
       font-weight: 700;
-      margin-bottom: var(--space-2);
-    }
-    .hero-project-desc {
-      font-family: 'Lato', sans-serif;
       font-size: var(--text-sm);
-      opacity: 0.76;
-      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.72;
+      margin-bottom: var(--space-3);
+    }
+    .hero-aside p {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: var(--text-lead);
+      line-height: 1.5;
     }
 
-    /* Progress indicator */
-    .hero-progress {
-      position: absolute;
-      bottom: var(--space-9);
-      left: var(--space-12);
-      display: flex;
-      align-items: center;
-      gap: var(--space-4); /* FLAG: 14→16 */
-      color: rgba(var(--rgb-bg),0.65);
-      font-family: 'Lato', sans-serif;
-      font-size: var(--text-sm);
-      font-weight: 400;
-      z-index: 3;
-      letter-spacing: 0.04em;
-    }
-    .hero-progress-bar {
-      width: 100px;
-      height: 2px;
-      background: rgba(var(--rgb-bg),0.22);
-      border-radius: 2px;
-      position: relative;
-    }
-    .hero-progress-bar::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 28%;
-      background: rgba(var(--rgb-bg),0.85);
-      border-radius: 2px;
-    }
-
-    /* ── SECTION: WHAT IS AN ECO GARDEN? ──────────────────── */
-    #what-is {
+    /* ── SECTION: PROBLEM (green cards) ────────────────────── */
+    #problem {
       background: var(--color-bg);
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
       padding: var(--space-25) 0;
     }
-    .centered-content {
-      text-align: center;
-      max-width: 800px;
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 var(--space-6);
     }
-    .centered-content h2 {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-7);
+    .problem-card {
+      background: var(--color-accent-deep);
+      color: var(--color-bg);
+      border-radius: var(--radius-card);
+      padding: var(--space-12) var(--space-8);
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(var(--rgb-text),0.18);
     }
-    .centered-content p {
-      font-size: var(--text-sm);
-      line-height: 1.78;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-4);
-    }
-    .centered-content p:last-of-type { margin-bottom: 0; }
-
-    .icon-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-      margin-top: var(--space-15);
-      text-align: left;
-    }
-    .icon-card {
-      background: var(--color-bg);
-      border: 1.5px solid rgba(var(--rgb-accent), 0.15);
-      border-radius: 14px;
-      padding: var(--space-8) var(--space-7);
-      box-shadow: 0 2px 16px rgba(var(--rgb-text),0.05);
-    }
-    .card-icon-wrap {
-      width: 52px;
-      height: 52px;
-      background: rgba(var(--rgb-accent), 0.10);
-      border-radius: 12px;
+    .problem-icon-wrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(var(--rgb-bg),0.14);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: var(--space-5); /* FLAG: 18→20 */
+      margin: 0 auto var(--space-7);
     }
-    .card-icon {
-      width: 26px;
-      height: 26px;
-      color: var(--color-accent);
+    .problem-icon-wrap svg {
+      width: 36px;
+      height: 36px;
+      color: var(--color-bg);
     }
-    .icon-card h3 {
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2);
-    }
-    .icon-card p {
-      font-size: var(--text-sm);
-      color: var(--color-text-dim);
-      line-height: 1.65;
-    }
-
-    /* ── SECTION: THE PROBLEM ──────────────────────────────── */
-    #problem {
-      background: var(--color-bg);
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      padding: var(--space-25) 0;
-      text-align: center;
-    }
-    #problem .container { width: 100%; }
-    #problem h2 {
-      color: var(--color-text);
-      font-size: var(--text-base);
-      margin-bottom: var(--space-15);
-      padding: 0 var(--space-6);
-    }
-    .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-10);
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 var(--space-6);
-    }
-    .pain-col { text-align: center; }
-    .pain-icon {
-      width: 48px;
-      height: 48px;
-      color: var(--color-accent);
-      margin: 0 auto var(--space-5); /* FLAG: 18→20 */
-    }
-    .pain-col h3 {
-      color: var(--color-text);
+    .problem-card h3 {
       font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2); /* FLAG: 10→8 */
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: var(--text-lead);
+      color: var(--color-bg);
+      margin-bottom: var(--space-4);
     }
-    .pain-col p {
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
-      line-height: 1.68;
-    }
-    .pain-close {
-      font-style: italic;
-      color: var(--color-text);
-      font-size: var(--text-sm);
-      margin-top: var(--space-15);
-      padding: 0 var(--space-6);
+    .problem-card p {
+      font-size: var(--text-body);
+      line-height: 1.6;
+      color: rgba(var(--rgb-bg),0.86);
     }
 
-    /* ── SECTION: HOW IT WORKS ─────────────────────────────── */
+    /* ── SECTION: PROCESS ──────────────────────────────────── */
     #how-it-works {
       background: var(--color-bg);
       padding: var(--space-25) 0;
       text-align: center;
     }
-    #how-it-works h2 {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-17);
-      padding: 0 var(--space-6);
-      color: var(--color-text);
-    }
     .steps-wrapper {
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      max-width: 860px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 0 var(--space-6);
       position: relative;
@@ -635,53 +497,57 @@
     .step {
       flex: 1;
       text-align: center;
-      padding: 0 var(--space-5);
+      padding: 0 var(--space-6);
       position: relative;
     }
     .step-number {
-      width: 54px;
-      height: 54px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      background: var(--color-accent);
+      background: var(--color-accent-deep);
       color: var(--color-bg);
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
       font-size: var(--text-sm);
+      letter-spacing: 0.08em;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto var(--space-5);
+      margin: 0 auto var(--space-7);
       position: relative;
       z-index: 2;
-      box-shadow: 0 4px 16px rgba(var(--rgb-accent),0.3);
+      box-shadow: 0 6px 18px rgba(var(--rgb-accent),0.35);
     }
     .step h3 {
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2); /* FLAG: 10→8 */
+      font-family: 'Lato', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: var(--text-lead);
+      margin-bottom: var(--space-3);
       color: var(--color-text);
     }
     .step p {
-      font-size: var(--text-sm);
+      font-size: var(--text-body);
       color: var(--color-text-muted);
-      line-height: 1.68;
+      line-height: 1.6;
     }
     .step:not(:last-child)::after {
       content: '';
       position: absolute;
-      top: 27px;
-      left: calc(50% + 27px);
-      right: calc(-50% + 27px);
+      top: 32px;
+      left: calc(50% + 32px);
+      right: calc(-50% + 32px);
       height: 2px;
       background: var(--color-accent);
       opacity: 0.18;
       z-index: 0;
     }
-
-    /* Animated progress line — always behind circles */
     .steps-line-progress {
       position: absolute;
-      top: 27px;
-      left: calc(100% / 6 + 27px);
-      right: calc(100% / 6 + 27px);
+      top: 32px;
+      left: calc(100% / 6 + 32px);
+      right: calc(100% / 6 + 32px);
       height: 2px;
       background: var(--color-accent);
       transform-origin: left center;
@@ -689,215 +555,244 @@
       z-index: 0;
     }
 
-    /* ── SECTION: WILDLIFE ─────────────────────────────────── */
-    #wildlife {
+    /* ── SECTION: TRUST ────────────────────────────────────── */
+    #trust {
       background: var(--color-bg);
       padding: var(--space-25) 0;
     }
-    .wildlife-header {
-      text-align: center;
-      max-width: 680px;
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    .trust-item { text-align: left; }
+    /* desktop zig-zag — every 2nd item nudged down */
+    .trust-item:nth-child(even) { margin-top: var(--space-12); }
+    .trust-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--color-accent-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+    .trust-mark svg { width: 24px; height: 24px; color: var(--color-accent); }
+    .trust-item h3 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: var(--text-body);
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+    .trust-item p {
+      font-size: var(--text-body);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── SECTION: SHOWCASE ─────────────────────────────────── */
+    #showcase {
+      background: var(--color-bg);
+      padding: var(--space-25) 0;
+    }
+    .showcase-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-12);
+      max-width: 1200px;
       margin: 0 auto var(--space-16);
       padding: 0 var(--space-6);
     }
-    .wildlife-header h2 { color: var(--color-text); font-size: var(--text-base); }
-    .wildlife-header p {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.75;
-      margin-top: var(--space-5); /* FLAG: 18→20 */
-    }
-    .wildlife-showcase {
+    .showcase-head .section-title { max-width: 560px; }
+    .showcase-head .section-sub { margin-top: 0; max-width: 460px; }
+    .showcase-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-4); /* FLAG: 14→16 */
-      padding: 0 var(--space-6);
+      gap: var(--space-6);
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 var(--space-6);
     }
-    /* Card */
-    .wildlife-card {
-      border-radius: 12px;
-      background: var(--color-bg-dark);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: var(--space-12) var(--space-8);
-      text-align: center;
-      min-height: 160px;
+    /* PLACEHOLDER PHOTOS — reusing the Figma hero image. Swap each for a real project photo later. */
+    .showcase-card {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(var(--rgb-text),0.16);
     }
-    .wildlife-card-label strong {
-      display: block;
+    .showcase-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .showcase-card:nth-child(1) img { object-position: center 20%; }
+    .showcase-card:nth-child(2) img { object-position: center 50%; }
+    .showcase-card:nth-child(3) img { object-position: center 70%; }
+    .showcase-card:nth-child(4) img { object-position: center 40%; }
+    .showcase-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(var(--rgb-darker),0.65) 0%, transparent 55%);
+    }
+    .showcase-caption {
+      position: absolute;
+      left: var(--space-5);
+      bottom: var(--space-5);
+      z-index: 2;
       color: var(--color-bg);
-      font-family: 'Playfair Display', serif;
-      font-size: var(--text-sm);
-      font-weight: 400;
-      margin-bottom: var(--space-2);
-    }
-    .wildlife-card-label em {
-      color: rgba(var(--rgb-bg),0.55);
-      font-size: var(--text-sm);
       font-family: 'Lato', sans-serif;
-      font-style: italic;
+      font-weight: 700;
+      font-size: var(--text-sm);
     }
 
-    /* ── SECTION: PRICING ──────────────────────────────────── */
+    /* ── SECTION: PACKAGES ─────────────────────────────────── */
     #pricing {
       background: var(--color-bg);
       padding: var(--space-25) 0;
-      text-align: center;
-    }
-    #pricing h2 {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-4);
-      padding: 0 var(--space-6);
-      color: var(--color-text);
-    }
-    .pricing-intro {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto var(--space-13);
-      line-height: 1.68;
-      padding: 0 var(--space-6);
     }
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-      max-width: 1000px;
+      gap: var(--space-8);
+      max-width: 1140px;
       margin: 0 auto;
       padding: 0 var(--space-6);
-      align-items: start;
+      align-items: stretch;
     }
     .pricing-card {
       background: var(--color-bg);
-      border: 1.5px solid rgba(var(--rgb-text),0.13);
-      border-radius: 14px;
-      padding: var(--space-9) var(--space-7) var(--space-8);
-      text-align: left;
+      border: 1.5px solid rgba(var(--rgb-text),0.14);
+      border-radius: var(--radius-card);
+      padding: var(--space-10) var(--space-9) var(--space-9);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(var(--rgb-text),0.07);
     }
     .pricing-card.featured {
-      background: var(--color-bg-dark);
+      background: var(--color-accent-deep);
       border-color: transparent;
-      transform: scale(1.05);
-      box-shadow: 0 18px 52px rgba(var(--rgb-dark),0.40);
+      box-shadow: 0 22px 56px rgba(var(--rgb-text),0.28);
     }
     .pricing-badge {
       display: inline-block;
-      background: rgba(var(--rgb-text),0.35);
+      align-self: flex-start;
+      background: rgba(var(--rgb-bg),0.18);
       color: var(--color-bg);
       font-family: 'Lato', sans-serif;
-      font-size: var(--text-sm);
+      font-size: var(--text-xs);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      padding: var(--space-1) var(--space-3);
-      border-radius: 50px;
-      margin-bottom: var(--space-4); /* FLAG: 14→16 */
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--space-5);
     }
     .pricing-card h3 {
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2); /* FLAG: 6→8 */
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: var(--text-h3);
+      margin-bottom: var(--space-3);
       color: var(--color-text);
     }
     .pricing-card.featured h3 { color: var(--color-bg); }
     .pricing-price {
       font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
+      font-weight: 900;
+      font-size: var(--text-lead);
       color: var(--color-accent);
-      margin-bottom: var(--space-5);
+      margin-bottom: var(--space-7);
     }
     .pricing-card.featured .pricing-price { color: var(--color-bg); }
     .pricing-features {
       list-style: none;
-      margin-bottom: var(--space-7);
+      margin-bottom: var(--space-9);
+      flex: 1;
     }
     .pricing-features li {
       display: flex;
       align-items: flex-start;
-      gap: var(--space-2); /* FLAG: 10→8 */
-      font-size: var(--text-sm);
+      gap: var(--space-3);
+      font-size: var(--text-body);
       color: var(--color-text-muted);
-      padding: var(--space-2) 0;
+      padding: var(--space-3) 0;
       border-bottom: 1px solid rgba(var(--rgb-text),0.09);
       line-height: 1.5;
     }
     .pricing-features li:last-child { border-bottom: none; }
     .pricing-card.featured .pricing-features li {
       color: var(--color-bg);
-      border-bottom-color: rgba(var(--rgb-bg),0.16);
+      border-bottom-color: rgba(var(--rgb-bg),0.18);
     }
     .pricing-features li::before {
       content: '';
       display: block;
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--color-accent);
-      margin-top: var(--space-2); /* FLAG: 7→8 */
+      margin-top: var(--space-2);
       flex-shrink: 0;
     }
-    .pricing-card.featured .pricing-features li::before {
-      background: rgba(var(--rgb-bg),0.65);
-    }
+    .pricing-card.featured .pricing-features li::before { background: rgba(var(--rgb-bg),0.70); }
+    .pricing-card .btn-pill,
+    .pricing-card .btn-ghost { width: 100%; text-align: center; }
 
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
       background: var(--color-bg);
       padding: var(--space-25) 0;
-      text-align: center;
-    }
-    #testimonials h2 {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-15);
-      padding: 0 var(--space-6);
-      color: var(--color-text);
     }
     .testimonial-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-      max-width: 1100px;
+      gap: var(--space-8);
+      max-width: 1140px;
       margin: 0 auto;
       padding: 0 var(--space-6);
     }
     .testimonial-card {
       background: var(--color-bg);
-      border: 1.5px solid rgba(var(--rgb-text),0.18);
-      border-radius: 14px;
-      padding: var(--space-8) var(--space-7);
+      border: 1.5px solid rgba(var(--rgb-text),0.16);
+      border-radius: var(--radius-card);
+      padding: var(--space-9) var(--space-8);
       text-align: left;
-      box-shadow: 0 4px 24px rgba(var(--rgb-text),0.10);
+      box-shadow: 0 10px 30px rgba(var(--rgb-text),0.08);
       position: relative;
     }
     .testimonial-card::before {
       content: '\201C';
       position: absolute;
-      top: var(--space-4); /* FLAG: 14→16 */
-      right: var(--space-6); /* FLAG: 22→24 */
+      top: var(--space-4);
+      right: var(--space-7);
       font-family: 'Playfair Display', serif;
-      font-size: 5rem; /* decorative — exempt from type scale */
+      font-size: 5rem; /* decorative — exempt */
       line-height: 1;
       color: rgba(var(--rgb-accent), 0.14);
       pointer-events: none;
     }
     .stars {
-      color: var(--color-text);
-      font-size: var(--text-sm);
+      color: var(--color-accent);
+      font-size: var(--text-body);
       letter-spacing: 3px;
-      margin-bottom: var(--space-4); /* FLAG: 14→16 */
+      margin-bottom: var(--space-5);
       display: block;
     }
     .testimonial-card blockquote {
       font-style: italic;
-      font-size: var(--text-sm);
+      font-size: var(--text-body);
       color: var(--color-text-muted);
-      line-height: 1.72;
-      margin-bottom: var(--space-5); /* FLAG: 18→20 */
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
     }
     .testimonial-card cite {
       font-style: normal;
@@ -906,197 +801,19 @@
       color: var(--color-text);
     }
 
-    /* ── SECTION: CONTACT ──────────────────────────────────── */
-    #contact {
-      background: var(--color-bg);
-      padding: var(--space-25) 0;
-    }
-    .contact-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 var(--space-6);
-    }
-    #contact h2 {
-      color: var(--color-text);
-      font-size: var(--text-base);
-      text-align: center;
-      margin-bottom: var(--space-4); /* FLAG: 14→16 */
-    }
-    .contact-sub {
-      color: var(--color-text-muted);
-      text-align: center;
-      font-size: var(--text-sm);
-      line-height: 1.68;
-      margin-bottom: var(--space-12);
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-5); /* FLAG: 18→20 */
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2); /* FLAG: 6→8 */
-    }
-    .form-group.full { grid-column: 1 / -1; }
-    .form-group label {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      color: var(--color-text);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: var(--color-bg);
-      color: var(--color-text);
-      border: 1.5px solid transparent;
-      border-radius: 7px;
-      padding: var(--space-3) var(--space-4); /* FLAG: 14→16 */
-      font-family: 'Lato', sans-serif;
-      font-size: var(--text-sm);
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: rgba(var(--rgb-text),0.38);
-    }
-    .form-group input:focus-visible,
-    .form-group select:focus-visible,
-    .form-group textarea:focus-visible {
-      border-color: var(--color-accent);
-      outline: 3px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-    .form-submit {
-      grid-column: 1 / -1;
-      background: var(--color-accent);
-      color: var(--color-bg);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
-      border: none;
-      border-radius: 50px;
-      padding: var(--space-4) var(--space-8);
-      cursor: pointer;
-      width: 100%;
-      margin-top: var(--space-2); /* FLAG: 6→8 */
-    }
-    .form-submit:hover { background: var(--color-accent-hover); }
-
-    .form-success {
-      display: none;
-      background: rgba(var(--rgb-accent),0.22);
-      border: 1px solid rgba(var(--rgb-accent),0.45);
-      border-radius: 10px;
-      padding: var(--space-6);
-      text-align: center;
-      color: var(--color-text);
-      font-size: var(--text-sm);
-      line-height: 1.6;
-      margin-top: var(--space-5);
-    }
-
-    /* ── SECTION: WHY US ──────────────────────────────────── */
-    #why-us {
-      background: var(--color-bg);
-      padding: var(--space-25) 0;
-      text-align: center;
-    }
-    #why-us h2 {
-      color: var(--color-text);
-      font-size: var(--text-base);
-      margin-bottom: var(--space-4);
-      padding: 0 var(--space-6);
-    }
-    .why-intro {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      max-width: 580px;
-      margin: 0 auto var(--space-15);
-      line-height: 1.68;
-      padding: 0 var(--space-6);
-    }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-6);
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 var(--space-6);
-      text-align: left;
-    }
-    .why-card {
-      background: var(--color-bg);
-      border: 1px solid rgba(var(--rgb-text),0.12);
-      border-radius: 14px;
-      padding: var(--space-8) var(--space-7);
-    }
-    .why-card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--color-accent);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-5);
-    }
-    .why-card-icon svg {
-      width: 24px;
-      height: 24px;
-      color: var(--color-bg);
-      stroke: currentColor;
-      fill: none;
-    }
-    .why-card h3 {
-      color: var(--color-text);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
-      margin-bottom: var(--space-2);
-    }
-    .why-card p {
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
-      line-height: 1.65;
-    }
-
     /* ── SECTION: FAQ ──────────────────────────────────────── */
     #faq {
       background: var(--color-bg);
       padding: var(--space-25) 0;
     }
-    #faq h2 {
-      font-size: var(--text-base);
-      text-align: center;
-      margin-bottom: var(--space-15);
-      padding: 0 var(--space-6);
-      color: var(--color-text);
-    }
     .faq-list {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 var(--space-6);
     }
-    .faq-list dt,
-    .faq-list dd {
-      padding: 0;
-      margin: 0;
-    }
-    .faq-item-group {
-      border-bottom: 1px solid rgba(var(--rgb-text),0.10);
-    }
-    .faq-item-group:first-of-type { border-top: 1px solid rgba(var(--rgb-text),0.10); }
-
-    /* Accordion button */
+    .faq-list dt, .faq-list dd { padding: 0; margin: 0; }
+    .faq-item-group { border-bottom: 1px solid rgba(var(--rgb-text),0.12); }
+    .faq-item-group:first-of-type { border-top: 1px solid rgba(var(--rgb-text),0.12); }
     .faq-btn {
       display: flex;
       align-items: center;
@@ -1109,19 +826,12 @@
       text-align: left;
       font-family: 'Lato', sans-serif;
       font-weight: 700;
-      font-size: var(--text-sm);
+      font-size: var(--text-lead);
       color: var(--color-text);
       padding: var(--space-7) 0;
     }
     .faq-btn:hover { color: var(--color-accent); }
-
-    /* Flower icon */
-    .faq-icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      overflow: visible;
-    }
+    .faq-icon { width: 22px; height: 22px; flex-shrink: 0; overflow: visible; }
     .faq-petal {
       transform-origin: 0px 0px;
       transform-box: view-box;
@@ -1141,57 +851,121 @@
     .faq-item-group.open .faq-petal:nth-child(4) { transform: rotate(180deg) scale(1); transition-delay: 150ms; }
     .faq-item-group.open .faq-petal:nth-child(5) { transform: rotate(240deg) scale(1); transition-delay: 200ms; }
     .faq-item-group.open .faq-petal:nth-child(6) { transform: rotate(300deg) scale(1); transition-delay: 250ms; }
-    @media (prefers-reduced-motion: reduce) {
-      .faq-petal { transition: none; }
-    }
-
-    /* Accordion answer */
+    @media (prefers-reduced-motion: reduce) { .faq-petal { transition: none; } }
     .faq-answer {
-      font-size: var(--text-sm);
+      font-size: var(--text-body);
       color: var(--color-text-muted);
-      line-height: 1.72;
+      line-height: 1.7;
       overflow: hidden;
       max-height: 0;
       opacity: 0;
       transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
       padding-bottom: 0;
     }
-    .faq-item-group.open .faq-answer {
-      max-height: 300px;
-      opacity: 1;
-      padding-bottom: var(--space-7);
-    }
+    .faq-item-group.open .faq-answer { max-height: 320px; opacity: 1; padding-bottom: var(--space-7); }
 
-    /* ── SECTION: CTA BAR ──────────────────────────────────── */
-    #cta-bar {
+    /* ── SECTION: CONTACT ──────────────────────────────────── */
+    #contact {
       background: var(--color-bg);
-      padding: var(--space-20) var(--space-6);
+      padding: var(--space-25) 0;
+    }
+    .contact-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    .contact-sub {
+      color: var(--color-text-muted);
       text-align: center;
+      font-size: var(--text-body);
+      line-height: 1.6;
+      margin-top: var(--space-5);
+      margin-bottom: var(--space-15);
     }
-    #cta-bar h2 {
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+    .form-group { display: flex; flex-direction: column; gap: var(--space-2); }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-family: 'Lato', sans-serif;
+      font-size: var(--text-sm);
+      font-weight: 900;
       color: var(--color-text);
-      font-size: var(--text-base);
-      margin-bottom: var(--space-4);
-      padding: 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
-    .cta-bar-sub {
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(var(--rgb-accent),0.10);
+      color: var(--color-text);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-input);
+      padding: var(--space-4) var(--space-5);
+      font-family: 'Lato', sans-serif;
+      font-size: var(--text-body);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(var(--rgb-text),0.40); }
+    .form-group input:focus-visible,
+    .form-group select:focus-visible,
+    .form-group textarea:focus-visible {
+      border-color: var(--color-accent);
+      outline: 3px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+    .form-group textarea { resize: vertical; min-height: 132px; border-radius: var(--radius-input); }
+    .form-submit {
+      grid-column: 1 / -1;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: var(--text-body);
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: var(--space-4) var(--space-8);
+      cursor: pointer;
+      width: 100%;
+      margin-top: var(--space-3);
+    }
+    .form-submit:hover { background: var(--color-accent-hover); }
+    .form-reassure {
+      grid-column: 1 / -1;
+      text-align: center;
       color: var(--color-text-muted);
       font-size: var(--text-sm);
-      line-height: 1.65;
-      max-width: 520px;
-      margin: 0 auto var(--space-9);
+      margin-top: var(--space-2);
+    }
+    .form-success {
+      display: none;
+      background: rgba(var(--rgb-accent),0.20);
+      border: 1px solid rgba(var(--rgb-accent),0.45);
+      border-radius: 12px;
+      padding: var(--space-7);
+      text-align: center;
+      color: var(--color-text);
+      font-size: var(--text-body);
+      line-height: 1.6;
+      margin-top: var(--space-6);
     }
 
     /* ── FOOTER ────────────────────────────────────────────── */
     footer {
       background: var(--color-footer);
-      padding: var(--space-13) var(--space-6);
+      padding: var(--space-15) var(--space-6);
       text-align: center;
     }
     .footer-brand {
       font-family: 'Playfair Display', serif;
+      font-weight: 700;
       color: var(--color-bg);
-      font-size: var(--text-sm);
+      font-size: var(--text-lead);
       display: block;
       margin-bottom: var(--space-2);
     }
@@ -1199,7 +973,7 @@
       font-style: italic;
       color: rgba(var(--rgb-bg),0.72);
       font-size: var(--text-sm);
-      margin-bottom: var(--space-6); /* FLAG: 22→24 */
+      margin-bottom: var(--space-6);
     }
     .footer-links {
       display: flex;
@@ -1211,193 +985,96 @@
       color: rgba(var(--rgb-bg),0.72);
       text-decoration: none;
       font-size: var(--text-sm);
-      padding: var(--space-4) var(--space-2);
+      padding: var(--space-2);
     }
     .footer-links a:hover { color: var(--color-bg); }
-    .footer-copy {
-      color: rgba(var(--rgb-bg),0.60);
-      font-size: var(--text-sm);
-    }
+    .footer-copy { color: rgba(var(--rgb-bg),0.60); font-size: var(--text-sm); }
 
-    /* ── Animations & Transitions ───────────────────────────── */
+    /* ── Animations & Transitions ──────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(var(--space-8)); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    .hero-content { animation: fadeUp 0.9s ease 0.15s both; }
+    .hero-aside   { animation: fadeUp 0.9s ease 0.35s both; }
 
-    /* Hero entrance */
-    .hero-content {
-      animation: fadeUp 0.9s ease 0.15s both;
-    }
-
-    /* Scroll-reveal base */
     .reveal {
       opacity: 0;
       transform: translateY(var(--space-8));
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
 
-    /* Button transitions */
-    .btn-sage,
-    .btn-cream,
-    .btn-outline,
-    .btn-white,
-    .btn-hero-primary,
-    .btn-hero-secondary,
-    .nav-cta,
-    .form-submit {
-      transition: background 0.2s ease, color 0.2s ease,
-                  transform 0.18s ease, box-shadow 0.18s ease,
-                  opacity 0.2s ease;
+    .btn-pill, .btn-ghost, .nav-cta, .hero-cta, .hero-cta-secondary, .form-submit {
+      transition: background 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.18s ease, opacity 0.2s ease;
     }
-    .btn-sage:hover,
-    .btn-hero-primary:hover {
+    .btn-pill:hover, .hero-cta:hover {
       background: var(--color-accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(var(--rgb-accent),0.30);
+      box-shadow: 0 8px 22px rgba(var(--rgb-accent),0.32);
     }
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(var(--rgb-accent),0.28);
+    .btn-pill.on-green:hover {
+      background: var(--color-bg);
+      box-shadow: 0 8px 22px rgba(var(--rgb-darkest),0.28);
     }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--rgb-accent),0.30); }
     .nav-cta:hover { transform: translateY(-1px); }
-    .btn-cream:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(var(--rgb-text),0.15);
-    }
-    .btn-outline:hover {
-      background: rgba(var(--rgb-accent),0.07);
-      transform: translateY(-2px);
-    }
-    .btn-hero-secondary:hover { opacity: 0.85; }
 
-    /* Card hover lifts */
-    .icon-card {
+    .problem-card, .showcase-card, .testimonial-card, .pricing-card, .trust-item {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .icon-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 36px rgba(var(--rgb-text),0.12);
-    }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(var(--rgb-text),0.26); }
+    .showcase-card:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(var(--rgb-text),0.24); }
+    .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
+    .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.14); }
+    .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 28px 64px rgba(var(--rgb-text),0.34); }
+    .trust-item:hover { transform: translateY(-3px); }
 
-    .testimonial-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 48px rgba(var(--rgb-text),0.18);
-    }
-
-    .pricing-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .pricing-card:not(.featured):hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 36px rgba(var(--rgb-text),0.14);
-    }
-    .pricing-card.featured:hover {
-      transform: scale(1.07);
-      box-shadow: 0 24px 60px rgba(var(--rgb-text),0.30);
-    }
-
-    .why-card {
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-    }
-    .why-card:hover {
-      background: var(--color-surface);
-      border-color: rgba(var(--rgb-text),0.20);
-      box-shadow: 0 8px 32px rgba(var(--rgb-darkest),0.40);
-      transform: translateY(-3px);
-    }
-
-    /* Wildlife card hover */
-    .wildlife-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .wildlife-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 44px rgba(var(--rgb-darkest),0.40);
-    }
-
-    /* Nav link smooth fade */
-    .nav-links a,
-    .nav-mobile a,
-    .footer-links a {
-      transition: opacity 0.2s ease, color 0.2s ease;
-    }
-
-    /* Form input focus transition */
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    .nav-links a, .nav-mobile a, .footer-links a,
+    .form-group input, .form-group select, .form-group textarea {
+      transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-12) var(--space-8); }
+      .trust-item:nth-child(even) { margin-top: 0; }
+      .showcase-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 900px) {
-      .pricing-grid { gap: var(--space-5); } /* FLAG: 18→20 */
+      .hero-inner { flex-direction: column; align-items: flex-start; gap: var(--space-12); }
+      .hero-aside { flex: 1 1 auto; align-self: stretch; max-width: 520px; }
+      .showcase-head { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
     }
 
     @media (max-width: 768px) {
       .nav-links  { display: none; }
       .nav-burger { display: block; }
 
-      #hero { padding-bottom: var(--space-20); }
-      .hero-content { padding: 0 var(--space-5); }
-      .hero-stats-card, .hero-project-card { display: none; }
-      .hero-progress { left: var(--space-6); bottom: var(--space-7); }
-
-      .wildlife-showcase { grid-template-columns: repeat(2, 1fr); }
-
-      .icon-cards,
-      .pain-grid,
+      .problem-grid,
       .pricing-grid,
-      .testimonial-grid,
-      .why-grid {
-        grid-template-columns: 1fr;
-      }
-      .steps-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-9);
-      }
+      .testimonial-grid { grid-template-columns: 1fr; }
+
+      .steps-wrapper { flex-direction: column; align-items: center; gap: var(--space-10); }
+      .step { padding: 0; }
       .step:not(:last-child)::after { display: none; }
       .steps-line-progress { display: none; }
 
-      .pricing-card.featured {
-        transform: scale(1);
-        box-shadow: 0 10px 36px rgba(var(--rgb-text),0.18);
-      }
-      .pricing-card.featured:hover {
-        transform: translateY(-4px);
-      }
       .form-grid { grid-template-columns: 1fr; }
       .form-group.full { grid-column: auto; }
     }
 
+    @media (max-width: 560px) {
+      .showcase-grid { grid-template-columns: 1fr; }
+      #problem, #how-it-works, #trust, #showcase,
+      #pricing, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
+      .section-head { margin-bottom: var(--space-12); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-        animation: none !important;
-      }
-      .pricing-card.featured:hover { transform: none; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
     }
-
-    @media (max-width: 480px) {
-      #what-is, #problem, #how-it-works,
-      #why-us, #pricing, #testimonials,
-      #contact, #faq {
-        padding: var(--space-18) 0;
-      }
-      .wildlife-showcase {
-        grid-template-columns: 1fr;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -1407,25 +1084,26 @@
 <!-- NAV -->
 <nav aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">Colorado Eco Garden</a>
-    <ul class="nav-links nav-links-center">
-      <li><a href="#what-is">What Is It</a></li>
+    <a href="#" class="nav-brand">Eco-Garden</a>
+    <ul class="nav-links">
+      <li><a href="#problem">Why Convert</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#contact" class="nav-cta">Get Free Quote</a>
+      <a href="#contact" class="nav-cta">Get a Free Quote</a>
     </div>
     <button type="button" class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   </div>
   <ul class="nav-mobile" id="mobile-nav" aria-label="Mobile navigation">
-    <li><a href="#what-is">What Is It</a></li>
+    <li><a href="#problem">Why Convert</a></li>
     <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#trust">Why Us</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#testimonials">Testimonials</a></li>
-    <li><a href="#contact">Get Free Quote</a></li>
+    <li><a href="#contact">Get a Free Quote</a></li>
   </ul>
 </nav>
 
@@ -1433,165 +1111,125 @@
 
 <!-- SECTION: HERO -->
 <section id="hero">
-  <div class="hero-content">
-    <h1 class="hero-title">
-      <span class="line-bold">Your Colorado Lawn Is</span>
-      <span class="line-bold">Costing You More</span>
-      <span class="line-bold">Than You Think</span>
-    </h1>
-    <p class="hero-sub"><strong>Colorado homeowners are switching to beautiful, low-water eco gardens and never looking back.</strong></p>
-    <div class="hero-ctas">
-      <a href="#contact" class="btn-hero-primary">Get Free Quote</a>
-      <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
-    </div>
-  </div>
-
-
-
-
-</section>
-
-<!-- SECTION: WHAT IS AN ECO GARDEN? -->
-<section id="what-is" aria-labelledby="h2-what-is">
-  <div class="centered-content">
-    <h2 id="h2-what-is" class="reveal">Why Traditional Lawns Waste Water, Money, and Time</h2>
-    <p>Most Colorado homeowners inherited a traditional lawn without questioning it. It&rsquo;s green, it&rsquo;s familiar, and it&rsquo;s supposed to add curb appeal. But in a state where water is scarce and summers are unpredictable, that lawn is quietly working against you.</p>
-    <p>The average Colorado household spends $500&ndash;$1,200 per year on lawn watering alone &mdash; before you factor in fertilizer, pest treatments, and the hours spent mowing every week from May through October.</p>
-    <p>Colorado averages just 14 inches of rain per year. Traditional turf needs three times that to stay green. Every time you run the sprinklers, you&rsquo;re fighting the climate you live in.</p>
-
-    <div class="icon-cards">
-
-      <!-- Card: Draining Your Wallet -->
-      <div class="icon-card reveal" data-delay="0">
-        <div class="card-icon-wrap">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-        </div>
-        <h3>Draining Your Wallet</h3>
-        <p>Water, fertilizer, mowing, and seasonal treatments cost the average Colorado homeowner over $1,000 a year &mdash; for a lawn you barely use.</p>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1 class="hero-title">Your Colorado Lawn Is Costing You More Than You Think</h1>
+      <div class="hero-ctas">
+        <a href="#contact" class="hero-cta">Get a Free Quote</a>
+        <a href="#how-it-works" class="hero-cta-secondary">See How It Works</a>
       </div>
-
-      <!-- Card: Eating Your Weekends -->
-      <div class="icon-card reveal" data-delay="100">
-        <div class="card-icon-wrap">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <h3>Eating Your Weekends</h3>
-        <p>Mowing, edging, and watering isn&rsquo;t relaxing &mdash; it&rsquo;s a second job you never signed up for, every week, from spring to fall.</p>
-      </div>
-
-      <!-- Card: Built for the Wrong Climate -->
-      <div class="icon-card reveal" data-delay="200">
-        <div class="card-icon-wrap">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
-            <line x1="8" y1="2" x2="16" y2="22"/>
-          </svg>
-        </div>
-        <h3>Built for the Wrong Climate</h3>
-        <p>Traditional turf needs 3&times; more water than Colorado&rsquo;s annual rainfall provides. You&rsquo;re fighting nature every single season.</p>
-      </div>
-
     </div>
-    <div class="section-cta">
-      <a href="#contact" class="btn-sage">Get My Free Assessment &rarr;</a>
-    </div>
+    <aside class="hero-aside">
+      <p class="hero-aside-eyebrow">Colorado Homeowners</p>
+      <p>Colorado homeowners are switching to beautiful, low-water eco gardens and never looking back.</p>
+    </aside>
   </div>
 </section>
 
 <!-- SECTION: THE PROBLEM -->
 <section id="problem" aria-labelledby="h2-problem">
   <div class="container">
-    <h2 id="h2-problem" class="reveal">Your Traditional Lawn Is Working Against You</h2>
-    <div class="pain-grid">
+    <div class="section-head">
+      <h2 id="h2-problem" class="section-title reveal">Your Traditional Lawn Is Working Against You</h2>
+    </div>
+    <div class="problem-grid">
 
-      <!-- Col 1 -->
-      <div class="pain-col reveal" data-delay="0">
-        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
-          <line x1="8" y1="2" x2="16" y2="22"/>
-        </svg>
-        <h3>Wasting Water</h3>
-        <p>Colorado&rsquo;s drought restrictions are tightening every year. A traditional lawn is one of the biggest residential water wasters in the state.</p>
+      <!-- Card: Wasting Your Time -->
+      <div class="problem-card reveal" data-delay="0">
+        <div class="problem-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Wasting Your Time</h3>
+        <p>Mowing, edging, and watering isn&rsquo;t relaxing &mdash; it&rsquo;s a second job you never signed up for, every week, from spring to fall.</p>
       </div>
 
-      <!-- Col 2 -->
-      <div class="pain-col reveal" data-delay="100">
-        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-        <h3>Wasting Money</h3>
+      <!-- Card: Draining Your Wallet -->
+      <div class="problem-card reveal" data-delay="120">
+        <div class="problem-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3>Draining Your Wallet</h3>
         <p>Water bills, mowing services, fertilizer, and pest treatments cost Colorado homeowners thousands of dollars every single year.</p>
       </div>
 
-      <!-- Col 3 -->
-      <div class="pain-col reveal" data-delay="200">
-        <svg class="pain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
-        <h3>Wasting Time</h3>
-        <p>Weekly upkeep that never ends. Every weekend you spend mowing is a weekend you&rsquo;re not spending with family.</p>
+      <!-- Card: Wasting Water -->
+      <div class="problem-card reveal" data-delay="240">
+        <div class="problem-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/><line x1="8" y1="2" x2="16" y2="22"/>
+          </svg>
+        </div>
+        <h3>Wasting Water</h3>
+        <p>Colorado&rsquo;s drought restrictions tighten every year &mdash; and a traditional lawn is one of the biggest residential water consumers in the state.</p>
       </div>
 
     </div>
-    <p class="pain-close"><em>&ldquo;There&rsquo;s a better way. And it looks incredible.&rdquo;</em></p>
     <div class="section-cta">
-      <a href="#contact" class="btn-cream">Get a Free Eco Garden Quote &rarr;</a>
+      <a href="#contact" class="btn-pill">Get my free assessment &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- SECTION: HOW IT WORKS -->
+<!-- SECTION: PROCESS -->
 <section id="how-it-works" aria-labelledby="h2-how-it-works">
   <div class="container">
-    <h2 id="h2-how-it-works" class="reveal">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
+    <div class="section-head">
+      <h2 id="h2-how-it-works" class="section-title reveal">How We Turn High-Maintenance Lawns Into Eco-Friendly Gardens</h2>
+    </div>
     <div class="steps-wrapper">
 
       <div class="steps-line-progress" id="steps-line-progress" aria-hidden="true"></div>
 
       <div class="step reveal" data-delay="0">
-        <div class="step-number">1</div>
+        <div class="step-number">ONE</div>
         <h3>Free Assessment</h3>
         <p>We visit your property, evaluate your lawn, and show you exactly what&rsquo;s possible for your specific yard and neighborhood.</p>
       </div>
 
       <div class="step reveal" data-delay="120">
-        <div class="step-number">2</div>
+        <div class="step-number">TWO</div>
         <h3>Custom Design</h3>
         <p>We create a clear, simple mockup tailored to your home, your style, and the plants native to your area.</p>
       </div>
 
       <div class="step reveal" data-delay="240">
-        <div class="step-number">3</div>
+        <div class="step-number">THREE</div>
         <h3>Install in Days</h3>
         <p>Our experienced crew transforms your yard in just 2&ndash;5 days. You&rsquo;ll barely recognize it as the same property.</p>
       </div>
 
     </div>
     <div class="section-cta">
-      <a href="#contact" class="btn-sage">Book My Free Assessment &rarr;</a>
+      <a href="#contact" class="btn-pill">Get my free assessment &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- SECTION: WHY US -->
-<section id="why-us" aria-labelledby="h2-why-us">
+<!-- SECTION: TRUST -->
+<section id="trust" aria-labelledby="h2-trust">
   <div class="container">
-    <h2 id="h2-why-us" class="reveal">Why Colorado Homeowners Trust Us With Their Yard Transformations</h2>
-    <p class="why-intro">Every yard is different. Our process, our plants, and our crew are built specifically for Colorado.</p>
-    <div class="why-grid">
+    <div class="section-head">
+      <h2 id="h2-trust" class="section-title reveal">Why Colorado Homeowners Trust Us With Their Yard Transformation</h2>
+    </div>
+    <div class="trust-grid">
 
-      <div class="why-card reveal" data-delay="0">
-        <div class="why-card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="trust-item reveal" data-delay="0">
+        <div class="trust-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
+          </svg>
+        </div>
+        <h3>Real Water Savings</h3>
+        <p>Clients consistently report a 60&ndash;70% drop in outdoor water use after conversion &mdash; starting from the very first season.</p>
+      </div>
+
+      <div class="trust-item reveal" data-delay="100">
+        <div class="trust-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22V12"/><path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/><path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
           </svg>
         </div>
@@ -1599,9 +1237,9 @@
         <p>We only source plants native to Colorado&rsquo;s climate zones &mdash; not generic nursery stock that dies in year two.</p>
       </div>
 
-      <div class="why-card reveal" data-delay="100">
-        <div class="why-card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="trust-item reveal" data-delay="200">
+        <div class="trust-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
         </div>
@@ -1609,19 +1247,9 @@
         <p>Full installations completed in 2&ndash;5 days. Minimal disruption to your home, maximum transformation to your yard.</p>
       </div>
 
-      <div class="why-card reveal" data-delay="200">
-        <div class="why-card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>
-          </svg>
-        </div>
-        <h3>Real Water Savings</h3>
-        <p>Clients consistently report 60&ndash;70% reduction in outdoor water use after conversion &mdash; starting from the first season.</p>
-      </div>
-
-      <div class="why-card reveal" data-delay="300">
-        <div class="why-card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="trust-item reveal" data-delay="300">
+        <div class="trust-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
           </svg>
         </div>
@@ -1630,60 +1258,48 @@
       </div>
 
     </div>
-    <div class="section-cta">
-      <a href="#contact" class="btn-cream">Get My Free Assessment &rarr;</a>
-    </div>
   </div>
 </section>
 
-<!-- SECTION: WILDLIFE -->
-<section id="wildlife" aria-labelledby="h2-wildlife">
-  <div class="wildlife-header">
-    <h2 id="h2-wildlife" class="reveal">Custom Eco Garden Designs Built for Colorado Homes</h2>
-    <p>Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
+<!-- SECTION: SHOWCASE -->
+<section id="showcase" aria-labelledby="h2-showcase">
+  <div class="showcase-head">
+    <h2 id="h2-showcase" class="section-title reveal">Custom Eco Garden Designs Built for Colorado Homes</h2>
+    <p class="section-sub reveal">Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
   </div>
 
-  <div class="wildlife-showcase">
-
-    <div class="wildlife-card reveal" data-delay="0">
-      <div class="wildlife-card-label">
-        <strong>Broad-tailed Hummingbird</strong>
-        <em>Selasphorus platycercus</em>
-      </div>
-    </div>
-
-    <div class="wildlife-card reveal" data-delay="80">
-      <div class="wildlife-card-label">
-        <strong>Western Tanager</strong>
-        <em>Piranga ludoviciana</em>
-      </div>
-    </div>
-
-    <div class="wildlife-card reveal" data-delay="160">
-      <div class="wildlife-card-label">
-        <strong>Monarch Butterfly</strong>
-        <em>Danaus plexippus</em>
-      </div>
-    </div>
-
-    <div class="wildlife-card reveal" data-delay="240">
-      <div class="wildlife-card-label">
-        <strong>Painted Lady</strong>
-        <em>Vanessa cardui</em>
-      </div>
-    </div>
-
+  <!-- PLACEHOLDER GALLERY — duplicates the Figma hero photo. Replace each <img> with a real project photo. -->
+  <div class="showcase-grid">
+    <figure class="showcase-card reveal" data-delay="0">
+      <img src="assets/hero-garden.png" alt="Native eco garden installation in Colorado">
+      <figcaption class="showcase-caption">Highlands Ranch</figcaption>
+    </figure>
+    <figure class="showcase-card reveal" data-delay="80">
+      <img src="assets/hero-garden.png" alt="Low-water front yard conversion with native plants">
+      <figcaption class="showcase-caption">Parker</figcaption>
+    </figure>
+    <figure class="showcase-card reveal" data-delay="160">
+      <img src="assets/hero-garden.png" alt="Rock features and native perennial beds">
+      <figcaption class="showcase-caption">Castle Rock</figcaption>
+    </figure>
+    <figure class="showcase-card reveal" data-delay="240">
+      <img src="assets/hero-garden.png" alt="Pollinator-friendly Colorado garden design">
+      <figcaption class="showcase-caption">Littleton</figcaption>
+    </figure>
   </div>
+
   <div class="section-cta">
-    <a href="#pricing" class="btn-sage">See What&rsquo;s Possible &rarr;</a>
+    <a href="#contact" class="btn-pill">Get my free assessment &rarr;</a>
   </div>
 </section>
 
 <!-- SECTION: PACKAGES & PRICING -->
 <section id="pricing" aria-labelledby="h2-pricing">
   <div class="container">
-    <h2 id="h2-pricing" class="reveal">Choose the Yard Transformation That Fits Your Home</h2>
-    <p class="pricing-intro">Every yard is different. These ranges help you plan, and your free assessment gives you a clear custom quote.</p>
+    <div class="section-head">
+      <h2 id="h2-pricing" class="section-title reveal">Choose the Yard Transformation That Fits Your Home</h2>
+      <p class="section-lead reveal">Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
+    </div>
     <div class="pricing-grid">
 
       <!-- Starter -->
@@ -1696,12 +1312,12 @@
           <li>Basic landscape layout</li>
           <li>Free design consultation</li>
         </ul>
-        <a href="#contact" class="btn-sage">Get a Quote &rarr;</a>
+        <a href="#contact" class="btn-pill">Get my free assessment</a>
       </div>
 
-      <!-- Growth (Featured) -->
+      <!-- Full Lawn Conversion (Featured) -->
       <div class="pricing-card featured reveal" data-delay="120">
-        <div class="pricing-badge">Most Popular</div>
+        <span class="pricing-badge">Most Popular</span>
         <h3>Full Lawn Conversion</h3>
         <div class="pricing-price">$5,000 &ndash; $9,000</div>
         <ul class="pricing-features">
@@ -1711,7 +1327,7 @@
           <li>Custom design mockup</li>
           <li>2&ndash;5 day installation</li>
         </ul>
-        <a href="#contact" class="btn-white">Get a Quote &rarr;</a>
+        <a href="#contact" class="btn-pill on-green">Get my free assessment</a>
       </div>
 
       <!-- Premium -->
@@ -1725,7 +1341,7 @@
           <li>Rainwater capture system</li>
           <li>Priority scheduling</li>
         </ul>
-        <a href="#contact" class="btn-sage">Get a Quote &rarr;</a>
+        <a href="#contact" class="btn-pill">Get my free assessment</a>
       </div>
 
     </div>
@@ -1735,7 +1351,9 @@
 <!-- SECTION: SOCIAL PROOF / TESTIMONIALS -->
 <section id="testimonials" aria-labelledby="h2-testimonials">
   <div class="container">
-    <h2 id="h2-testimonials" class="reveal">Real Results From Colorado Homeowners</h2>
+    <div class="section-head">
+      <h2 id="h2-testimonials" class="section-title reveal">Real Results From Colorado Homeowners</h2>
+    </div>
     <!-- REPLACE WITH REAL TESTIMONIALS -->
     <div class="testimonial-grid">
 
@@ -1759,16 +1377,64 @@
 
     </div>
     <div class="section-cta">
-      <a href="#contact" class="btn-sage">Get My Free Quote &rarr;</a>
+      <a href="#contact" class="btn-pill">Get my free assessment &rarr;</a>
     </div>
+  </div>
+</section>
+
+<!-- SECTION: FAQ -->
+<section id="faq" aria-labelledby="h2-faq">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="h2-faq" class="section-title reveal">Eco Garden Questions, Answered</h2>
+    </div>
+    <dl class="faq-list">
+
+      <div class="faq-item-group reveal" data-delay="0">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">How long does installation take?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="60">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Will my HOA approve a native plant yard?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="120">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Do native plants need a lot of maintenance?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="180">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">What happens to my existing lawn during conversion?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="240">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Is the garden safe for kids and pets?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="300">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">What&rsquo;s included in the free assessment?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
+      </div>
+
+      <div class="faq-item-group reveal" data-delay="360">
+        <dt><button type="button" class="faq-btn" aria-expanded="false">Do you offer any guarantee on your work?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</dd>
+      </div>
+
+    </dl>
   </div>
 </section>
 
 <!-- SECTION: CONTACT FORM -->
 <section id="contact" aria-labelledby="h2-contact">
   <div class="contact-inner">
-    <h2 id="h2-contact" class="reveal">Get Your Free Colorado Eco Garden Assessment</h2>
-    <p class="contact-sub">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
+    <div class="section-head">
+      <h2 id="h2-contact" class="section-title reveal">Get Your Free Colorado Eco Garden Assessment</h2>
+    </div>
 
     <!-- TODO: Wire up form to Formspree or Netlify Forms -->
     <form id="quote-form" novalidate>
@@ -1815,7 +1481,8 @@
           <textarea id="message" name="message" placeholder="Tell us about your yard, any special requests, or questions you have&hellip;"></textarea>
         </div>
 
-        <button type="submit" class="form-submit">Send My Free Quote Request &rarr;</button>
+        <button type="submit" class="form-submit">Get my free assessment &rarr;</button>
+        <p class="form-reassure">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
 
       </div>
     </form>
@@ -1824,58 +1491,6 @@
       Thanks! We&rsquo;ll be in touch within 24 hours. Let&rsquo;s transform your yard.
     </div>
   </div>
-</section>
-
-<!-- SECTION: FAQ -->
-<section id="faq" aria-labelledby="h2-faq">
-  <div class="container">
-    <h2 id="h2-faq" class="reveal">Eco Garden Questions, Answered</h2>
-    <dl class="faq-list">
-
-      <div class="faq-item-group reveal" data-delay="0">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">How long does installation take?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">Most yards are fully installed in 2&ndash;5 days depending on size and complexity. We work efficiently so your home isn&rsquo;t disrupted for long.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="60">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">Will my HOA approve a native plant yard?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">Most Colorado HOAs now permit or actively encourage native landscaping. We can help you understand the approval process and provide documentation if needed.</dd>
-      </div>
-
-<div class="faq-item-group reveal" data-delay="180">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">Do native plants need a lot of maintenance?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">Much less than a traditional lawn. No mowing, minimal watering once established, and light seasonal trimming once a year is typically all that&rsquo;s needed.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="240">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">What happens to my existing lawn during conversion?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">We remove the old grass, prepare and amend the soil for native plants, and install your new design from scratch. We handle everything start to finish.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="300">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">Is the garden safe for kids and pets?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">Yes. All plants we use are non-toxic, pet-safe native Colorado species. We can also design around play areas or specific zones in your yard.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="360">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">What&rsquo;s included in the free assessment?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
-      </div>
-
-      <div class="faq-item-group reveal" data-delay="420">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">Do you offer any guarantee on your work?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">Yes. We stand behind every installation with a plant establishment guarantee. If something doesn&rsquo;t take root, we make it right.</dd>
-      </div>
-
-    </dl>
-  </div>
-</section>
-
-<!-- SECTION: FINAL CTA BAR -->
-<section id="cta-bar" aria-labelledby="h2-cta-bar">
-  <h2 id="h2-cta-bar" class="reveal">Ready to Save Water, Lower Maintenance, and Love Your Yard Again?</h2>
-  <p class="cta-bar-sub reveal" data-delay="100">Get your free assessment today. No pressure, no commitment &mdash; just a clear picture of what&rsquo;s possible.</p>
-  <a href="#contact" class="btn-cream reveal" data-delay="200">Get My Free Quote &rarr;</a>
 </section>
 
 </main>
@@ -1944,13 +1559,12 @@
       revealObserver.observe(el);
     });
   } else {
-    // No observer support or reduced motion: show everything immediately
     document.querySelectorAll('.reveal').forEach(function(el) {
       el.classList.add('revealed');
     });
   }
 
-  // Steps connector line — scroll-driven, draws 1→3 on scroll down, retracts 3→1 on scroll up
+  // Steps connector line — scroll-driven, draws 1→3 on scroll down
   var stepsSection      = document.getElementById('how-it-works');
   var stepsLineProgress = document.getElementById('steps-line-progress');
 
@@ -1962,9 +1576,6 @@
       function updateStepsLine() {
         var rect    = stepsWrapper.getBoundingClientRect();
         var windowH = window.innerHeight;
-        // 0 when the steps-wrapper enters the viewport from the bottom
-        // 1 when the steps-wrapper top reaches 35% from the top of the viewport
-        // Range ≈ 65% of viewport height → smooth, visible animation over ~500px of scroll
         var progress = (windowH - rect.top) / (windowH * 0.65);
         progress = Math.max(0, Math.min(1, progress));
         stepsLineProgress.style.transform = 'scaleX(' + progress + ')';
