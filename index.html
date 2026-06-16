@@ -597,10 +597,11 @@
       line-height: 1.6;
     }
 
-    /* ── SECTION: SHOWCASE ─────────────────────────────────── */
+    /* ── SECTION: SHOWCASE (sliding belt) ──────────────────── */
     #showcase {
       background: var(--color-bg);
       padding: var(--space-25) 0;
+      overflow: hidden;            /* the belt bleeds full-width past both edges */
     }
     .showcase-head {
       display: flex;
@@ -613,18 +614,24 @@
     }
     .showcase-head .section-title { max-width: 560px; }
     .showcase-head .section-sub { margin-top: 0; max-width: 460px; }
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-6);
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-6);
+
+    /* Edge-to-edge belt — slides left (counter-clockwise) and loops seamlessly */
+    .showcase-marquee {
+      width: 100%;
+      overflow: hidden;
     }
-    /* PLACEHOLDER PHOTOS — reusing the Figma hero image. Swap each for a real project photo later. */
+    .showcase-track {
+      display: flex;
+      width: max-content;
+      animation: showcase-scroll 50s linear infinite;
+    }
+    .showcase-marquee:hover .showcase-track { animation-play-state: paused; }
+    /* PLACEHOLDER PHOTOS — reusing the Figma hero image. Swap each <img> for a real project photo later. */
     .showcase-card {
-      position: relative;
-      aspect-ratio: 4 / 3;
+      flex: 0 0 auto;
+      width: 400px;                /* fixed card dimensions — exempt from spacing scale */
+      height: 254px;
+      margin-right: var(--space-12);   /* 48px gap — also drives the seamless -50% loop */
       border-radius: var(--radius-card);
       overflow: hidden;
       box-shadow: 0 12px 36px rgba(var(--rgb-text),0.16);
@@ -634,25 +641,18 @@
       height: 100%;
       object-fit: cover;
     }
-    .showcase-card:nth-child(1) img { object-position: center 20%; }
-    .showcase-card:nth-child(2) img { object-position: center 50%; }
-    .showcase-card:nth-child(3) img { object-position: center 70%; }
-    .showcase-card:nth-child(4) img { object-position: center 40%; }
-    .showcase-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(var(--rgb-darker),0.65) 0%, transparent 55%);
+    @keyframes showcase-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }   /* one full set — moves leftward */
     }
-    .showcase-caption {
-      position: absolute;
-      left: var(--space-5);
-      bottom: var(--space-5);
-      z-index: 2;
-      color: var(--color-bg);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: var(--text-sm);
+    @media (prefers-reduced-motion: reduce) {
+      .showcase-track { animation: none; }
+    }
+
+    .showcase-cta {
+      max-width: 1200px;
+      margin: var(--space-16) auto 0;
+      padding: 0 var(--space-6);
     }
 
     /* ── SECTION: PACKAGES ─────────────────────────────────── */
@@ -1020,11 +1020,12 @@
     .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--rgb-accent),0.30); }
     .nav-cta:hover { transform: translateY(-1px); }
 
-    .problem-card, .showcase-card, .testimonial-card, .pricing-card, .trust-item {
+    .problem-card, .testimonial-card, .pricing-card, .trust-item {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .problem-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(var(--rgb-text),0.26); }
-    .showcase-card:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(var(--rgb-text),0.24); }
+    .showcase-card { transition: filter 0.25s ease; }
+    .showcase-card:hover { filter: brightness(1.06); }
     .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
     .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.14); }
     .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 28px 64px rgba(var(--rgb-text),0.34); }
@@ -1039,7 +1040,6 @@
     @media (max-width: 1024px) {
       .trust-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-12) var(--space-8); }
       .trust-item:nth-child(even) { margin-top: 0; }
-      .showcase-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 900px) {
@@ -1066,7 +1066,7 @@
     }
 
     @media (max-width: 560px) {
-      .showcase-grid { grid-template-columns: 1fr; }
+      .showcase-card { width: 280px; height: 178px; }
       #problem, #how-it-works, #trust, #showcase,
       #pricing, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
       .section-head { margin-bottom: var(--space-12); }
@@ -1268,27 +1268,29 @@
     <p class="section-sub reveal">Real yards. Real results. Native Colorado plants that bring life, color, and wildlife back where they belong.</p>
   </div>
 
-  <!-- PLACEHOLDER GALLERY — duplicates the Figma hero photo. Replace each <img> with a real project photo. -->
-  <div class="showcase-grid">
-    <figure class="showcase-card reveal" data-delay="0">
-      <img src="assets/hero-garden.png" alt="Native eco garden installation in Colorado">
-      <figcaption class="showcase-caption">Highlands Ranch</figcaption>
-    </figure>
-    <figure class="showcase-card reveal" data-delay="80">
-      <img src="assets/hero-garden.png" alt="Low-water front yard conversion with native plants">
-      <figcaption class="showcase-caption">Parker</figcaption>
-    </figure>
-    <figure class="showcase-card reveal" data-delay="160">
-      <img src="assets/hero-garden.png" alt="Rock features and native perennial beds">
-      <figcaption class="showcase-caption">Castle Rock</figcaption>
-    </figure>
-    <figure class="showcase-card reveal" data-delay="240">
-      <img src="assets/hero-garden.png" alt="Pollinator-friendly Colorado garden design">
-      <figcaption class="showcase-caption">Littleton</figcaption>
-    </figure>
+  <!-- Sliding showcase belt: auto-scrolls left (counter-clockwise) and loops seamlessly.
+       Set A is visible content; set B is an aria-hidden duplicate that makes the loop seamless.
+       PLACEHOLDER PHOTOS — all reuse the Figma hero image. Replace each <img src> with a real project photo. -->
+  <div class="showcase-marquee">
+    <div class="showcase-track">
+      <!-- Set A -->
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Native Colorado eco garden installation" style="object-position:center 15%"></div>
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Low-water front yard conversion with native plants" style="object-position:center 45%"></div>
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Rock features and native perennial beds" style="object-position:center 70%"></div>
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Pollinator-friendly Colorado garden design" style="object-position:center 30%"></div>
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Drought-tolerant landscape with ornamental grasses" style="object-position:center 85%"></div>
+      <div class="showcase-card"><img src="assets/hero-garden.png" alt="Mulched native plant bed and stonework" style="object-position:center 55%"></div>
+      <!-- Set B (duplicate for seamless loop) -->
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 15%"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 45%"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 70%"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 30%"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 85%"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="assets/hero-garden.png" alt="" style="object-position:center 55%"></div>
+    </div>
   </div>
 
-  <div class="section-cta">
+  <div class="showcase-cta">
     <a href="#contact" class="btn-pill">Get my free assessment &rarr;</a>
   </div>
 </section>
