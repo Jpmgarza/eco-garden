@@ -183,14 +183,10 @@
       cursor: pointer;
       white-space: nowrap;
     }
-    .btn-pill:hover { background: var(--color-accent-hover); }
-
     .btn-pill.on-green {
       background: var(--color-bg);
       color: var(--color-text);
     }
-    .btn-pill.on-green:hover { background: var(--color-bg); }
-
     .btn-ghost {
       display: inline-block;
       border: 1.5px solid var(--color-accent);
@@ -205,8 +201,6 @@
       cursor: pointer;
       white-space: nowrap;
     }
-    .btn-ghost:hover { background: rgba(var(--rgb-accent), 0.08); }
-
     /* ── NAV ───────────────────────────────────────────────── */
     nav {
       position: fixed;
@@ -284,8 +278,6 @@
       text-decoration: none;
       white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--color-accent-hover); }
-
     .nav-burger {
       display: none;
       background: none;
@@ -833,7 +825,6 @@
       color: var(--color-text);
       padding: var(--space-7) 0;
     }
-    .faq-btn:hover { color: var(--color-accent); }
     .faq-icon { width: 22px; height: 22px; flex-shrink: 0; overflow: visible; }
     .faq-petal {
       transform-origin: 0px 0px;
@@ -937,7 +928,6 @@
       width: 100%;
       margin-top: var(--space-3);
     }
-    .form-submit:hover { background: var(--color-accent-hover); }
     .form-reassure {
       grid-column: 1 / -1;
       text-align: center;
@@ -1011,18 +1001,6 @@
     .btn-pill, .btn-ghost, .nav-cta, .hero-cta, .hero-cta-secondary, .form-submit {
       transition: background 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.18s ease, opacity 0.2s ease;
     }
-    .btn-pill:hover, .hero-cta:hover {
-      background: var(--color-accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(var(--rgb-accent),0.32);
-    }
-    .btn-pill.on-green:hover {
-      background: var(--color-bg);
-      box-shadow: 0 8px 22px rgba(var(--rgb-darkest),0.28);
-    }
-    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(var(--rgb-accent),0.30); }
-    .nav-cta:hover { transform: translateY(-1px); }
-
     .problem-card, .testimonial-card, .pricing-card, .trust-item {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
