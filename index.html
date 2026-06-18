@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Colorado Eco Garden | Jimi Builds — Lawn Conversion Specialists</title>
-  <meta name="description" content="Replace your high-maintenance Colorado lawn with a beautiful, low-water eco garden. Free assessment. Packages from $2,500. Serving Denver metro and surrounding areas.">
+  <meta name="description" content="Replace your high-maintenance Colorado lawn with a beautiful, low-water eco garden. Book a yard consultation. Packages from $2,500. Serving Denver metro and surrounding areas.">
   <meta property="og:title" content="Colorado Eco Garden | Jimi Builds">
   <meta property="og:description" content="Transform your lawn into a stunning eco garden. Save water, reduce maintenance, increase home value.">
   <meta name="theme-color" content="#6A7C40">
@@ -167,6 +167,29 @@
       margin-top: var(--space-5);
     }
     .section-cta { text-align: center; margin-top: var(--space-16); }
+
+    /* ── Consultation fee section (full-bleed dark band) ───── */
+    #consultation-fee {
+      background: var(--color-bg-dark);
+      padding: var(--space-25) 0;
+    }
+    .fee-band {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .fee-title {
+      font-size: var(--text-h2);
+      font-weight: 800;
+      color: var(--color-bg);
+    }
+    .fee-line {
+      font-size: var(--text-body);
+      line-height: 1.7;
+      color: var(--color-bg);
+      margin: var(--space-5) auto var(--space-8);
+      max-width: 520px;
+    }
 
     /* ── Buttons ───────────────────────────────────────────── */
     .btn-pill {
@@ -1053,7 +1076,7 @@
 
     @media (max-width: 560px) {
       .showcase-card { width: 280px; height: 178px; }
-      #problem, #how-it-works, #trust, #showcase,
+      #problem, #how-it-works, #trust, #showcase, #consultation-fee,
       #pricing, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
       .section-head { margin-bottom: var(--space-12); }
     }
@@ -1078,7 +1101,7 @@
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#contact" class="nav-cta">Book a Consultation</a>
+      <a href="#contact" class="nav-cta">Book Consultation</a>
     </div>
     <button type="button" class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   </div>
@@ -1089,7 +1112,7 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Book a Consultation</a></li>
+    <li><a href="#contact">Book Consultation</a></li>
   </ul>
 </nav>
 
@@ -1101,7 +1124,7 @@
     <div class="hero-content">
       <h1 class="hero-title">Your Colorado Lawn Is Costing You More Than You Think</h1>
       <div class="hero-ctas">
-        <a href="#contact" class="hero-cta">Book a Consultation</a>
+        <a href="#contact" class="hero-cta">Book My Yard Consultation</a>
         <a href="#how-it-works" class="hero-cta-secondary">See How It Works</a>
       </div>
     </div>
@@ -1155,7 +1178,7 @@
 
     </div>
     <div class="section-cta">
-      <a href="#contact" class="btn-pill">Schedule My Yard Assessment &rarr;</a>
+      <a href="#contact" class="btn-pill">See What Your Yard Could Become &rarr;</a>
     </div>
   </div>
 </section>
@@ -1190,7 +1213,7 @@
 
     </div>
     <div class="section-cta">
-      <a href="#contact" class="btn-pill">Schedule My Yard Assessment &rarr;</a>
+      <a href="#contact" class="btn-pill">Book My Yard Consultation &rarr;</a>
     </div>
   </div>
 </section>
@@ -1277,7 +1300,18 @@
   </div>
 
   <div class="showcase-cta">
-    <a href="#contact" class="btn-pill">Schedule My Yard Assessment &rarr;</a>
+    <a href="#pricing" class="btn-pill">Explore Yard Packages &rarr;</a>
+  </div>
+</section>
+
+<!-- SECTION: CONSULTATION FEE -->
+<section id="consultation-fee" aria-labelledby="h2-fee">
+  <div class="container">
+    <div class="fee-band reveal">
+      <h2 id="h2-fee" class="fee-title">Your Consultation, Credited Back to You</h2>
+      <p class="fee-line">Consultation fee applies. If you approve and sign for your eco garden project, the consultation fee is fully credited toward your service.</p>
+      <a href="#contact" class="btn-pill on-green">Schedule My Consultation</a>
+    </div>
   </div>
 </section>
 
@@ -1298,9 +1332,9 @@
           <li>Partial lawn removal</li>
           <li>Mulch &amp; native plant bed</li>
           <li>Basic landscape layout</li>
-          <li>Free design consultation</li>
+          <li>Personalized design consultation</li>
         </ul>
-        <a href="#contact" class="btn-pill">Schedule My Yard Assessment</a>
+        <a href="#contact" class="btn-pill">Ask About Starter Refresh</a>
       </div>
 
       <!-- Full Lawn Conversion (Featured) -->
@@ -1315,7 +1349,7 @@
           <li>Custom design mockup</li>
           <li>2&ndash;5 day installation</li>
         </ul>
-        <a href="#contact" class="btn-pill on-green">Schedule My Yard Assessment</a>
+        <a href="#contact" class="btn-pill on-green">Get My Conversion Options</a>
       </div>
 
       <!-- Premium -->
@@ -1329,7 +1363,7 @@
           <li>Rainwater capture system</li>
           <li>Priority scheduling</li>
         </ul>
-        <a href="#contact" class="btn-pill">Schedule My Yard Assessment</a>
+        <a href="#contact" class="btn-pill">Plan My Premium Transformation</a>
       </div>
 
     </div>
@@ -1365,7 +1399,7 @@
 
     </div>
     <div class="section-cta">
-      <a href="#contact" class="btn-pill">Schedule My Yard Assessment &rarr;</a>
+      <a href="#contact" class="btn-pill">See What We Can Do With Your Yard &rarr;</a>
     </div>
   </div>
 </section>
@@ -1404,8 +1438,8 @@
       </div>
 
       <div class="faq-item-group reveal" data-delay="300">
-        <dt><button type="button" class="faq-btn" aria-expanded="false">What&rsquo;s included in the free assessment?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
-        <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate &mdash; all at no charge.</dd>
+        <dt><button type="button" class="faq-btn" aria-expanded="false">What&rsquo;s included in the yard consultation?<svg class="faq-icon" aria-hidden="true" viewBox="-10 -10 20 20" width="20" height="20" fill="currentColor"><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><ellipse class="faq-petal" cx="0" cy="-5.5" rx="1.8" ry="3"/><circle cx="0" cy="0" r="2.2"/></svg></button></dt>
+        <dd class="faq-answer">A site visit, soil evaluation, a walkthrough of what&rsquo;s possible for your specific yard, plant recommendations, and a rough cost estimate. The consultation fee is fully credited toward your project if you move forward.</dd>
       </div>
 
       <div class="faq-item-group reveal" data-delay="360">
@@ -1421,7 +1455,7 @@
 <section id="contact" aria-labelledby="h2-contact">
   <div class="contact-inner">
     <div class="section-head">
-      <h2 id="h2-contact" class="section-title reveal">Get Your Colorado Eco Garden Assessment</h2>
+      <h2 id="h2-contact" class="section-title reveal">Book Your Colorado Eco Garden Consultation</h2>
     </div>
 
     <!-- TODO: Wire up form to Formspree or Netlify Forms -->
@@ -1469,8 +1503,8 @@
           <textarea id="message" name="message" placeholder="Tell us about your yard, any special requests, or questions you have&hellip;"></textarea>
         </div>
 
-        <button type="submit" class="form-submit">Schedule My Yard Assessment &rarr;</button>
-        <p class="form-reassure">No pressure. No obligation. Just a conversation about what&rsquo;s possible for your yard.</p>
+        <button type="submit" class="form-submit">Book My Yard Consultation &rarr;</button>
+        <p class="form-reassure">No pressure. Just a conversation about what&rsquo;s possible for your yard &mdash; and your consultation fee is credited toward your project if you move forward.</p>
 
       </div>
     </form>
