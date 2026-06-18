@@ -1074,24 +1074,6 @@
     .footer-col a:hover::after { transform: scaleX(1); }
     .footer-col .area { color: rgba(var(--rgb-bg),0.62); font-size: var(--text-body); }
 
-    /* Oversized decorative signature, clipped by the footer's bottom edge */
-    .footer-wordmark {
-      position: absolute;
-      left: 50%;
-      bottom: -0.16em;
-      transform: translateX(-50%);
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      font-weight: 800;
-      font-size: clamp(6rem, 26vw, 23rem);
-      line-height: 0.7;
-      letter-spacing: -0.03em;
-      white-space: nowrap;
-      color: rgba(var(--rgb-bg),0.05);
-      pointer-events: none;
-      z-index: 0;
-    }
-
     .footer-base {
       position: relative;
       z-index: 1;
@@ -1723,8 +1705,6 @@
       </div>
     </div>
   </div>
-
-  <p class="footer-wordmark" aria-hidden="true">Eco Garden</p>
 </footer>
 
 <script>
