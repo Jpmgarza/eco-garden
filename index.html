@@ -393,9 +393,11 @@
     /* Frosted glass card */
     .hero-aside {
       flex: 0 1 380px;
-      /* Same green as the CTA buttons */
-      background: var(--color-accent);
-      border: 1px solid rgba(var(--rgb-bg),0.18);
+      /* Frosted green glass — accent-tinted translucent fill + blur so the photo shows through */
+      background: rgba(var(--rgb-accent),0.58);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(var(--rgb-bg),0.22);
       border-radius: var(--radius-card);
       padding: var(--space-8);
       color: var(--color-bg);
