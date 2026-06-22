@@ -1178,13 +1178,15 @@
       .nav-links  { display: none; }
       .nav-burger { display: inline-flex; }
 
+      /* Header CTA hidden on mobile — still available in the hamburger menu */
+      .nav-cta { display: none; }
+
       /* Tap targets: minimum 44x44 on touch/mobile */
-      .nav-cta { display: inline-flex; align-items: center; min-height: 44px; }
       .footer-col a, .footer-legal a, .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; }
       .footer-social a { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 
       /* CTA buttons: wrap long labels and never exceed their container */
-      .btn-pill, .hero-cta, .nav-cta { max-width: 100%; white-space: normal; }
+      .btn-pill, .hero-cta { max-width: 100%; white-space: normal; }
       .pricing-card .btn-pill,
       .section-cta .btn-pill,
       .showcase-cta .btn-pill { width: 100%; min-width: 0; text-align: center; }
