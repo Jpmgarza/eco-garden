@@ -690,7 +690,7 @@
     .pricing-head .section-lead { margin-top: 0; max-width: 420px; }
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: var(--space-8);
       align-items: stretch;
     }
@@ -1184,7 +1184,6 @@
       .footer-social a { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 
       .problem-grid,
-      .pricing-grid,
       .testimonial-grid { grid-template-columns: 1fr; }
 
       .steps-wrapper { flex-direction: column; align-items: center; gap: var(--space-10); }
