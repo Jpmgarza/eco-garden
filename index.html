@@ -72,7 +72,7 @@
       --text-lead: 1.125rem;                       /* 18px — unified (was 20px) */
       --text-h3:   clamp(1.5rem, 2.6vw, 2.25rem);  /* 24–36px — card titles */
       --text-sub:  clamp(1.5rem, 3vw, 2rem);       /* 24–32px — section subheads */
-      --text-h2:   3.5rem;                         /* 56px — section headings (fixed) */
+      --text-h2:   clamp(2.25rem, 1.5rem + 3.2vw, 3.5rem); /* 36px (phone) → 56px (desktop) — section headings */
       --text-hero: clamp(2.75rem, 7vw, 4.5rem);    /* 44–72px — hero headline */
 
       /* ── Radius tokens ─────────────────────────────────────── */
@@ -301,6 +301,10 @@
     }
     .nav-burger {
       display: none;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
       background: none;
       border: none;
       color: var(--color-bg);
@@ -638,7 +642,7 @@
       width: max-content;
       animation: showcase-scroll 50s linear infinite;
     }
-    .showcase-marquee:hover .showcase-track { animation-play-state: paused; }
+    @media (hover: hover) { .showcase-marquee:hover .showcase-track { animation-play-state: paused; } }
     /* PLACEHOLDER PHOTOS — reusing the Figma hero image. Swap each <img> for a real project photo later. */
     .showcase-card {
       flex: 0 0 auto;
@@ -1069,8 +1073,10 @@
       transform-origin: left center;
       transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
     }
-    .footer-col a:hover { color: var(--color-bg); }
-    .footer-col a:hover::after { transform: scaleX(1); }
+    @media (hover: hover) {
+      .footer-col a:hover { color: var(--color-bg); }
+      .footer-col a:hover::after { transform: scaleX(1); }
+    }
     .footer-col .area { color: rgba(var(--rgb-bg),0.62); font-size: var(--text-body); }
 
     .footer-base {
@@ -1094,7 +1100,7 @@
       display: inline-flex;
       transition: color 0.25s cubic-bezier(0.22,1,0.36,1), transform 0.25s cubic-bezier(0.22,1,0.36,1);
     }
-    .footer-social a:hover { color: var(--color-bg); transform: translateY(-2px); }
+    @media (hover: hover) { .footer-social a:hover { color: var(--color-bg); transform: translateY(-2px); } }
     .footer-social svg { width: 20px; height: 20px; }
 
     @media (max-width: 900px) {
@@ -1132,13 +1138,23 @@
     .problem-card, .testimonial-card, .pricing-card, .trust-item {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(var(--rgb-text),0.16); }
     .showcase-card { transition: filter 0.25s ease; }
-    .showcase-card:hover { filter: brightness(1.06); }
-    .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
-    .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 16px 40px rgba(var(--rgb-text),0.16); }
-    .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 24px 56px rgba(var(--rgb-text),0.30); }
-    .trust-item:hover { transform: translateY(-3px); }
+
+    /* Hover-capable (pointer) devices only — prevents these states from sticking after a tap on touch */
+    @media (hover: hover) {
+      .problem-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(var(--rgb-text),0.16); }
+      .showcase-card:hover { filter: brightness(1.06); }
+      .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
+      .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 16px 40px rgba(var(--rgb-text),0.16); }
+      .pricing-card.featured:hover { transform: translateY(-6px); box-shadow: 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 24px 56px rgba(var(--rgb-text),0.30); }
+      .trust-item:hover { transform: translateY(-3px); }
+    }
+
+    /* Touch/press feedback (the tap equivalent of the removed button hovers) */
+    .btn-pill:active, .hero-cta:active, .nav-cta:active, .form-submit:active { transform: scale(0.97); }
+    .faq-btn:active { opacity: 0.7; }
+    .nav-links a:active, .nav-mobile a:active,
+    .footer-col a:active, .footer-legal a:active, .footer-social a:active { opacity: 0.6; }
 
     .nav-links a, .nav-mobile a, .footer-links a,
     .form-group input, .form-group select, .form-group textarea {
@@ -1160,7 +1176,12 @@
 
     @media (max-width: 768px) {
       .nav-links  { display: none; }
-      .nav-burger { display: block; }
+      .nav-burger { display: inline-flex; }
+
+      /* Tap targets: minimum 44x44 on touch/mobile */
+      .nav-cta { display: inline-flex; align-items: center; min-height: 44px; }
+      .footer-col a, .footer-legal a, .footer-contact a { display: inline-flex; align-items: center; min-height: 44px; }
+      .footer-social a { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 
       .problem-grid,
       .pricing-grid,
@@ -1180,6 +1201,11 @@
       #problem, #how-it-works, #trust, #showcase, #consultation-fee,
       #pricing, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
       .section-head { margin-bottom: var(--space-12); }
+    }
+
+    @media (max-width: 480px) {
+      .trust-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+      .container { padding: 0 var(--space-5); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1383,23 +1409,23 @@
   <div class="showcase-marquee">
     <div class="showcase-track">
       <!-- Set A -->
-      <div class="showcase-card"><img src="image/garden%20image.webp" alt="Custom Colorado eco garden design" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/bird%20(1).webp" alt="Native Colorado bird visiting an eco garden" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/Butterfly%20(1).webp" alt="Butterfly on native Colorado wildflowers" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/bird%20(2).webp" alt="Songbird in a low-water native garden" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/Butterfly%20(2).webp" alt="Pollinator butterfly in a Colorado yard" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/bird%20(3).webp" alt="Colorado native bird among garden plants" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/Butterfly%20(3).webp" alt="Butterfly resting on a flowering native plant" loading="lazy"></div>
-      <div class="showcase-card"><img src="image/bird%20(4).webp" alt="Backyard bird in a wildlife-friendly garden" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/garden%20image.webp" alt="Custom Colorado eco garden design" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/bird%20(1).webp" alt="Native Colorado bird visiting an eco garden" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/Butterfly%20(1).webp" alt="Butterfly on native Colorado wildflowers" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/bird%20(2).webp" alt="Songbird in a low-water native garden" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/Butterfly%20(2).webp" alt="Pollinator butterfly in a Colorado yard" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/bird%20(3).webp" alt="Colorado native bird among garden plants" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/Butterfly%20(3).webp" alt="Butterfly resting on a flowering native plant" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card"><img src="image/bird%20(4).webp" alt="Backyard bird in a wildlife-friendly garden" width="400" height="254" loading="lazy"></div>
       <!-- Set B (duplicate for seamless loop) -->
-      <div class="showcase-card" aria-hidden="true"><img src="image/garden%20image.webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(1).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(1).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(2).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(2).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(3).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(3).webp" alt="" loading="lazy"></div>
-      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(4).webp" alt="" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/garden%20image.webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(1).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(1).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(2).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(2).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(3).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/Butterfly%20(3).webp" alt="" width="400" height="254" loading="lazy"></div>
+      <div class="showcase-card" aria-hidden="true"><img src="image/bird%20(4).webp" alt="" width="400" height="254" loading="lazy"></div>
     </div>
   </div>
 

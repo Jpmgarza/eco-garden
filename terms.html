@@ -98,6 +98,17 @@
     .legal-footer a { color: rgba(var(--rgb-bg), 0.75); text-decoration: none; font-size: 1rem; }
     .legal-footer a:hover { color: var(--color-bg); }
     .legal-footer .copy { color: rgba(var(--rgb-bg), 0.55); font-size: 0.9rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .legal-nav { flex-wrap: wrap; gap: var(--space-3); padding: var(--space-5); }
+      .legal { padding: var(--space-6) var(--space-5) var(--space-12); }
+      .toc { padding: var(--space-5); }
+    }
+    @media (max-width: 768px) {
+      .legal-nav .back, .toc a, .legal-footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
+    }
+    .legal-nav .back:active, .toc a:active, .legal-footer a:active { opacity: 0.6; }
   </style>
 </head>
 <body>
