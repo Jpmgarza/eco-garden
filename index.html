@@ -455,18 +455,18 @@
       padding: 0 var(--space-6);
     }
     .problem-card {
-      background: var(--color-accent-deep);
-      color: var(--color-bg);
+      background: var(--color-bg);
+      color: var(--color-text);
       border-radius: var(--radius-card);
       padding: var(--space-12) var(--space-8);
       text-align: center;
-      box-shadow: 0 14px 40px rgba(var(--rgb-text),0.18);
+      box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25); /* matches packages outer cards */
     }
     .problem-icon-wrap {
       width: 76px;
       height: 76px;
       border-radius: 50%;
-      background: rgba(var(--rgb-bg),0.14);
+      background: rgba(var(--rgb-accent),0.10);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -475,7 +475,7 @@
     .problem-icon-wrap svg {
       width: 36px;
       height: 36px;
-      color: var(--color-bg);
+      color: var(--color-accent);
     }
     .problem-card h3 {
       font-family: 'Lato', sans-serif;
@@ -483,13 +483,13 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-size: var(--text-lead);
-      color: var(--color-bg);
+      color: var(--color-text);
       margin-bottom: var(--space-4);
     }
     .problem-card p {
       font-size: var(--text-body);
       line-height: 1.6;
-      color: rgba(var(--rgb-bg),0.86);
+      color: var(--color-text-muted);
     }
 
     /* ── SECTION: PROCESS ──────────────────────────────────── */
@@ -1132,7 +1132,7 @@
     .problem-card, .testimonial-card, .pricing-card, .trust-item {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(var(--rgb-text),0.26); }
+    .problem-card:hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25), 0 16px 40px rgba(var(--rgb-text),0.16); }
     .showcase-card { transition: filter 0.25s ease; }
     .showcase-card:hover { filter: brightness(1.06); }
     .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(var(--rgb-text),0.16); }
