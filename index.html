@@ -329,16 +329,11 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      background: transparent;
       height: 64px;
       display: flex;
       align-items: center;
-      transform: translateY(-100%);   /* hidden while over the hero */
-      transition: transform 0.35s ease, background 0.3s ease, backdrop-filter 0.3s ease;
-    }
-    nav.scrolled {
-      transform: translateY(0);        /* slides in once the hero is scrolled past */
-      background: rgba(var(--rgb-text),0.78);
+      /* Solid backdrop at all times so nav text stays legible over the hero photo */
+      background: rgba(var(--rgb-text),0.82);
       -webkit-backdrop-filter: blur(16px);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(var(--rgb-bg),0.18);
@@ -1841,19 +1836,8 @@
 </footer>
 
 <script>
-  var nav       = document.querySelector('nav');
   var burger    = document.getElementById('burger');
   var mobileNav = document.getElementById('mobile-nav');
-  var heroEl    = document.getElementById('hero');
-
-  // Nav stays hidden over the hero, then slides in (solid) once the hero is scrolled past.
-  function navThreshold() { return heroEl ? heroEl.offsetHeight - 80 : 60; }
-  var navShowAt = navThreshold();
-  window.addEventListener('resize', function() { navShowAt = navThreshold(); }, { passive: true });
-
-  function updateNav() { nav.classList.toggle('scrolled', window.scrollY > navShowAt); }
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
 
   burger.addEventListener('click', function() {
     var isOpen = mobileNav.classList.toggle('open');
