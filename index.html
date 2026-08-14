@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jimi Builds | Lawn Conversion &amp; Eco Garden Design</title>
-  <meta name="description" content="Colorado eco garden design and lawn conversion serving Sentinel, Colorado Springs, and Denver. Save water, cut maintenance, and love your yard. Book your free consultation today.">
+  <meta name="description" content="Colorado eco garden design and lawn conversion serving Centennial, Colorado Springs, and Denver. Save water, cut maintenance, and love your yard. Book your free consultation today.">
   <meta property="og:title" content="Jimi Builds | Lawn Conversion &amp; Eco Garden Design">
-  <meta property="og:description" content="Colorado eco garden design and lawn conversion serving Sentinel, Colorado Springs, and Denver. Save water, cut maintenance, and love your yard. Book your free consultation today.">
+  <meta property="og:description" content="Colorado eco garden design and lawn conversion serving Centennial, Colorado Springs, and Denver. Save water, cut maintenance, and love your yard. Book your free consultation today.">
   <meta property="og:url" content="https://www.jimibuilds.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jimi Builds">
@@ -39,7 +39,7 @@
         "@id": "https://www.jimibuilds.com/#business",
         "name": "Jimi Builds",
         "legalName": "Jimi's Builds",
-        "description": "Jimi Builds is a lawn-conversion and native eco-garden design service serving Sentinel, Colorado Springs, and Denver, Colorado, that replaces high-maintenance lawns with low-water, native landscapes.",
+        "description": "Jimi Builds is a lawn-conversion and native eco-garden design service serving Centennial, Colorado Springs, and Denver, Colorado, that replaces high-maintenance lawns with low-water, native landscapes.",
         "url": "https://www.jimibuilds.com/",
         "email": "Jimisbuilds@gmail.com",
         "telephone": "+1-303-356-8451",
@@ -63,7 +63,7 @@
         "areaServed": [
           { "@type": "AdministrativeArea", "name": "El Paso County, Colorado" },
           { "@type": "City", "name": "Colorado Springs" },
-          { "@type": "City", "name": "Sentinel" },
+          { "@type": "City", "name": "Centennial" },
           { "@type": "City", "name": "Denver" }
         ],
         "knowsAbout": ["Lawn conversion", "Native plant landscaping", "Xeriscaping", "Low-water eco gardens"],
@@ -1064,6 +1064,25 @@
       line-height: 1.6;
       margin-top: var(--space-6);
     }
+    .form-hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .form-error {
+      display: none;
+      grid-column: 1 / -1;
+      background: rgba(var(--rgb-text),0.08);
+      border: 1px solid rgba(var(--rgb-text),0.25);
+      border-radius: 12px;
+      padding: var(--space-5);
+      text-align: center;
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      margin-top: var(--space-4);
+    }
 
     /* ── FOOTER ────────────────────────────────────────────── */
     .site-footer {
@@ -1636,7 +1655,7 @@
       <div class="testimonial-card reveal" data-delay="200">
         <span class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <blockquote>&ldquo;Best home investment we&rsquo;ve made. Low maintenance and absolutely beautiful. I only wish we&rsquo;d done it sooner.&rdquo;</blockquote>
-        <cite>&mdash; David R., Sentinel</cite>
+        <cite>&mdash; David R., Centennial</cite>
       </div>
 
     </div>
@@ -1700,7 +1719,6 @@
       <h2 id="h2-contact" class="section-title reveal">Book Your Jimi Builds Consultation</h2>
     </div>
 
-    <!-- TODO: Wire up form to Formspree or Netlify Forms -->
     <form id="quote-form" novalidate>
       <div class="form-grid">
 
@@ -1726,7 +1744,7 @@
 
         <div class="form-group">
           <label for="city">City / Neighborhood</label>
-          <input type="text" id="city" name="city" placeholder="Colorado Springs, Sentinel&hellip;">
+          <input type="text" id="city" name="city" placeholder="Colorado Springs, Centennial&hellip;">
         </div>
 
         <div class="form-group">
@@ -1745,8 +1763,14 @@
           <textarea id="message" name="message" placeholder="Tell us about your yard, any special requests, or questions you have&hellip;"></textarea>
         </div>
 
+        <div class="form-hp" aria-hidden="true">
+          <label for="hp-field">Leave this field empty</label>
+          <input type="text" id="hp-field" name="hp_field" tabindex="-1" autocomplete="off">
+        </div>
+
         <button type="submit" class="form-submit">Book My Yard Consultation &rarr;</button>
         <p class="form-reassure">No pressure. Just a conversation about what&rsquo;s possible for your yard &mdash; and your consultation fee is credited toward your project if you move forward.</p>
+        <p class="form-error" id="form-error" role="alert"></p>
 
       </div>
     </form>
@@ -1808,7 +1832,7 @@
       <div class="footer-col">
         <p class="footer-col-head">Service Area</p>
         <ul>
-          <li><span class="area">Sentinel</span></li>
+          <li><span class="area">Centennial</span></li>
           <li><span class="area">Colorado Springs</span></li>
           <li><span class="area">Denver</span></li>
         </ul>
@@ -1851,8 +1875,11 @@
     });
   });
 
-  var form       = document.getElementById('quote-form');
-  var successMsg = document.getElementById('form-success');
+  var form            = document.getElementById('quote-form');
+  var successMsg      = document.getElementById('form-success');
+  var errorMsg        = document.getElementById('form-error');
+  var submitBtn       = form.querySelector('.form-submit');
+  var submitBtnLabel  = submitBtn.textContent;
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -1860,8 +1887,30 @@
       form.reportValidity();
       return;
     }
-    form.style.display = 'none';
-    successMsg.style.display = 'block';
+
+    errorMsg.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    var payload = {};
+    new FormData(form).forEach(function(value, key) { payload[key] = value; });
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function(response) {
+        if (!response.ok) throw new Error('Request failed');
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      })
+      .catch(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtnLabel;
+        errorMsg.textContent = 'Something went wrong sending your request. Please try again, or reach us directly at (303) 356-8451 or Jimisbuilds@gmail.com.';
+        errorMsg.style.display = 'block';
+      });
   });
 
   // Scroll-reveal via IntersectionObserver
