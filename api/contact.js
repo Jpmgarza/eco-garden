@@ -1,4 +1,4 @@
-const TO_EMAIL = 'Jimisbuilds@gmail.com';
+const TO_EMAIL = 'JimiBuilds@gmail.com';
 const FROM_EMAIL = 'Jimi Builds Website <contact@jimibuilds.com>';
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
