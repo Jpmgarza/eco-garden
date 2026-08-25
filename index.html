@@ -861,7 +861,7 @@
       flex-shrink: 0;
     }
     .pricing-card.featured .pricing-features li::before { background: rgba(var(--rgb-bg),0.70); }
-    .pricing-card .btn-pill { align-self: flex-start; margin-top: auto; }
+    .pricing-card .btn-pill { align-self: flex-start; margin-top: auto; max-width: 100%; white-space: normal; text-align: center; }
 
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
@@ -1969,7 +1969,7 @@
   // Disabled entirely for reduced-motion; naturally no-ops on touch devices.
   if (!prefersReduced) {
     var MAGNET_MAX = 7; // max displacement in px (within the 6–8px range)
-    document.querySelectorAll('.btn-pill, .hero-cta, .nav-cta').forEach(function(el) {
+    document.querySelectorAll('.btn-pill, .hero-cta, .nav-cta, .form-submit').forEach(function(el) {
       el.classList.add('magnetic');
       el.addEventListener('mousemove', function(e) {
         var rect = el.getBoundingClientRect();
