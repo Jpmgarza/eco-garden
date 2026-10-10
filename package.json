@@ -18,6 +18,9 @@
     "url": "https://github.com/Jpmgarza/eco-garden/issues"
   },
   "homepage": "https://github.com/Jpmgarza/eco-garden#readme",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  },
   "devDependencies": {
     "sharp": "^0.34.5"
   }
