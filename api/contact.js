@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
   const phone = (body.phone || '').trim();
   const city = (body.city || '').trim();
   const lawnSize = (body.lawn_size || '').trim();
+  const interest = (body.interest || '').trim();
   const message = (body.message || '').trim();
 
   if (!firstName || !lastName || !email) {
@@ -40,6 +41,7 @@ module.exports = async (req, res) => {
     `Phone: ${phone || '—'}`,
     `City / neighborhood: ${city || '—'}`,
     `Approximate lawn size: ${lawnSize || '—'}`,
+    `Interested in: ${interest || '—'}`,
     '',
     'Message:',
     message || '—'

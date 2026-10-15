@@ -65,7 +65,7 @@
           { "@type": "City", "name": "Centennial" },
           { "@type": "City", "name": "Denver" }
         ],
-        "knowsAbout": ["Lawn conversion", "Native plant landscaping", "Xeriscaping", "Low-water eco gardens"],
+        "knowsAbout": ["Lawn conversion", "Native plant landscaping", "Xeriscaping", "Low-water eco gardens", "Landscaping", "Yard cleanups", "Custom raised garden beds", "Planter boxes", "Outdoor benches and seating"],
         "sameAs": [
           "https://www.facebook.com/profile.php?id=61590703500658",
           "https://www.google.com/maps/place/Jimi+Builds/@38.9979464,-105.550863,17z/data=!3m1!4b1!4m6!3m5!1s0xa99b104345994395:0xd5e4c088a3711be1!8m2!3d38.9979464!4d-105.550863!16s%2Fg%2F11nv0_w6pw"
@@ -366,8 +366,9 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: var(--space-10);
+      gap: var(--space-8);
       list-style: none;
+      white-space: nowrap; /* absolute + left:50% would otherwise wrap labels to half the bar width */
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -863,6 +864,150 @@
     .pricing-card.featured .pricing-features li::before { background: rgba(var(--rgb-bg),0.70); }
     .pricing-card .btn-pill { align-self: flex-start; margin-top: auto; max-width: 100%; white-space: normal; text-align: center; }
 
+    /* ── SECTION: PRODUCTS & SERVICES ──────────────────────── */
+    #products-services {
+      background: var(--color-bg);
+      padding: var(--space-25) 0;
+    }
+    .ps-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-12);
+      margin-bottom: var(--space-16);
+    }
+    .ps-head .section-title { max-width: 600px; }
+    .ps-head .section-lead { margin-top: 0; max-width: 420px; }
+    .ps-group + .ps-group { margin-top: var(--space-20); }
+    .ps-group-head {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 1.5px solid rgba(var(--rgb-text),0.16);
+    }
+    .ps-group-head h3 {
+      font-size: var(--text-sub);
+      font-weight: 800;
+    }
+    .ps-group-head p {
+      color: var(--color-text-muted);
+      font-size: var(--text-body);
+    }
+
+    /* Services: compact icon cards */
+    .service-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: var(--space-6);
+    }
+    .service-item {
+      border: 1.5px solid rgba(var(--rgb-text),0.16);
+      border-radius: var(--radius-card);
+      padding: var(--space-8) var(--space-7);
+    }
+    .service-item .trust-mark { margin-bottom: var(--space-5); }
+    .service-item h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: var(--text-body);
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+    .service-item p {
+      font-size: var(--text-body);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+    /* Closing tile: dark surface, fills the last grid slot */
+    .service-item-cta {
+      background: var(--color-text);
+      border-color: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-item-cta h4,
+    .service-item-cta p { color: var(--color-bg); }
+    .service-item-cta p { margin-bottom: var(--space-6); }
+    .service-item-cta .btn-pill { align-self: flex-start; margin-top: auto; max-width: 100%; white-space: normal; text-align: center; }
+
+    /* Products: one wide garden-bed card + one dark seating card */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-8);
+      align-items: stretch;
+    }
+    .product-card {
+      background: var(--color-bg);
+      border: 1.5px solid rgba(var(--rgb-text),0.16);
+      border-radius: var(--radius-card);
+      padding: var(--space-10) var(--space-9) var(--space-9);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card.dark {
+      background: var(--color-text);
+      border-color: transparent;
+      box-shadow: 0 10px 30px rgba(var(--rgb-text),0.08);
+    }
+    .product-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: var(--text-h3);
+      line-height: 1.15;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+    .product-card .product-intro {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+      max-width: 560px;
+    }
+    .product-card.dark h4,
+    .product-card.dark .product-intro { color: var(--color-bg); }
+    .product-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-8);
+      margin-bottom: var(--space-9);
+      flex: 1;
+    }
+    .product-card.dark .product-options { grid-template-columns: 1fr; }
+    .product-options h5 {
+      font-family: 'Lato', sans-serif;
+      font-size: var(--text-xs);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+    .product-card.dark .product-options h5 { color: var(--color-bg); }
+    /* Option lists reuse the pricing bullet style */
+    .product-options .pricing-features { margin-bottom: 0; }
+    .product-card.dark .pricing-features li { color: var(--color-bg); }
+    .product-card.dark .pricing-features li::before { background: rgba(var(--rgb-bg),0.70); }
+    .ps-tag {
+      display: inline-block;
+      background: rgba(var(--rgb-accent),0.16);
+      color: var(--color-text);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      padding: 0 var(--space-2);
+      border-radius: var(--radius-pill);
+      margin-left: var(--space-1);
+      white-space: nowrap;
+    }
+    .product-card .btn-pill { align-self: flex-start; margin-top: auto; max-width: 100%; white-space: normal; text-align: center; }
+
     /* ── SECTION: TESTIMONIALS ─────────────────────────────── */
     #testimonials {
       background: var(--color-bg);
@@ -1244,7 +1389,7 @@
     .magnetic { transition: transform 0.3s ease-out; will-change: transform; }
     @media (prefers-reduced-motion: reduce) { .magnetic { transition: none; } }
 
-    .problem-card, .testimonial-card, .pricing-card, .trust-item {
+    .problem-card, .testimonial-card, .pricing-card, .trust-item, .service-item, .product-card {
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .showcase-card { transition: filter 0.25s ease; }
@@ -1257,6 +1402,9 @@
       .pricing-card:not(.featured):hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25); }
       .pricing-card.featured:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(var(--rgb-text),0.16); }
       .trust-item:hover { transform: translateY(-3px); }
+      .service-item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(var(--rgb-text),0.12); }
+      .product-card:not(.dark):hover { transform: translateY(-4px); box-shadow: inset 0 4px 4px 4px rgba(var(--rgb-darkest),0.25); }
+      .product-card.dark:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(var(--rgb-text),0.16); }
     }
 
     /* Touch/press feedback (the tap equivalent of the removed button hovers) */
@@ -1284,12 +1432,14 @@
       .hero-aside { flex: 1 1 auto; align-self: stretch; max-width: 520px; order: 2; }
       .hero-ctas { order: 3; }
       .showcase-head,
-      .pricing-head { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+      .pricing-head,
+      .ps-head { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+      .product-grid { grid-template-columns: 1fr; }
     }
 
     /* Nav switches to the hamburger menu well before the horizontal links,
        centered absolutely, start colliding with the brand or CTA button. */
-    @media (max-width: 1100px) {
+    @media (max-width: 1280px) {
       .nav-links  { display: none; }
       .nav-burger { display: inline-flex; }
 
@@ -1305,6 +1455,7 @@
       /* CTA buttons: wrap long labels and never exceed their container */
       .btn-pill, .hero-cta { max-width: 100%; white-space: normal; }
       .pricing-card .btn-pill,
+      .product-card .btn-pill,
       .section-cta .btn-pill,
       .showcase-cta .btn-pill { width: 100%; min-width: 0; text-align: center; }
       .hero-ctas { flex-direction: column; align-items: flex-start; }
@@ -1328,8 +1479,12 @@
     @media (max-width: 560px) {
       .showcase-card { width: 280px; height: 178px; }
       #problem, #how-it-works, #trust, #showcase, #consultation-fee,
-      #pricing, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
+      #pricing, #products-services, #testimonials, #contact, #faq { padding: var(--space-18) 0; }
       .section-head { margin-bottom: var(--space-12); }
+      .ps-head { margin-bottom: var(--space-12); }
+      .ps-group + .ps-group { margin-top: var(--space-16); }
+      .ps-group-head { flex-direction: column; gap: var(--space-1); }
+      .product-card { padding: var(--space-8) var(--space-6); }
     }
 
     @media (max-width: 480px) {
@@ -1358,6 +1513,7 @@
     <ul class="nav-links">
       <li><a href="#problem">Why Switch</a></li>
       <li><a href="#how-it-works">Our Process</a></li>
+      <li><a href="#products-services">Products &amp; Services</a></li>
       <li><a href="#pricing">Yard Packages</a></li>
       <li><a href="#faq">Questions</a></li>
     </ul>
@@ -1370,6 +1526,7 @@
     <li><a href="#problem">Why Switch</a></li>
     <li><a href="#how-it-works">Our Process</a></li>
     <li><a href="#trust">Why Us</a></li>
+    <li><a href="#products-services">Products &amp; Services</a></li>
     <li><a href="#pricing">Yard Packages</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#faq">Questions</a></li>
@@ -1568,6 +1725,167 @@
   </div>
 </section>
 
+<!-- SECTION: PRODUCTS & SERVICES -->
+<section id="products-services" aria-labelledby="h2-products-services">
+  <div class="container">
+    <div class="ps-head">
+      <h2 id="h2-products-services" class="section-title reveal">Products &amp; Services for Your Whole Yard</h2>
+      <p class="section-lead reveal">Jimi&rsquo;s Builds does the hands-on yard work and builds custom outdoor products to order. Hire us for a project, order a build, or both.</p>
+    </div>
+
+    <!-- Services -->
+    <div class="ps-group">
+      <div class="ps-group-head reveal">
+        <h3>Services</h3>
+        <p>Hands-on work around your home.</p>
+      </div>
+      <ul class="service-grid">
+
+        <li class="service-item reveal" data-delay="0">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22V12"/><path d="M12 12C12 7 7 4 7 4s1 5 5 8z"/><path d="M12 12c0-5 5-8 5-8s-1 5-5 8z"/>
+            </svg>
+          </div>
+          <h4>Landscaping</h4>
+          <p>Planting, beds, rock, and mulch work that gives your yard a clean, finished look.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="60">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+            </svg>
+          </div>
+          <h4>Yard Cleanups</h4>
+          <p>Clearing overgrowth, weeds, and debris so your yard is ready for what&rsquo;s next.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="120">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h4>Outdoor Remodel Support</h4>
+          <p>An extra set of skilled hands for patio, yard, and outdoor living updates.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="180">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 22v-5l5-5 5 5-5 5z"/><path d="M9.5 14.5 16 8"/><path d="m17 2 5 5-.5.5a3.53 3.53 0 0 1-5 0 3.53 3.53 0 0 1 0-5L17 2"/>
+            </svg>
+          </div>
+          <h4>Garden Bed Installation</h4>
+          <p>We place, level, and fill your raised beds so they&rsquo;re ready to plant.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="240">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 12-8.5 8.5a2.12 2.12 0 0 1-3-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>
+            </svg>
+          </div>
+          <h4>Custom Builds</h4>
+          <p>One-off wood projects designed around your space and how you use it.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="300">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h4>Repairs</h4>
+          <p>Fixing worn or broken garden beds, benches, and other outdoor wood features.</p>
+        </li>
+
+        <li class="service-item reveal" data-delay="360">
+          <div class="trust-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/>
+            </svg>
+          </div>
+          <h4>Exterior Improvements</h4>
+          <p>General upgrades that make the outside of your home look and work better.</p>
+        </li>
+
+        <li class="service-item service-item-cta reveal" data-delay="420">
+          <h4>Have Something Else in Mind?</h4>
+          <p>Tell us about your project and we&rsquo;ll let you know how we can help.</p>
+          <a href="#contact" class="btn-pill on-green">Tell Us About It</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Products -->
+    <div class="ps-group">
+      <div class="ps-group-head reveal">
+        <h3>Custom Products</h3>
+        <p>Built from wood, made to order for your yard.</p>
+      </div>
+      <div class="product-grid">
+
+        <article class="product-card reveal" data-delay="0">
+          <h4>Raised Garden Beds &amp; Planter Boxes</h4>
+          <p class="product-intro">Custom-built to your size and needs, with options for climbing plants, animal protection, and easy access.</p>
+          <div class="product-options">
+            <div>
+              <h5>Garden Bed Styles</h5>
+              <ul class="pricing-features">
+                <li>Standard raised garden beds</li>
+                <li>Lattice for vines and climbing plants</li>
+                <li>Chicken wire or mesh to keep animals out</li>
+                <li>Enclosed beds with an accessible gate for tomatoes, jalape&ntilde;os, peppers, and herbs</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Planter Boxes</h5>
+              <ul class="pricing-features">
+                <li>Stationary planter boxes</li>
+                <li>Planter boxes on wheels for easy moving</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Materials &amp; Upgrades</h5>
+              <ul class="pricing-features">
+                <li>Built completely from wood</li>
+                <li><span>Metal interior lining <span class="ps-tag">Upgrade</span></span></li>
+                <li><span>Black-painted mesh that blends in and looks almost invisible <span class="ps-tag">Upgrade</span></span></li>
+              </ul>
+            </div>
+          </div>
+          <a href="#contact" class="btn-pill">Request a Custom Garden Bed</a>
+        </article>
+
+        <article class="product-card dark reveal" data-delay="120">
+          <h4>Benches &amp; Outdoor Seating</h4>
+          <p class="product-intro">From simple wood benches to more advanced custom designs.</p>
+          <div class="product-options">
+            <div>
+              <h5>Seating Options</h5>
+              <ul class="pricing-features">
+                <li>Basic wood benches</li>
+                <li>Advanced custom bench designs</li>
+                <li>Modular-style benches</li>
+                <li>Modular outdoor chairs</li>
+              </ul>
+            </div>
+          </div>
+          <a href="#contact" class="btn-pill on-green">Ask About Custom Seating</a>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="section-cta">
+      <a href="#contact" class="btn-pill">Get a Quote for Your Project &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <!-- SECTION: CONSULTATION FEE -->
 <section id="consultation-fee" aria-labelledby="h2-fee">
   <div class="container">
@@ -1758,6 +2076,18 @@
             <option value="500-1500">500 &ndash; 1,500 sq ft</option>
             <option value="1500-3000">1,500 &ndash; 3,000 sq ft</option>
             <option value="3000+">3,000+ sq ft</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="interest">What Can We Help With?</label>
+          <select id="interest" name="interest">
+            <option value="" disabled selected>Select a service or product</option>
+            <option value="Lawn conversion / eco garden">Lawn conversion / eco garden</option>
+            <option value="Landscaping or yard service">Landscaping, cleanup, or yard service</option>
+            <option value="Custom garden beds or planter boxes">Custom garden beds or planter boxes</option>
+            <option value="Benches or outdoor seating">Benches or outdoor seating</option>
+            <option value="Repairs or other project">Repairs or another project</option>
           </select>
         </div>
 
